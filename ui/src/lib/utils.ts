@@ -2,6 +2,7 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { deriveAgentUrlKey, deriveProjectUrlKey, normalizeProjectUrlKey, hasNonAsciiContent } from "@paperclipai/shared";
 import type { BillingType, FinanceDirection, FinanceEventKind } from "@paperclipai/shared";
+import i18n from "@/locales/i18n";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -12,7 +13,7 @@ export function formatCents(cents: number): string {
 }
 
 export function formatDate(date: Date | string): string {
-  return new Date(date).toLocaleDateString("en-US", {
+  return new Date(date).toLocaleDateString(i18n.language, {
     month: "short",
     day: "numeric",
     year: "numeric",
@@ -20,17 +21,18 @@ export function formatDate(date: Date | string): string {
 }
 
 export function formatDateTime(date: Date | string): string {
-  return new Date(date).toLocaleString("en-US", {
+  return new Date(date).toLocaleString(i18n.language, {
     month: "short",
     day: "numeric",
     year: "numeric",
     hour: "numeric",
     minute: "2-digit",
+    hour12: false,
   });
 }
 
 export function formatShortDate(date: Date | string): string {
-  return new Date(date).toLocaleString("en-US", {
+  return new Date(date).toLocaleString(i18n.language, {
     month: "short",
     day: "numeric",
   });
@@ -40,13 +42,13 @@ export function relativeTime(date: Date | string): string {
   const now = Date.now();
   const then = new Date(date).getTime();
   const diffSec = Math.round((now - then) / 1000);
-  if (diffSec < 60) return "just now";
+  if (diffSec < 60) return i18n.t("time.just_now", { ns: "activity" });
   const diffMin = Math.round(diffSec / 60);
-  if (diffMin < 60) return `${diffMin}m ago`;
+  if (diffMin < 60) return i18n.t("time.minutes_ago", { ns: "activity", count: diffMin });
   const diffHr = Math.round(diffMin / 60);
-  if (diffHr < 24) return `${diffHr}h ago`;
+  if (diffHr < 24) return i18n.t("time.hours_ago", { ns: "activity", count: diffHr });
   const diffDay = Math.round(diffHr / 24);
-  if (diffDay < 30) return `${diffDay}d ago`;
+  if (diffDay < 30) return i18n.t("time.days_ago", { ns: "activity", count: diffDay });
   return formatDate(date);
 }
 

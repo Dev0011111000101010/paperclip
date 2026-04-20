@@ -1,4 +1,5 @@
-import type { DashboardRunActivityDay, HeartbeatRun } from "@paperclipai/shared";
+import type { HeartbeatRun } from "@paperclipai/shared";
+import i18n from "../locales/i18n";
 
 /* ---- Utilities ---- */
 
@@ -58,14 +59,11 @@ export function ChartCard({ title, subtitle, children }: { title: string; subtit
 
 /* ---- Chart Components ---- */
 
-type RunChartProps =
-  | { activity?: DashboardRunActivityDay[] | null; runs?: never }
-  | { runs?: HeartbeatRun[] | null; activity?: never };
-
-function aggregateRuns(runs: readonly HeartbeatRun[] = []): DashboardRunActivityDay[] {
+export function RunActivityChart({ runs }: { runs: HeartbeatRun[] }) {
   const days = getLast14Days();
-  const grouped = new Map<string, DashboardRunActivityDay>();
-  for (const day of days) grouped.set(day, { date: day, succeeded: 0, failed: 0, other: 0, total: 0 });
+
+  const grouped = new Map<string, { succeeded: number; failed: number; other: number }>();
+  for (const day of days) grouped.set(day, { succeeded: 0, failed: 0, other: 0 });
   for (const run of runs) {
     const day = new Date(run.createdAt).toISOString().slice(0, 10);
     const entry = grouped.get(day);
@@ -73,36 +71,22 @@ function aggregateRuns(runs: readonly HeartbeatRun[] = []): DashboardRunActivity
     if (run.status === "succeeded") entry.succeeded++;
     else if (run.status === "failed" || run.status === "timed_out") entry.failed++;
     else entry.other++;
-    entry.total++;
   }
-  return Array.from(grouped.values());
-}
 
-function resolveRunActivity(props: RunChartProps): DashboardRunActivityDay[] {
-  if (Array.isArray(props.activity)) return props.activity;
-  if (Array.isArray(props.runs)) return aggregateRuns(props.runs);
-  return [];
-}
+  const maxValue = Math.max(...Array.from(grouped.values()).map(v => v.succeeded + v.failed + v.other), 1);
+  const hasData = Array.from(grouped.values()).some(v => v.succeeded + v.failed + v.other > 0);
 
-export function RunActivityChart(props: RunChartProps) {
-  const activity = resolveRunActivity(props);
-  const days = activity.length > 0 ? activity.map((day) => day.date) : getLast14Days();
-  const grouped = new Map(activity.map((day) => [day.date, day]));
-
-  const maxValue = Math.max(...activity.map(v => v.total), 1);
-  const hasData = activity.some(v => v.total > 0);
-
-  if (!hasData) return <p className="text-xs text-muted-foreground">No runs yet</p>;
+  if (!hasData) return <p className="text-xs text-muted-foreground">{i18n.t("messages.no_runs_yet", { ns: "common" })}</p>;
 
   return (
     <div>
       <div className="flex items-end gap-[3px] h-20">
         {days.map(day => {
-          const entry = grouped.get(day) ?? { date: day, succeeded: 0, failed: 0, other: 0, total: 0 };
-          const total = entry.total;
+          const entry = grouped.get(day)!;
+          const total = entry.succeeded + entry.failed + entry.other;
           const heightPct = (total / maxValue) * 100;
           return (
-            <div key={day} className="flex-1 h-full flex flex-col justify-end" title={`${day}: ${total} runs`}>
+            <div key={day} className="flex-1 h-full flex flex-col justify-end" title={i18n.t("chart.tooltip_runs", { ns: "common", day, total })}>
               {total > 0 ? (
                 <div className="flex flex-col-reverse gap-px overflow-hidden" style={{ height: `${heightPct}%`, minHeight: 2 }}>
                   {entry.succeeded > 0 && <div className="bg-emerald-500" style={{ flex: entry.succeeded }} />}
@@ -144,7 +128,7 @@ export function PriorityChart({ issues }: { issues: { priority: string; createdA
   const maxValue = Math.max(...Array.from(grouped.values()).map(v => Object.values(v).reduce((a, b) => a + b, 0)), 1);
   const hasData = Array.from(grouped.values()).some(v => Object.values(v).reduce((a, b) => a + b, 0) > 0);
 
-  if (!hasData) return <p className="text-xs text-muted-foreground">No issues</p>;
+  if (!hasData) return <p className="text-xs text-muted-foreground">{i18n.t("messages.no_issues", { ns: "common" })}</p>;
 
   return (
     <div>
@@ -154,7 +138,7 @@ export function PriorityChart({ issues }: { issues: { priority: string; createdA
           const total = Object.values(entry).reduce((a, b) => a + b, 0);
           const heightPct = (total / maxValue) * 100;
           return (
-            <div key={day} className="flex-1 h-full flex flex-col justify-end" title={`${day}: ${total} issues`}>
+            <div key={day} className="flex-1 h-full flex flex-col justify-end" title={i18n.t("chart.tooltip_issues", { ns: "common", day, total })}>
               {total > 0 ? (
                 <div className="flex flex-col-reverse gap-px overflow-hidden" style={{ height: `${heightPct}%`, minHeight: 2 }}>
                   {priorityOrder.map(p => entry[p] > 0 ? (
@@ -169,7 +153,7 @@ export function PriorityChart({ issues }: { issues: { priority: string; createdA
         })}
       </div>
       <DateLabels days={days} />
-      <ChartLegend items={priorityOrder.map(p => ({ color: priorityColors[p], label: p.charAt(0).toUpperCase() + p.slice(1) }))} />
+      <ChartLegend items={priorityOrder.map(p => ({ color: priorityColors[p], label: i18n.t(`priorities.${p}`, { ns: "common", defaultValue: p.charAt(0).toUpperCase() + p.slice(1) }) }))} />
     </div>
   );
 }
@@ -184,15 +168,17 @@ const statusColors: Record<string, string> = {
   backlog: "#64748b",
 };
 
-const statusLabels: Record<string, string> = {
-  todo: "To Do",
-  in_progress: "In Progress",
-  in_review: "In Review",
-  done: "Done",
-  blocked: "Blocked",
-  cancelled: "Cancelled",
-  backlog: "Backlog",
-};
+function getStatusLabels(): Record<string, string> {
+  return {
+    todo: i18n.t("status.todo", { ns: "common", defaultValue: "To Do" }),
+    in_progress: i18n.t("status.in_progress", { ns: "common", defaultValue: "In Progress" }),
+    in_review: i18n.t("status.in_review", { ns: "common", defaultValue: "In Review" }),
+    done: i18n.t("status.done", { ns: "common", defaultValue: "Done" }),
+    blocked: i18n.t("status.blocked", { ns: "common", defaultValue: "Blocked" }),
+    cancelled: i18n.t("status.cancelled", { ns: "common", defaultValue: "Cancelled" }),
+    backlog: i18n.t("status.backlog", { ns: "common", defaultValue: "Backlog" }),
+  };
+}
 
 export function IssueStatusChart({ issues }: { issues: { status: string; createdAt: Date }[] }) {
   const days = getLast14Days();
@@ -211,7 +197,7 @@ export function IssueStatusChart({ issues }: { issues: { status: string; created
   const maxValue = Math.max(...Array.from(grouped.values()).map(v => Object.values(v).reduce((a, b) => a + b, 0)), 1);
   const hasData = allStatuses.size > 0;
 
-  if (!hasData) return <p className="text-xs text-muted-foreground">No issues</p>;
+  if (!hasData) return <p className="text-xs text-muted-foreground">{i18n.t("messages.no_issues", { ns: "common" })}</p>;
 
   return (
     <div>
@@ -221,7 +207,7 @@ export function IssueStatusChart({ issues }: { issues: { status: string; created
           const total = Object.values(entry).reduce((a, b) => a + b, 0);
           const heightPct = (total / maxValue) * 100;
           return (
-            <div key={day} className="flex-1 h-full flex flex-col justify-end" title={`${day}: ${total} issues`}>
+            <div key={day} className="flex-1 h-full flex flex-col justify-end" title={i18n.t("chart.tooltip_issues", { ns: "common", day, total })}>
               {total > 0 ? (
                 <div className="flex flex-col-reverse gap-px overflow-hidden" style={{ height: `${heightPct}%`, minHeight: 2 }}>
                   {statusOrder.map(s => (entry[s] ?? 0) > 0 ? (
@@ -236,28 +222,35 @@ export function IssueStatusChart({ issues }: { issues: { status: string; created
         })}
       </div>
       <DateLabels days={days} />
-      <ChartLegend items={statusOrder.map(s => ({ color: statusColors[s] ?? "#6b7280", label: statusLabels[s] ?? s }))} />
+      <ChartLegend items={statusOrder.map(s => ({ color: statusColors[s] ?? "#6b7280", label: getStatusLabels()[s] ?? s }))} />
     </div>
   );
 }
 
-export function SuccessRateChart(props: RunChartProps) {
-  const activity = resolveRunActivity(props);
-  const days = activity.length > 0 ? activity.map((day) => day.date) : getLast14Days();
-  const grouped = new Map(activity.map((day) => [day.date, day]));
+export function SuccessRateChart({ runs }: { runs: HeartbeatRun[] }) {
+  const days = getLast14Days();
+  const grouped = new Map<string, { succeeded: number; total: number }>();
+  for (const day of days) grouped.set(day, { succeeded: 0, total: 0 });
+  for (const run of runs) {
+    const day = new Date(run.createdAt).toISOString().slice(0, 10);
+    const entry = grouped.get(day);
+    if (!entry) continue;
+    entry.total++;
+    if (run.status === "succeeded") entry.succeeded++;
+  }
 
-  const hasData = activity.some(v => v.total > 0);
-  if (!hasData) return <p className="text-xs text-muted-foreground">No runs yet</p>;
+  const hasData = Array.from(grouped.values()).some(v => v.total > 0);
+  if (!hasData) return <p className="text-xs text-muted-foreground">{i18n.t("messages.no_runs_yet", { ns: "common" })}</p>;
 
   return (
     <div>
       <div className="flex items-end gap-[3px] h-20">
         {days.map(day => {
-          const entry = grouped.get(day) ?? { date: day, succeeded: 0, failed: 0, other: 0, total: 0 };
+          const entry = grouped.get(day)!;
           const rate = entry.total > 0 ? entry.succeeded / entry.total : 0;
           const color = entry.total === 0 ? undefined : rate >= 0.8 ? "#10b981" : rate >= 0.5 ? "#eab308" : "#ef4444";
           return (
-            <div key={day} className="flex-1 h-full flex flex-col justify-end" title={`${day}: ${entry.total > 0 ? Math.round(rate * 100) : 0}% (${entry.succeeded}/${entry.total})`}>
+            <div key={day} className="flex-1 h-full flex flex-col justify-end" title={i18n.t("chart.tooltip_success_rate", { ns: "common", day, rate: entry.total > 0 ? Math.round(rate * 100) : 0, succeeded: entry.succeeded, total: entry.total })}>
               {entry.total > 0 ? (
                 <div style={{ height: `${rate * 100}%`, minHeight: 2, backgroundColor: color }} />
               ) : (

@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import i18n from "../locales/i18n";
 import { Link, useNavigate, useParams } from "@/lib/router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { isUuidLike, type ProjectWorkspace } from "@paperclipai/shared";
@@ -37,15 +39,15 @@ type ProjectWorkspaceSourceType = ProjectWorkspace["sourceType"];
 type ProjectWorkspaceVisibility = ProjectWorkspace["visibility"];
 
 const SOURCE_TYPE_OPTIONS: Array<{ value: ProjectWorkspaceSourceType; label: string; description: string }> = [
-  { value: "local_path", label: "Local git checkout", description: "A local path Paperclip can use directly." },
-  { value: "non_git_path", label: "Local non-git path", description: "A local folder without git semantics." },
-  { value: "git_repo", label: "Remote git repo", description: "A repo URL with optional refs and local checkout." },
-  { value: "remote_managed", label: "Remote-managed workspace", description: "A hosted workspace tracked by external reference." },
+  { value: "local_path", label: i18n.t("workspace_types.local_git_checkout"), description: i18n.t("workspace_types.local_git_desc") },
+  { value: "non_git_path", label: i18n.t("workspace_types.local_non_git"), description: i18n.t("workspace_types.local_non_git_desc") },
+  { value: "git_repo", label: i18n.t("workspace_types.remote_git"), description: i18n.t("workspace_types.remote_git_desc") },
+  { value: "remote_managed", label: i18n.t("workspace_types.remote_managed"), description: i18n.t("workspace_types.remote_managed_desc") },
 ];
 
 const VISIBILITY_OPTIONS: Array<{ value: ProjectWorkspaceVisibility; label: string }> = [
-  { value: "default", label: "Default" },
-  { value: "advanced", label: "Advanced" },
+  { value: "default", label: i18n.t("priorities.default") },
+  { value: "advanced", label: i18n.t("visibility.advanced") },
 ];
 
 function isSafeExternalUrl(value: string | null | undefined) {
@@ -103,14 +105,14 @@ function parseRuntimeConfigJson(value: string) {
     if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
       return {
         ok: false as const,
-        error: "Workspace commands JSON must be a JSON object.",
+        error: i18n.t("errors.json_must_be_object"),
       };
     }
     return { ok: true as const, value: parsed as Record<string, unknown> };
   } catch (error) {
     return {
       ok: false as const,
-      error: error instanceof Error ? error.message : "Invalid JSON.",
+      error: error instanceof Error ? error.message : i18n.t("errors.invalid_json"),
     };
   }
 }
@@ -154,10 +156,10 @@ function validateWorkspaceForm(form: WorkspaceFormState) {
 
   if (form.sourceType === "remote_managed") {
     if (!remoteWorkspaceRef && !repoUrl) {
-      return "Remote-managed workspaces require a remote workspace ref or repo URL.";
+      return i18n.t("workspace_types.remote_managed_desc");
     }
   } else if (!cwd && !repoUrl) {
-    return "Workspace requires at least one local path or repo URL.";
+    return i18n.t("workspace_types.local_git_desc");
   }
 
   if (cwd && (form.sourceType === "local_path" || form.sourceType === "non_git_path") && !isAbsolutePath(cwd)) {
@@ -168,7 +170,7 @@ function validateWorkspaceForm(form: WorkspaceFormState) {
     try {
       new URL(repoUrl);
     } catch {
-      return "Repo URL must be a valid URL.";
+      return i18n.t("errors.repo_url_invalid");
     }
   }
 
@@ -210,6 +212,7 @@ function DetailRow({ label, children }: { label: string; children: React.ReactNo
 }
 
 export function ProjectWorkspaceDetail() {
+  const { t } = useTranslation("common");
   const { companyPrefix, projectId, workspaceId } = useParams<{
     companyPrefix?: string;
     projectId: string;
@@ -262,12 +265,12 @@ export function ProjectWorkspaceDetail() {
   useEffect(() => {
     if (!project) return;
     setBreadcrumbs([
-      { label: "Projects", href: "/projects" },
+      { label: t("projects.breadcrumb"), href: "/projects" },
       { label: project.name, href: `/projects/${canonicalProjectRef}` },
-      { label: "Workspaces", href: `/projects/${canonicalProjectRef}/workspaces` },
+      { label: t("projects.tab_workspaces"), href: `/projects/${canonicalProjectRef}/workspaces` },
       { label: workspace?.name ?? routeWorkspaceId },
     ]);
-  }, [setBreadcrumbs, project, canonicalProjectRef, workspace?.name, routeWorkspaceId]);
+  }, [setBreadcrumbs, project, canonicalProjectRef, workspace?.name, routeWorkspaceId, t]);
 
   useEffect(() => {
     if (!project) return;
@@ -292,7 +295,7 @@ export function ProjectWorkspaceDetail() {
       setErrorMessage(null);
     },
     onError: (error) => {
-      setErrorMessage(error instanceof Error ? error.message : "Failed to save workspace.");
+      setErrorMessage(error instanceof Error ? error.message : t("errors.failed_to_save"));
     },
   });
 
@@ -303,7 +306,7 @@ export function ProjectWorkspaceDetail() {
       setErrorMessage(null);
     },
     onError: (error) => {
-      setErrorMessage(error instanceof Error ? error.message : "Failed to update workspace.");
+      setErrorMessage(error instanceof Error ? error.message : t("errors.failed_to_update"));
     },
   });
 
@@ -315,30 +318,30 @@ export function ProjectWorkspaceDetail() {
       setErrorMessage(null);
       setRuntimeActionMessage(
         request.action === "run"
-          ? "Workspace job completed."
+          ? i18n.t("workspace_runtime.job_completed")
           : request.action === "stop"
-            ? "Workspace service stopped."
+            ? i18n.t("workspace_runtime.service_stopped")
             : request.action === "restart"
-              ? "Workspace service restarted."
-              : "Workspace service started.",
+              ? i18n.t("workspace_runtime.service_restarted")
+              : i18n.t("workspace_runtime.service_started"),
       );
     },
     onError: (error) => {
       setRuntimeActionMessage(null);
-      setErrorMessage(error instanceof Error ? error.message : "Failed to control workspace commands.");
+      setErrorMessage(error instanceof Error ? error.message : t("errors.failed_to_update"));
     },
   });
 
-  if (projectQuery.isLoading) return <p className="text-sm text-muted-foreground">Loading workspace…</p>;
+  if (projectQuery.isLoading) return <p className="text-sm text-muted-foreground">{t("workspace.loading")}</p>;
   if (projectQuery.error) {
     return (
       <p className="text-sm text-destructive">
-        {projectQuery.error instanceof Error ? projectQuery.error.message : "Failed to load workspace"}
+        {projectQuery.error instanceof Error ? projectQuery.error.message : t("workspace.failed_load")}
       </p>
     );
   }
   if (!project || !workspace || !form || !initialState) {
-    return <p className="text-sm text-muted-foreground">Workspace not found for this project.</p>;
+    return <p className="text-sm text-muted-foreground">{t("workspace.not_found")}</p>;
   }
 
   const canRunWorkspaceCommands = Boolean(workspace.cwd);
@@ -370,11 +373,11 @@ export function ProjectWorkspaceDetail() {
         <Button variant="ghost" size="sm" asChild>
           <Link to={`/projects/${canonicalProjectRef}/workspaces`}>
             <ArrowLeft className="mr-1 h-4 w-4" />
-            Back to workspaces
+            {t("workspace.back_to_workspaces")}
           </Link>
         </Button>
         <div className="inline-flex items-center rounded-full border border-border bg-background px-2.5 py-1 text-xs text-muted-foreground">
-          {workspace.isPrimary ? "Primary workspace" : "Secondary workspace"}
+          {workspace.isPrimary ? t("workspace.primary_workspace") : t("workspace.secondary_workspace")}
         </div>
       </div>
 
@@ -403,7 +406,7 @@ export function ProjectWorkspaceDetail() {
                   {setPrimaryWorkspace.isPending
                     ? <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     : <Check className="mr-2 h-4 w-4" />}
-                  Make primary
+                  {t("workspace.make_primary")}
                 </Button>
               ) : (
                 <div className="inline-flex items-center gap-2 rounded-xl border border-emerald-500/25 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-700 dark:text-emerald-300 sm:max-w-sm">
@@ -545,8 +548,8 @@ export function ProjectWorkspaceDetail() {
                 </Field>
               </div>
 
-              <details className="rounded-xl border border-dashed border-border/70 bg-background px-3 py-3">
-                <summary className="cursor-pointer text-sm font-medium">Advanced runtime JSON</summary>
+              <details className="rounded-xl border border-dashed border-border/70 bg-muted/20 px-3 py-3">
+                <summary className="cursor-pointer text-sm font-medium">{t("workspace_runtime.advanced_json")}</summary>
                 <p className="mt-2 text-sm text-muted-foreground">
                   Paperclip derives Services and Jobs from this JSON. Prefer editing named commands first; use raw JSON for advanced lifecycle, port, readiness, or environment settings.
                 </p>
@@ -566,7 +569,7 @@ export function ProjectWorkspaceDetail() {
             <div className="mt-5 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <Button className="w-full sm:w-auto" disabled={!isDirty || updateWorkspace.isPending} onClick={saveChanges}>
                 {updateWorkspace.isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-                Save changes
+                {t("workspace.save_changes")}
               </Button>
               <Button
                 variant="outline"
@@ -577,11 +580,11 @@ export function ProjectWorkspaceDetail() {
                   setErrorMessage(null);
                 }}
               >
-                Reset
+                {t("workspace.reset")}
               </Button>
               {errorMessage ? <p className="text-sm text-destructive">{errorMessage}</p> : null}
               {!errorMessage && runtimeActionMessage ? <p className="text-sm text-muted-foreground">{runtimeActionMessage}</p> : null}
-              {!errorMessage && !isDirty ? <p className="text-sm text-muted-foreground">No unsaved changes.</p> : null}
+              {!errorMessage && !isDirty ? <p className="text-sm text-muted-foreground">{t("workspace.no_unsaved_changes")}</p> : null}
             </div>
           </div>
         </div>
@@ -613,7 +616,7 @@ export function ProjectWorkspaceDetail() {
               ) : "None"}
             </DetailRow>
             <DetailRow label="Default ref">{workspace.defaultRef ?? "None"}</DetailRow>
-            <DetailRow label="Updated">{new Date(workspace.updatedAt).toLocaleString()}</DetailRow>
+            <DetailRow label="Updated">{new Date(workspace.updatedAt).toLocaleString(i18n.language, { hour12: false })}</DetailRow>
           </div>
 
           <div className="rounded-2xl border border-border bg-card p-5">

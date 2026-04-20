@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useMemo, useState, useRef } from "react";
+import { useTranslation } from "react-i18next";
+import i18n from "../locales/i18n";
 import { useParams, useNavigate, Link, Navigate, useBeforeUnload } from "@/lib/router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
@@ -42,6 +44,8 @@ import { BudgetPolicyCard } from "../components/BudgetPolicyCard";
 import { PackageFileTree, buildFileTree } from "../components/PackageFileTree";
 import { ScrollToBottom } from "../components/ScrollToBottom";
 import { formatCents, formatDate, relativeTime, formatTokens, visibleRunCostUsd } from "../lib/utils";
+import { timeAgo } from "../lib/timeAgo";
+import { translateRunError } from "../lib/run-error-translate";
 import { cn } from "../lib/utils";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -164,10 +168,10 @@ function formatEnvForDisplay(envValue: unknown, censorUsernameInLogs: boolean): 
 }
 
 const sourceLabels: Record<string, string> = {
-  timer: "Timer",
-  assignment: "Assignment",
-  on_demand: "On-demand",
-  automation: "Automation",
+  timer: i18n.t("actions.timer"),
+  assignment: i18n.t("actions.assignment"),
+  on_demand: i18n.t("actions.on_demand"),
+  automation: i18n.t("detail_view.automation", { ns: "agents" }),
 };
 
 const LIVE_SCROLL_BOTTOM_TOLERANCE_PX = 32;
@@ -298,6 +302,7 @@ export function RunInvocationCard({
   payload: Record<string, unknown>;
   censorUsernameInLogs: boolean;
 }) {
+  const { t } = useTranslation("agents");
   const commandLine = [
     typeof payload.command === "string" ? payload.command : null,
     ...(Array.isArray(payload.commandArgs)
@@ -316,29 +321,29 @@ export function RunInvocationCard({
 
   return (
     <div className="rounded-lg border border-border bg-background/60 p-3 space-y-2">
-      <div className="text-xs font-medium text-muted-foreground">Invocation</div>
+      <div className="text-xs font-medium text-muted-foreground">{t("detail_view.invocation")}</div>
       {typeof payload.adapterType === "string" && (
-        <div className="text-xs"><span className="text-muted-foreground">Adapter: </span>{payload.adapterType}</div>
+        <div className="text-xs"><span className="text-muted-foreground">{t("detail.adapter_label")}: </span>{payload.adapterType}</div>
       )}
       {typeof payload.cwd === "string" && (
-        <div className="text-xs break-all"><span className="text-muted-foreground">Working dir: </span><span className="font-mono">{payload.cwd}</span></div>
+        <div className="text-xs break-all"><span className="text-muted-foreground">{t("config_form.fields.working_dir")}: </span><span className="font-mono">{payload.cwd}</span></div>
       )}
       {hasAdvancedDetails && (
         <Collapsible>
           <CollapsibleTrigger className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors group">
             <ChevronRight className="h-3 w-3 transition-transform group-data-[state=open]:rotate-90" />
-            Details
+            {t("detail_view.details")}
           </CollapsibleTrigger>
           <CollapsibleContent className="pt-2 space-y-2">
             {commandLine && (
               <div className="text-xs break-all">
-                <span className="text-muted-foreground">Command: </span>
+                <span className="text-muted-foreground">{t("config_form.fields.command")}: </span>
                 <span className="font-mono">{commandLine}</span>
               </div>
             )}
             {Array.isArray(payload.commandNotes) && payload.commandNotes.length > 0 && (
               <div>
-                <div className="text-xs text-muted-foreground mb-1">Command notes</div>
+                <div className="text-xs text-muted-foreground mb-1">{t("detail_view.command_notes")}</div>
                 <ul className="list-disc pl-5 space-y-1">
                   {payload.commandNotes
                     .filter((value): value is string => typeof value === "string" && value.trim().length > 0)
@@ -352,7 +357,7 @@ export function RunInvocationCard({
             )}
             {payload.prompt !== undefined && (
               <div>
-                <div className="text-xs text-muted-foreground mb-1">Prompt</div>
+                <div className="text-xs text-muted-foreground mb-1">{t("detail_view.prompt_label")}</div>
                 <pre className="bg-neutral-100 dark:bg-neutral-950 rounded-md p-2 text-xs overflow-x-auto whitespace-pre-wrap">
                   {typeof payload.prompt === "string"
                     ? redactPathText(payload.prompt, censorUsernameInLogs)
@@ -362,7 +367,7 @@ export function RunInvocationCard({
             )}
             {payload.context !== undefined && (
               <div>
-                <div className="text-xs text-muted-foreground mb-1">Context</div>
+                <div className="text-xs text-muted-foreground mb-1">{t("detail_view.context_label")}</div>
                 <pre className="bg-neutral-100 dark:bg-neutral-950 rounded-md p-2 text-xs overflow-x-auto whitespace-pre-wrap">
                   {JSON.stringify(redactPathValue(payload.context, censorUsernameInLogs), null, 2)}
                 </pre>
@@ -370,7 +375,7 @@ export function RunInvocationCard({
             )}
             {payload.env !== undefined && (
               <div>
-                <div className="text-xs text-muted-foreground mb-1">Environment</div>
+                <div className="text-xs text-muted-foreground mb-1">{t("detail_view.environment_label")}</div>
                 <pre className="bg-neutral-100 dark:bg-neutral-950 rounded-md p-2 text-xs overflow-x-auto whitespace-pre-wrap font-mono">
                   {formatEnvForDisplay(payload.env, censorUsernameInLogs)}
                 </pre>
@@ -406,13 +411,13 @@ function parseStoredLogContent(content: string): RunLogChunk[] {
 function workspaceOperationPhaseLabel(phase: WorkspaceOperation["phase"]) {
   switch (phase) {
     case "worktree_prepare":
-      return "Worktree setup";
+      return i18n.t("workspace_phase.worktree_prepare", { ns: "agents" });
     case "workspace_provision":
-      return "Provision";
+      return i18n.t("workspace_phase.workspace_provision", { ns: "agents" });
     case "workspace_teardown":
-      return "Teardown";
+      return i18n.t("workspace_phase.workspace_teardown", { ns: "agents" });
     case "worktree_cleanup":
-      return "Worktree cleanup";
+      return i18n.t("workspace_phase.worktree_cleanup", { ns: "agents" });
     default:
       return phase;
   }
@@ -453,6 +458,7 @@ function WorkspaceOperationLogViewer({
   operation: WorkspaceOperation;
   censorUsernameInLogs: boolean;
 }) {
+  const { t } = useTranslation("agents");
   const [open, setOpen] = useState(false);
   const { data: logData, isLoading, error } = useQuery({
     queryKey: ["workspace-operation-log", operation.id],
@@ -473,18 +479,18 @@ function WorkspaceOperationLogViewer({
         className="text-[11px] text-muted-foreground underline underline-offset-2 hover:text-foreground"
         onClick={() => setOpen((value) => !value)}
       >
-        {open ? "Hide full log" : "Show full log"}
+        {open ? t("detail_view.hide_full_log") : t("detail_view.show_full_log")}
       </button>
       {open && (
         <div className="rounded-md border border-border bg-background/70 p-2">
-          {isLoading && <div className="text-xs text-muted-foreground">Loading log...</div>}
+          {isLoading && <div className="text-xs text-muted-foreground">{t("detail.loading_log")}</div>}
           {error && (
             <div className="text-xs text-destructive">
-              {error instanceof Error ? error.message : "Failed to load workspace operation log"}
+              {error instanceof Error ? error.message : t("detail.loading_run_logs")}
             </div>
           )}
           {!isLoading && !error && chunks.length === 0 && (
-            <div className="text-xs text-muted-foreground">No persisted log lines.</div>
+            <div className="text-xs text-muted-foreground">{t("detail.no_persisted_log")}</div>
           )}
           {chunks.length > 0 && (
             <div className="max-h-64 overflow-y-auto rounded bg-neutral-100 p-2 font-mono text-xs dark:bg-neutral-950">
@@ -523,12 +529,13 @@ function WorkspaceOperationsSection({
   operations: WorkspaceOperation[];
   censorUsernameInLogs: boolean;
 }) {
+  const { t } = useTranslation("agents");
   if (operations.length === 0) return null;
 
   return (
     <div className="rounded-lg border border-border bg-background/60 p-3 space-y-3">
       <div className="text-xs font-medium text-muted-foreground">
-        Workspace ({operations.length})
+        {t("detail_view.workspace_ops")} ({operations.length})
       </div>
       <div className="space-y-3">
         {operations.map((operation) => {
@@ -539,19 +546,19 @@ function WorkspaceOperationsSection({
                 <div className="text-sm font-medium">{workspaceOperationPhaseLabel(operation.phase)}</div>
                 <WorkspaceOperationStatusBadge status={operation.status} />
                 <div className="text-[11px] text-muted-foreground">
-                  {relativeTime(operation.startedAt)}
-                  {operation.finishedAt && ` to ${relativeTime(operation.finishedAt)}`}
+                  {timeAgo(operation.startedAt)}
+                  {operation.finishedAt && ` ${t("detail_view.workspace_op_to")} ${timeAgo(operation.finishedAt)}`}
                 </div>
               </div>
               {operation.command && (
                 <div className="text-xs break-all">
-                  <span className="text-muted-foreground">Command: </span>
+                  <span className="text-muted-foreground">{t("detail_view.workspace_command")}: </span>
                   <span className="font-mono">{operation.command}</span>
                 </div>
               )}
               {operation.cwd && (
                 <div className="text-xs break-all">
-                  <span className="text-muted-foreground">Working dir: </span>
+                  <span className="text-muted-foreground">{t("detail_view.workspace_working_dir")}: </span>
                   <span className="font-mono">{operation.cwd}</span>
                 </div>
               )}
@@ -562,30 +569,30 @@ function WorkspaceOperationsSection({
                 || asNonEmptyString(metadata?.cleanupAction)) && (
                 <div className="grid gap-1 text-xs sm:grid-cols-2">
                   {asNonEmptyString(metadata?.branchName) && (
-                    <div><span className="text-muted-foreground">Branch: </span><span className="font-mono">{metadata?.branchName as string}</span></div>
+                    <div><span className="text-muted-foreground">{t("detail_view.workspace_branch")}: </span><span className="font-mono">{metadata?.branchName as string}</span></div>
                   )}
                   {asNonEmptyString(metadata?.baseRef) && (
-                    <div><span className="text-muted-foreground">Base ref: </span><span className="font-mono">{metadata?.baseRef as string}</span></div>
+                    <div><span className="text-muted-foreground">{t("detail_view.workspace_base_ref")}: </span><span className="font-mono">{metadata?.baseRef as string}</span></div>
                   )}
                   {asNonEmptyString(metadata?.worktreePath) && (
-                    <div className="break-all"><span className="text-muted-foreground">Worktree: </span><span className="font-mono">{metadata?.worktreePath as string}</span></div>
+                    <div className="break-all"><span className="text-muted-foreground">{t("detail_view.workspace_worktree")}: </span><span className="font-mono">{metadata?.worktreePath as string}</span></div>
                   )}
                   {asNonEmptyString(metadata?.repoRoot) && (
-                    <div className="break-all"><span className="text-muted-foreground">Repo root: </span><span className="font-mono">{metadata?.repoRoot as string}</span></div>
+                    <div className="break-all"><span className="text-muted-foreground">{t("detail_view.workspace_repo_root")}: </span><span className="font-mono">{metadata?.repoRoot as string}</span></div>
                   )}
                   {asNonEmptyString(metadata?.cleanupAction) && (
-                    <div><span className="text-muted-foreground">Cleanup: </span><span className="font-mono">{metadata?.cleanupAction as string}</span></div>
+                    <div><span className="text-muted-foreground">{t("detail_view.workspace_cleanup")}: </span><span className="font-mono">{metadata?.cleanupAction as string}</span></div>
                   )}
                 </div>
               )}
               {typeof metadata?.created === "boolean" && (
                 <div className="text-xs text-muted-foreground">
-                  {metadata.created ? "Created by this run" : "Reused existing workspace"}
+                  {metadata.created ? t("detail.workspace.created_by_run") : t("detail.workspace.reused_existing")}
                 </div>
               )}
               {operation.stderrExcerpt && operation.stderrExcerpt.trim() && (
                 <div>
-                  <div className="mb-1 text-xs text-red-700 dark:text-red-300">stderr excerpt</div>
+                  <div className="mb-1 text-xs text-red-700 dark:text-red-300">{t("detail_view.stderr_excerpt")}</div>
                   <pre className="rounded-md bg-red-50 p-2 text-xs whitespace-pre-wrap break-all text-red-800 dark:bg-neutral-950 dark:text-red-100">
                     {redactPathText(operation.stderrExcerpt, censorUsernameInLogs)}
                   </pre>
@@ -593,7 +600,7 @@ function WorkspaceOperationsSection({
               )}
               {operation.stdoutExcerpt && operation.stdoutExcerpt.trim() && (
                 <div>
-                  <div className="mb-1 text-xs text-muted-foreground">stdout excerpt</div>
+                  <div className="mb-1 text-xs text-muted-foreground">{t("detail_view.stdout_excerpt")}</div>
                   <pre className="rounded-md bg-neutral-100 p-2 text-xs whitespace-pre-wrap break-all dark:bg-neutral-950">
                     {redactPathText(operation.stdoutExcerpt, censorUsernameInLogs)}
                   </pre>
@@ -614,6 +621,7 @@ function WorkspaceOperationsSection({
 }
 
 export function AgentDetail() {
+  const { t } = useTranslation("agents");
   const { companyPrefix, agentId, tab: urlTab, runId: urlRunId } = useParams<{
     companyPrefix?: string;
     agentId: string;
@@ -762,13 +770,12 @@ export function AgentDetail() {
   }, [agent?.companyId, selectedCompanyId, setSelectedCompanyId]);
 
   const agentAction = useMutation({
-    mutationFn: async (action: "invoke" | "pause" | "resume" | "approve" | "terminate") => {
+    mutationFn: async (action: "invoke" | "pause" | "resume" | "terminate") => {
       if (!agentLookupRef) return Promise.reject(new Error("No agent reference"));
       switch (action) {
         case "invoke": return agentsApi.invoke(agentLookupRef, resolvedCompanyId ?? undefined);
         case "pause": return agentsApi.pause(agentLookupRef, resolvedCompanyId ?? undefined);
         case "resume": return agentsApi.resume(agentLookupRef, resolvedCompanyId ?? undefined);
-        case "approve": return agentsApi.approve(agentLookupRef, resolvedCompanyId ?? undefined);
         case "terminate": return agentsApi.terminate(agentLookupRef, resolvedCompanyId ?? undefined);
       }
     },
@@ -789,7 +796,7 @@ export function AgentDetail() {
       }
     },
     onError: (err) => {
-      setActionError(err instanceof Error ? err.message : "Action failed");
+      setActionError(err instanceof Error ? err.message : t("detail.action_failed"));
     },
   });
 
@@ -831,7 +838,7 @@ export function AgentDetail() {
       queryClient.invalidateQueries({ queryKey: queryKeys.agents.taskSessions(agentLookupRef) });
     },
     onError: (err) => {
-      setActionError(err instanceof Error ? err.message : "Failed to reset session");
+      setActionError(err instanceof Error ? err.message : t("detail.failed_reset_session"));
     },
   });
 
@@ -847,13 +854,13 @@ export function AgentDetail() {
       }
     },
     onError: (err) => {
-      setActionError(err instanceof Error ? err.message : "Failed to update permissions");
+      setActionError(err instanceof Error ? err.message : t("detail.failed_update_permissions"));
     },
   });
 
   useEffect(() => {
     const crumbs: { label: string; href?: string }[] = [
-      { label: "Agents", href: "/agents" },
+      { label: t("title"), href: "/agents" },
     ];
     const agentName = agent?.name ?? routeAgentRef ?? "Agent";
     if (activeView === "dashboard" && !urlRunId) {
@@ -861,24 +868,22 @@ export function AgentDetail() {
     } else {
       crumbs.push({ label: agentName, href: `/agents/${canonicalAgentRef}/dashboard` });
       if (urlRunId) {
-        crumbs.push({ label: "Runs", href: `/agents/${canonicalAgentRef}/runs` });
-        crumbs.push({ label: `Run ${urlRunId.slice(0, 8)}` });
+        crumbs.push({ label: t("detail.tabs.runs"), href: `/agents/${canonicalAgentRef}/runs` });
+        crumbs.push({ label: `${t("detail_view.run_breadcrumb")} ${urlRunId.slice(0, 8)}` });
       } else if (activeView === "instructions") {
-        crumbs.push({ label: "Instructions" });
+        crumbs.push({ label: t("detail.tabs.instructions") });
       } else if (activeView === "configuration") {
-        crumbs.push({ label: "Configuration" });
-      // } else if (activeView === "skills") { // TODO: bring back later
-      //   crumbs.push({ label: "Skills" });
+        crumbs.push({ label: t("detail.tabs.configuration") });
       } else if (activeView === "runs") {
-        crumbs.push({ label: "Runs" });
+        crumbs.push({ label: t("detail.tabs.runs") });
       } else if (activeView === "budget") {
-        crumbs.push({ label: "Budget" });
+        crumbs.push({ label: t("detail.tabs.budget") });
       } else {
-        crumbs.push({ label: "Dashboard" });
+        crumbs.push({ label: t("detail.tabs.dashboard") });
       }
     }
     setBreadcrumbs(crumbs);
-  }, [setBreadcrumbs, agent, routeAgentRef, canonicalAgentRef, activeView, urlRunId]);
+  }, [setBreadcrumbs, agent, routeAgentRef, canonicalAgentRef, activeView, urlRunId, t]);
 
   useEffect(() => {
     closePanel();
@@ -930,12 +935,12 @@ export function AgentDetail() {
             onClick={() => openNewIssue({ assigneeAgentId: agent.id })}
           >
             <Plus className="h-3.5 w-3.5 sm:mr-1" />
-            <span className="hidden sm:inline">Assign Task</span>
+            <span className="hidden sm:inline">{t("detail.assign_task")}</span>
           </Button>
           <RunButton
             onClick={() => agentAction.mutate("invoke")}
             disabled={agentAction.isPending || isPendingApproval}
-            label="Run Heartbeat"
+            label={t("actions.run_heartbeat")}
           />
           <PauseResumeButton
             isPaused={agent.status === "paused"}
@@ -953,7 +958,7 @@ export function AgentDetail() {
                 <span className="animate-pulse absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500" />
               </span>
-              <span className="text-[11px] font-medium text-blue-600 dark:text-blue-400">Live</span>
+              <span className="text-[11px] font-medium text-blue-600 dark:text-blue-400">{t("detail.run.live")}</span>
             </Link>
           )}
 
@@ -973,7 +978,7 @@ export function AgentDetail() {
                 }}
               >
                 <Copy className="h-3 w-3" />
-                Copy Agent ID
+                {t("detail.copy_agent_id")}
               </button>
               <button
                 className="flex items-center gap-2 w-full px-2 py-1.5 text-xs rounded hover:bg-accent/50"
@@ -983,7 +988,7 @@ export function AgentDetail() {
                 }}
               >
                 <RotateCcw className="h-3 w-3" />
-                Reset Sessions
+                {t("detail.reset_sessions")}
               </button>
               <button
                 className="flex items-center gap-2 w-full px-2 py-1.5 text-xs rounded hover:bg-accent/50 text-destructive"
@@ -993,7 +998,7 @@ export function AgentDetail() {
                 }}
               >
                 <Trash2 className="h-3 w-3" />
-                Terminate
+                {t("detail.terminate")}
               </button>
             </PopoverContent>
           </Popover>
@@ -1007,12 +1012,12 @@ export function AgentDetail() {
         >
           <PageTabBar
             items={[
-              { value: "dashboard", label: "Dashboard" },
-              { value: "instructions", label: "Instructions" },
-              { value: "skills", label: "Skills" },
-              { value: "configuration", label: "Configuration" },
-              { value: "runs", label: "Runs" },
-              { value: "budget", label: "Budget" },
+              { value: "dashboard", label: t("detail.tabs.dashboard") },
+              { value: "instructions", label: t("detail.tabs.instructions") },
+              { value: "skills", label: t("detail.tabs.skills") },
+              { value: "configuration", label: t("detail.tabs.configuration") },
+              { value: "runs", label: t("detail.tabs.runs") },
+              { value: "budget", label: t("detail.tabs.budget") },
             ]}
             value={activeView}
             onValueChange={(value) => navigate(`/agents/${canonicalAgentRef}/${value}`)}
@@ -1022,23 +1027,21 @@ export function AgentDetail() {
 
       {actionError && <p className="text-sm text-destructive">{actionError}</p>}
       {isPendingApproval && (
-        <div className="flex flex-wrap items-center gap-3 rounded-md border border-amber-300/60 bg-amber-50 px-3 py-2 text-sm text-amber-900 dark:border-amber-400/40 dark:bg-amber-950/30 dark:text-amber-200">
-          <span>This agent is pending board approval and cannot be invoked yet.</span>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => agentAction.mutate("approve")}
-            disabled={agentAction.isPending}
-          >
-            <CheckCircle2 className="h-3.5 w-3.5 sm:mr-1" />
-            <span>Approve agent</span>
-          </Button>
-        </div>
+        <p className="text-sm text-amber-500">
+          {t("detail_view.pending_approval")}
+        </p>
       )}
 
       {/* Floating Save/Cancel (desktop) */}
-      {!isMobile && showConfigActionBar && (
-        <div className="fixed bottom-6 right-6 z-30">
+      {!isMobile && (
+        <div
+          className={cn(
+            "sticky top-6 z-10 float-right transition-opacity duration-150",
+            showConfigActionBar
+              ? "opacity-100"
+              : "opacity-0 pointer-events-none"
+          )}
+        >
           <div className="flex items-center gap-2 bg-background/90 backdrop-blur-sm border border-border rounded-lg px-3 py-1.5 shadow-lg">
             <Button
               variant="ghost"
@@ -1046,14 +1049,14 @@ export function AgentDetail() {
               onClick={() => cancelConfigActionRef.current?.()}
               disabled={configSaving}
             >
-              Cancel
+              {t("detail.cancel")}
             </Button>
             <Button
               size="sm"
               onClick={() => saveConfigActionRef.current?.()}
               disabled={configSaving}
             >
-              {configSaving ? "Saving…" : "Save"}
+              {configSaving ? t("detail.saving_config") : t("detail.save_config")}
             </Button>
           </div>
         </div>
@@ -1072,14 +1075,14 @@ export function AgentDetail() {
               onClick={() => cancelConfigActionRef.current?.()}
               disabled={configSaving}
             >
-              Cancel
+              {t("detail.cancel")}
             </Button>
             <Button
               size="sm"
               onClick={() => saveConfigActionRef.current?.()}
               disabled={configSaving}
             >
-              {configSaving ? "Saving…" : "Save"}
+              {configSaving ? t("detail.saving_config") : t("detail.save_config")}
             </Button>
           </div>
         </div>
@@ -1166,6 +1169,7 @@ function SummaryRow({ label, children }: { label: string; children: React.ReactN
 }
 
 function LatestRunCard({ runs, agentId }: { runs: HeartbeatRun[]; agentId: string }) {
+  const { t } = useTranslation("agents");
   if (runs.length === 0) return null;
 
   const sorted = [...runs].sort(
@@ -1209,13 +1213,13 @@ function LatestRunCard({ runs, agentId }: { runs: HeartbeatRun[]; agentId: strin
               <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-400" />
             </span>
           )}
-          {isLive ? "Live Run" : "Latest Run"}
+          {isLive ? t("detail.run.live_run") : t("detail.run.latest_run")}
         </h3>
         <Link
           to={`/agents/${agentId}/runs/${run.id}`}
           className="shrink-0 text-xs text-muted-foreground hover:text-foreground transition-colors no-underline"
         >
-          View details &rarr;
+          {t("detail.view_details")}
         </Link>
       </div>
 
@@ -1239,7 +1243,7 @@ function LatestRunCard({ runs, agentId }: { runs: HeartbeatRun[]; agentId: strin
           )}>
             {sourceLabels[run.invocationSource] ?? run.invocationSource}
           </span>
-          <span className="ml-auto text-xs text-muted-foreground">{relativeTime(run.createdAt)}</span>
+          <span className="ml-auto text-xs text-muted-foreground">{timeAgo(run.createdAt)}</span>
         </div>
 
         {summary && (
@@ -1269,6 +1273,7 @@ function AgentOverview({
   agentId: string;
   agentRouteId: string;
 }) {
+  const { t } = useTranslation("agents");
   return (
     <div className="space-y-8">
       {/* Latest Run */}
@@ -1276,16 +1281,16 @@ function AgentOverview({
 
       {/* Charts */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <ChartCard title="Run Activity" subtitle="Last 14 days">
+        <ChartCard title={t("detail.chart.run_activity")} subtitle={t("detail.chart.last_14_days")}>
           <RunActivityChart runs={runs} />
         </ChartCard>
-        <ChartCard title="Issues by Priority" subtitle="Last 14 days">
+        <ChartCard title={t("detail.chart.issues_by_priority")} subtitle={t("detail.chart.last_14_days")}>
           <PriorityChart issues={assignedIssues} />
         </ChartCard>
-        <ChartCard title="Issues by Status" subtitle="Last 14 days">
+        <ChartCard title={t("detail.chart.issues_by_status")} subtitle={t("detail.chart.last_14_days")}>
           <IssueStatusChart issues={assignedIssues} />
         </ChartCard>
-        <ChartCard title="Success Rate" subtitle="Last 14 days">
+        <ChartCard title={t("detail.chart.success_rate")} subtitle={t("detail.chart.last_14_days")}>
           <SuccessRateChart runs={runs} />
         </ChartCard>
       </div>
@@ -1293,16 +1298,16 @@ function AgentOverview({
       {/* Recent Issues */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-medium">Recent Issues</h3>
+          <h3 className="text-sm font-medium">{t("detail.recent_issues")}</h3>
           <Link
             to={`/issues?participantAgentId=${agentId}`}
             className="text-xs text-muted-foreground hover:text-foreground transition-colors"
           >
-            See All &rarr;
+            {t("detail_view.see_all")}
           </Link>
         </div>
         {assignedIssues.length === 0 ? (
-          <p className="text-sm text-muted-foreground">No recent issues.</p>
+          <p className="text-sm text-muted-foreground">{t("detail.no_recent_issues")}</p>
         ) : (
           <div className="border border-border rounded-lg">
             {assignedIssues.slice(0, 10).map((issue) => (
@@ -1316,7 +1321,7 @@ function AgentOverview({
             ))}
             {assignedIssues.length > 10 && (
               <div className="px-3 py-2 text-xs text-muted-foreground text-center border-t border-border">
-                +{assignedIssues.length - 10} more issues
+                +{assignedIssues.length - 10} {t("detail.more_issues")}
               </div>
             )}
           </div>
@@ -1325,7 +1330,7 @@ function AgentOverview({
 
       {/* Costs */}
       <div className="space-y-3">
-        <h3 className="text-sm font-medium">Costs</h3>
+        <h3 className="text-sm font-medium">{t("detail.costs")}</h3>
         <CostsSection runtimeState={runtimeState} runs={runs} />
       </div>
     </div>
@@ -1341,6 +1346,7 @@ function CostsSection({
   runtimeState?: AgentRuntimeState;
   runs: HeartbeatRun[];
 }) {
+  const { t } = useTranslation("agents");
   const runsWithCost = runs
     .filter((r) => {
       const metrics = runMetrics(r);
@@ -1354,19 +1360,19 @@ function CostsSection({
         <div className="border border-border rounded-lg p-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 tabular-nums">
             <div>
-              <span className="text-xs text-muted-foreground block">Input tokens</span>
+              <span className="text-xs text-muted-foreground block">{t("detail.input_tokens")}</span>
               <span className="text-lg font-semibold">{formatTokens(runtimeState.totalInputTokens)}</span>
             </div>
             <div>
-              <span className="text-xs text-muted-foreground block">Output tokens</span>
+              <span className="text-xs text-muted-foreground block">{t("detail.output_tokens")}</span>
               <span className="text-lg font-semibold">{formatTokens(runtimeState.totalOutputTokens)}</span>
             </div>
             <div>
-              <span className="text-xs text-muted-foreground block">Cached tokens</span>
+              <span className="text-xs text-muted-foreground block">{t("detail.cached_tokens")}</span>
               <span className="text-lg font-semibold">{formatTokens(runtimeState.totalCachedInputTokens)}</span>
             </div>
             <div>
-              <span className="text-xs text-muted-foreground block">Total cost</span>
+              <span className="text-xs text-muted-foreground block">{t("detail.total_cost")}</span>
               <span className="text-lg font-semibold">{formatCents(runtimeState.totalCostCents)}</span>
             </div>
           </div>
@@ -1377,11 +1383,11 @@ function CostsSection({
           <table className="w-full text-xs">
             <thead>
               <tr className="border-b border-border bg-accent/20">
-                <th className="text-left px-3 py-2 font-medium text-muted-foreground">Date</th>
-                <th className="text-left px-3 py-2 font-medium text-muted-foreground">Run</th>
-                <th className="text-right px-3 py-2 font-medium text-muted-foreground">Input</th>
-                <th className="text-right px-3 py-2 font-medium text-muted-foreground">Output</th>
-                <th className="text-right px-3 py-2 font-medium text-muted-foreground">Cost</th>
+                <th className="text-left px-3 py-2 font-medium text-muted-foreground">{t("detail.date")}</th>
+                <th className="text-left px-3 py-2 font-medium text-muted-foreground">{t("detail.run_header")}</th>
+                <th className="text-right px-3 py-2 font-medium text-muted-foreground">{t("detail.input")}</th>
+                <th className="text-right px-3 py-2 font-medium text-muted-foreground">{t("detail.output")}</th>
+                <th className="text-right px-3 py-2 font-medium text-muted-foreground">{t("detail.cost")}</th>
               </tr>
             </thead>
             <tbody>
@@ -1431,6 +1437,7 @@ function AgentConfigurePage({
   onSavingChange: (saving: boolean) => void;
   updatePermissions: { mutate: (permissions: AgentPermissionUpdate) => void; isPending: boolean };
 }) {
+  const { t } = useTranslation("agents");
   const queryClient = useQueryClient();
   const [revisionsOpen, setRevisionsOpen] = useState(false);
 
@@ -1462,7 +1469,7 @@ function AgentConfigurePage({
         hideInstructionsFile
       />
       <div>
-        <h3 className="text-sm font-medium mb-3">API Keys</h3>
+        <h3 className="text-sm font-medium mb-3">{t("detail.api_keys")}</h3>
         <KeysTab agentId={agentId} companyId={companyId} />
       </div>
 
@@ -1476,13 +1483,13 @@ function AgentConfigurePage({
             ? <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
             : <ChevronRight className="h-3.5 w-3.5 text-muted-foreground" />
           }
-          Configuration Revisions
+          {t("detail.config_revisions")}
           <span className="text-xs font-normal text-muted-foreground">{configRevisions?.length ?? 0}</span>
         </button>
         {revisionsOpen && (
           <div className="mt-3">
             {(configRevisions ?? []).length === 0 ? (
-              <p className="text-sm text-muted-foreground">No configuration revisions yet.</p>
+              <p className="text-sm text-muted-foreground">{t("detail.no_config_revisions")}</p>
             ) : (
               <div className="space-y-2">
                 {(configRevisions ?? []).slice(0, 10).map((revision) => (
@@ -1502,12 +1509,12 @@ function AgentConfigurePage({
                         onClick={() => rollbackConfig.mutate(revision.id)}
                         disabled={rollbackConfig.isPending}
                       >
-                        Restore
+                        {t("detail_view.restore")}
                       </Button>
                     </div>
                     <p className="text-xs text-muted-foreground">
-                      Changed:{" "}
-                      {revision.changedKeys.length > 0 ? revision.changedKeys.join(", ") : "no tracked changes"}
+                      {t("detail_view.changed_keys")}:{" "}
+                      {revision.changedKeys.length > 0 ? revision.changedKeys.join(", ") : t("detail_view.no_tracked_changes")}
                     </p>
                   </div>
                 ))}
@@ -1543,6 +1550,7 @@ function ConfigurationTab({
   hidePromptTemplate?: boolean;
   hideInstructionsFile?: boolean;
 }) {
+  const { t } = useTranslation("agents");
   const queryClient = useQueryClient();
   const { pushToast } = useToastActions();
   const [awaitingRefreshAfterSave, setAwaitingRefreshAfterSave] = useState(false);
@@ -1575,8 +1583,8 @@ function ConfigurationTab({
           ? err.message
           : err instanceof Error
             ? err.message
-            : "Could not save agent";
-      pushToast({ title: "Save failed", body: message, tone: "error" });
+            : t("detail.save_failed_msg");
+      pushToast({ title: t("detail.save_failed"), body: message, tone: "error" });
     },
   });
 
@@ -1598,12 +1606,12 @@ function ConfigurationTab({
   const taskAssignLocked = agent.role === "ceo" || canCreateAgents;
   const taskAssignHint =
     taskAssignSource === "ceo_role"
-      ? "Enabled automatically for CEO agents."
+      ? t("config_form.permissions.enabled_ceo")
       : taskAssignSource === "agent_creator"
-        ? "Enabled automatically while this agent can create new agents."
+        ? t("config_form.permissions.enabled_can_create")
         : taskAssignSource === "explicit_grant"
-          ? "Enabled via explicit company permission grant."
-          : "Disabled unless explicitly granted.";
+          ? t("config_form.permissions.enabled_explicit")
+          : t("config_form.permissions.disabled");
 
   return (
     <div className="space-y-6">
@@ -1623,13 +1631,13 @@ function ConfigurationTab({
       />
 
       <div>
-        <h3 className="text-sm font-medium mb-3">Permissions</h3>
+        <h3 className="text-sm font-medium mb-3">{t("detail.permissions")}</h3>
         <div className="border border-border rounded-lg p-4 space-y-4">
           <div className="flex items-center justify-between gap-4 text-sm">
             <div className="space-y-1">
-              <div>Can create new agents</div>
+              <div>{t("detail.can_create_agents")}</div>
               <p className="text-xs text-muted-foreground">
-                Lets this agent create or hire agents and implicitly assign tasks.
+                {t("detail.can_create_agents_desc")}
               </p>
             </div>
             <ToggleSwitch
@@ -1645,7 +1653,7 @@ function ConfigurationTab({
           </div>
           <div className="flex items-center justify-between gap-4 text-sm">
             <div className="space-y-1">
-              <div>Can assign tasks</div>
+              <div>{t("detail.can_assign_tasks")}</div>
               <p className="text-xs text-muted-foreground">
                 {taskAssignHint}
               </p>
@@ -1684,6 +1692,7 @@ function PromptsTab({
   onCancelActionChange: (cancel: (() => void) | null) => void;
   onSavingChange: (saving: boolean) => void;
 }) {
+  const { t } = useTranslation("agents");
   const queryClient = useQueryClient();
   const { selectedCompanyId } = useCompany();
   const { isMobile } = useSidebar();
@@ -1700,7 +1709,6 @@ function PromptsTab({
   const [pendingFiles, setPendingFiles] = useState<string[]>([]);
   const [expandedDirs, setExpandedDirs] = useState<Set<string>>(new Set());
   const [filePanelWidth, setFilePanelWidth] = useState(260);
-  const [instructionPaneWidth, setInstructionPaneWidth] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [awaitingRefresh, setAwaitingRefresh] = useState(false);
   const lastFileVersionRef = useRef<string | null>(null);
@@ -1849,26 +1857,6 @@ function PromptsTab({
   }, [visibleFilePaths]);
 
   useEffect(() => {
-    if (isMobile) {
-      setInstructionPaneWidth(null);
-      return;
-    }
-    const element = containerRef.current;
-    if (!element) return;
-
-    const updateWidth = () => setInstructionPaneWidth(element.getBoundingClientRect().width);
-    updateWidth();
-
-    if (typeof ResizeObserver === "undefined") return;
-    const observer = new ResizeObserver((entries) => {
-      const entry = entries[0];
-      if (entry) setInstructionPaneWidth(entry.contentRect.width);
-    });
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, [bundleLoading, isMobile, visibleFilePaths.length]);
-
-  useEffect(() => {
     const versionKey = selectedFileExists && selectedFileDetail
       ? `${selectedFileDetail.path}:${selectedFileDetail.content}`
       : `draft:${currentMode}:${currentRootPath}:${selectedOrEntryFile}`;
@@ -1992,14 +1980,11 @@ function PromptsTab({
     document.body.style.userSelect = "none";
   }, [filePanelWidth]);
 
-  const instructionsSideBySide =
-    !isMobile && instructionPaneWidth !== null && instructionPaneWidth >= filePanelWidth + 520;
-
   if (!isLocal) {
     return (
       <div className="max-w-3xl">
         <p className="text-sm text-muted-foreground">
-          Instructions bundles are only available for local adapters.
+          {t("detail_view.instructions_bundles_local_only")}
         </p>
       </div>
     );
@@ -2024,20 +2009,20 @@ function PromptsTab({
       <Collapsible defaultOpen={currentMode === "external"}>
         <CollapsibleTrigger className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors group">
           <ChevronRight className="h-3 w-3 transition-transform group-data-[state=open]:rotate-90" />
-          Advanced
+          {t("detail_view.advanced")}
         </CollapsibleTrigger>
         <CollapsibleContent className="pt-4 pb-6">
           <TooltipProvider>
-            <div className="grid gap-x-6 gap-y-4 md:grid-cols-[auto_minmax(0,1fr)_minmax(12rem,0.65fr)]">
-              <label className="space-y-1.5 min-w-0">
+            <div className="grid gap-x-6 gap-y-4 sm:grid-cols-[auto_1fr_1fr]">
+              <label className="space-y-1.5">
                 <span className="text-xs font-medium text-muted-foreground flex items-center gap-1">
-                  Mode
+                  {t("detail_view.instructions_mode")}
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <HelpCircle className="h-3 w-3 text-muted-foreground cursor-help" />
                     </TooltipTrigger>
                     <TooltipContent side="right" sideOffset={4}>
-                      Managed: Paperclip stores and serves the instructions bundle. External: you provide a path on disk where the instructions live.
+                      {t("detail_view.instructions_mode_tooltip")}
                     </TooltipContent>
                   </Tooltip>
                 </span>
@@ -2063,7 +2048,7 @@ function PromptsTab({
                       setSelectedFile(nextEntryFile);
                     }}
                   >
-                    Managed
+                    {t("detail_view.instructions_mode_managed")}
                   </Button>
                   <Button
                     type="button"
@@ -2080,25 +2065,25 @@ function PromptsTab({
                       setSelectedFile(externalBundle?.selectedFile ?? nextEntryFile);
                     }}
                   >
-                    External
+                    {t("detail_view.instructions_mode_external")}
                   </Button>
                 </div>
               </label>
               <label className="space-y-1.5 min-w-0">
                 <span className="text-xs font-medium text-muted-foreground flex items-center gap-1">
-                  Root path
+                  {t("detail_view.instructions_root_path")}
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <HelpCircle className="h-3 w-3 text-muted-foreground cursor-help" />
                     </TooltipTrigger>
                     <TooltipContent side="right" sideOffset={4}>
-                      The absolute directory on disk where the instructions bundle lives. In managed mode this is set by Paperclip automatically.
+                      {t("detail_view.instructions_root_path_tooltip")}
                     </TooltipContent>
                   </Tooltip>
                 </span>
                 {currentMode === "managed" ? (
                   <div className="flex items-center gap-1.5 font-mono text-xs text-muted-foreground pt-1.5">
-                    <span className="min-w-0 truncate" title={currentRootPath || undefined}>{currentRootPath || "(managed)"}</span>
+                    <span className="min-w-0 truncate" title={currentRootPath || undefined}>{currentRootPath || t("detail_view.instructions_managed_auto")}</span>
                     {currentRootPath && (
                       <CopyText text={currentRootPath} className="shrink-0">
                         <Copy className="h-3.5 w-3.5" />
@@ -2135,13 +2120,13 @@ function PromptsTab({
               </label>
               <label className="space-y-1.5">
                 <span className="text-xs font-medium text-muted-foreground flex items-center gap-1">
-                  Entry file
+                  {t("detail.entry_file")}
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <HelpCircle className="h-3 w-3 text-muted-foreground cursor-help" />
                     </TooltipTrigger>
                     <TooltipContent side="right" sideOffset={4}>
-                      The main file the agent reads first when loading instructions. Defaults to AGENTS.md.
+                      {t("detail.entry_file_hint")}
                     </TooltipContent>
                   </Tooltip>
                 </span>
@@ -2174,22 +2159,14 @@ function PromptsTab({
         </CollapsibleContent>
       </Collapsible>
 
-      <div
-        ref={containerRef}
-        className="grid min-w-0 gap-3"
-        style={
-          instructionsSideBySide
-            ? { gridTemplateColumns: `${filePanelWidth}px 0.5rem minmax(0, 1fr)` }
-            : undefined
-        }
-      >
+      <div ref={containerRef} className={cn("flex gap-0", isMobile && "flex-col gap-3")}>
         <div className={cn(
-          "min-w-0 w-full border border-border rounded-lg p-3 space-y-3",
+          "border border-border rounded-lg p-3 space-y-3 shrink-0",
           isMobile && showFilePanel && "block",
           isMobile && !showFilePanel && "hidden",
-        )}>
+        )} style={isMobile ? undefined : { width: filePanelWidth }}>
           <div className="flex items-center justify-between">
-            <h4 className="text-sm font-medium">Files</h4>
+            <h4 className="text-sm font-medium">{t("detail.files")}</h4>
             <div className="flex items-center gap-1">
               {!showNewFileInput && (
                 <Button
@@ -2220,7 +2197,7 @@ function PromptsTab({
               <Input
                 value={newFilePath}
                 onChange={(event) => setNewFilePath(event.target.value)}
-                placeholder="TOOLS.md"
+                placeholder={t("detail.new_file_placeholder")}
                 className="font-mono text-sm"
                 autoFocus
                 onKeyDown={(event) => {
@@ -2247,7 +2224,7 @@ function PromptsTab({
                     setShowNewFileInput(false);
                   }}
                 >
-                  Create
+                  {t("detail.create")}
                 </Button>
                 <Button
                   type="button"
@@ -2259,7 +2236,7 @@ function PromptsTab({
                     setNewFilePath("");
                   }}
                 >
-                  Cancel
+                  {t("detail.cancel")}
                 </Button>
               </div>
             </div>
@@ -2282,7 +2259,6 @@ function PromptsTab({
             }}
             onToggleCheck={() => {}}
             showCheckboxes={false}
-            wrapLabels
             renderFileExtra={(node) => {
               const file = bundle?.files.find((entry) => entry.path === node.path);
               if (!file) return null;
@@ -2291,18 +2267,18 @@ function PromptsTab({
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <span className="ml-3 shrink-0 rounded border border-amber-500/40 bg-amber-500/10 text-amber-200 px-1.5 py-0.5 text-[10px] uppercase tracking-wide cursor-help">
-                        virtual file
+                        {t("detail_view.virtual_file_badge")}
                       </span>
                     </TooltipTrigger>
                     <TooltipContent side="right" sideOffset={4}>
-                      Legacy inline prompt — this deprecated virtual file preserves the old promptTemplate content
+                      {t("detail_view.virtual_file_tooltip")}
                     </TooltipContent>
                   </Tooltip>
                 );
               }
               return (
                 <span className="ml-3 shrink-0 rounded border border-border text-muted-foreground px-1.5 py-0.5 text-[10px] uppercase tracking-wide">
-                  {file.isEntryFile ? "entry" : `${file.size}b`}
+                  {file.isEntryFile ? t("detail_view.entry_file_badge") : `${file.size}b`}
                 </span>
               );
             }}
@@ -2310,14 +2286,14 @@ function PromptsTab({
         </div>
 
         {/* Draggable separator */}
-        {instructionsSideBySide && (
+        {!isMobile && (
           <div
-            className="w-1 cursor-col-resize rounded transition-colors hover:bg-border active:bg-primary/50"
+            className="w-1 shrink-0 cursor-col-resize hover:bg-border active:bg-primary/50 rounded transition-colors mx-1"
             onMouseDown={handleSeparatorDrag}
           />
         )}
 
-        <div className={cn("min-w-0 w-full overflow-hidden border border-border rounded-lg p-4 space-y-3", isMobile && showFilePanel && "hidden")}>
+        <div className={cn("border border-border rounded-lg p-4 space-y-3 min-w-0 flex-1", isMobile && showFilePanel && "hidden")}>
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-2 min-w-0">
               {isMobile && (
@@ -2336,9 +2312,9 @@ function PromptsTab({
                 <p className="text-xs text-muted-foreground">
                   {selectedFileExists
                     ? selectedFileSummary?.deprecated
-                      ? "Deprecated virtual file"
-                      : `${selectedFileDetail?.language ?? "text"} file`
-                    : "New file in this bundle"}
+                      ? t("config_form.instructions_file.deprecated_virtual")
+                      : t("config_form.instructions_file.language_file", { language: selectedFileDetail?.language ?? "text" })
+                    : t("config_form.instructions_file.new_file")}
                 </p>
               </div>
             </div>
@@ -2359,7 +2335,7 @@ function PromptsTab({
                 }}
                 disabled={deleteFile.isPending}
               >
-                Delete
+                {t("detail.delete")}
               </Button>
             )}
           </div>
@@ -2371,9 +2347,8 @@ function PromptsTab({
               key={selectedOrEntryFile}
               value={displayValue}
               onChange={(value) => setDraft(value ?? "")}
-              placeholder="# Agent instructions"
-              className="min-w-0 overflow-hidden"
-              contentClassName="min-h-[420px] max-w-full break-words text-sm font-mono"
+              placeholder={t("detail_view.instructions_placeholder")}
+              contentClassName="min-h-[420px] text-sm font-mono"
               imageUploadHandler={async (file) => {
                 const namespace = `agents/${agent.id}/instructions/${selectedOrEntryFile.replaceAll("/", "-")}`;
                 const asset = await uploadMarkdownImage.mutateAsync({ file, namespace });
@@ -2384,8 +2359,8 @@ function PromptsTab({
             <textarea
               value={displayValue}
               onChange={(event) => setDraft(event.target.value)}
-              className="min-h-[420px] w-full min-w-0 rounded-md border border-border bg-transparent px-3 py-2 font-mono text-sm outline-none"
-              placeholder="File contents"
+              className="min-h-[420px] w-full rounded-md border border-border bg-transparent px-3 py-2 font-mono text-sm outline-none"
+              placeholder={t("detail.file_contents_placeholder")}
             />
           )}
         </div>
@@ -2456,6 +2431,7 @@ function AgentSkillsTab({
   agent: Agent;
   companyId?: string;
 }) {
+  const { t } = useTranslation("agents");
   type SkillRow = {
     id: string;
     key: string;
@@ -2621,27 +2597,27 @@ function AgentSkillsTab({
   const skillApplicationLabel = useMemo(() => {
     switch (skillSnapshot?.mode) {
       case "persistent":
-        return "Kept in the workspace";
+        return t("detail.skills_section.kept_in_workspace");
       case "ephemeral":
-        return "Applied when the agent runs";
+        return t("detail.skills_section.applied_when_runs");
       case "unsupported":
-        return "Tracked only";
+        return t("detail.skills_section.tracked_only");
       default:
-        return "Unknown";
+        return t("detail.skill_unknown_mode");
     }
   }, [skillSnapshot?.mode]);
   const unsupportedSkillMessage = useMemo(() => {
     if (skillSnapshot?.mode !== "unsupported") return null;
     if (agent.adapterType === "openclaw_gateway") {
-      return "Paperclip cannot manage OpenClaw skills here. Visit your OpenClaw instance to manage this agent's skills.";
+      return t("detail.skills_section.openclaw_unsupported");
     }
-    return "Paperclip cannot manage skills for this adapter yet. Manage them in the adapter directly.";
-  }, [agent.adapterType, skillSnapshot?.mode]);
+    return t("detail.skills_section.adapter_unsupported");
+  }, [agent.adapterType, skillSnapshot?.mode, t]);
   const hasUnsavedChanges = !arraysEqual(skillDraft, lastSavedSkills);
   const saveStatusLabel = syncSkills.isPending
-    ? "Saving changes..."
+    ? t("detail.skills_section.saving_changes")
     : hasUnsavedChanges
-      ? "Saving soon..."
+      ? t("detail.skills_section.saving_soon")
       : null;
 
   return (
@@ -2651,7 +2627,7 @@ function AgentSkillsTab({
           to="/skills"
           className="text-sm font-medium text-foreground underline-offset-4 no-underline transition-colors hover:text-foreground/70 hover:underline"
         >
-          View company skills library
+          {t("detail.skills_library_link")}
         </Link>
         {saveStatusLabel ? (
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
@@ -2698,7 +2674,7 @@ function AgentSkillsTab({
                         to={skill.linkTo}
                         className="shrink-0 text-xs text-muted-foreground no-underline hover:text-foreground"
                       >
-                        View
+                        {t("detail_view.skill_view_link")}
                       </Link>
                     ) : null}
                   </div>
@@ -2711,7 +2687,7 @@ function AgentSkillsTab({
                     <p className="mt-1 text-xs text-muted-foreground">{skill.originLabel}</p>
                   )}
                   {skill.readOnly && skill.locationLabel && (
-                    <p className="mt-1 text-xs text-muted-foreground">Location: {skill.locationLabel}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">{t("detail_view.skill_location")}: {skill.locationLabel}</p>
                   )}
                   {skill.detail && (
                     <p className="mt-1 text-xs text-muted-foreground">{skill.detail}</p>
@@ -2760,7 +2736,7 @@ function AgentSkillsTab({
                         <span>{checkbox}</span>
                       </TooltipTrigger>
                       <TooltipContent side="top">
-                        {unsupportedSkillMessage ?? "Manage skills in the adapter directly."}
+                        {unsupportedSkillMessage ?? t("detail.skills_section.manage_in_adapter")}
                       </TooltipContent>
                     </Tooltip>
                   ) : (
@@ -2775,7 +2751,7 @@ function AgentSkillsTab({
               return (
                 <section className="border-y border-border">
                   <div className="px-3 py-6 text-sm text-muted-foreground">
-                    Import skills into the company library first, then attach them here.
+                    {t("detail.import_skills_first")}
                   </div>
                 </section>
               );
@@ -2793,7 +2769,7 @@ function AgentSkillsTab({
                   <section className="border-y border-border">
                     <div className="border-b border-border bg-muted/40 px-3 py-2">
                       <span className="text-xs font-medium text-muted-foreground">
-                        Required by Paperclip
+                        {t("detail.required_by_paperclip")}
                       </span>
                     </div>
                     {requiredSkillRows.map(renderSkillRow)}
@@ -2810,7 +2786,7 @@ function AgentSkillsTab({
                       onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setUnmanagedOpen((v) => !v); } }}
                     >
                       <span className="text-xs font-medium text-muted-foreground">
-                        ({unmanagedSkillRows.length}) User-installed skills, not managed by Paperclip
+                        ({unmanagedSkillRows.length}) {t("detail.user_installed_skills")}
                       </span>
                       {unmanagedOpen ? <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" /> : <ChevronRight className="h-3.5 w-3.5 text-muted-foreground" />}
                     </div>
@@ -2823,7 +2799,7 @@ function AgentSkillsTab({
 
           {desiredOnlyMissingSkills.length > 0 && (
             <div className="rounded-xl border border-amber-300/60 bg-amber-50/60 px-4 py-3 text-sm text-amber-800 dark:border-amber-500/30 dark:bg-amber-950/20 dark:text-amber-200">
-              <div className="font-medium">Requested skills missing from the company library</div>
+              <div className="font-medium">{t("detail.missing_skills_warning")}</div>
               <div className="mt-1 text-xs">
                 {desiredOnlyMissingSkills.join(", ")}
               </div>
@@ -2833,22 +2809,22 @@ function AgentSkillsTab({
           <section className="border-t border-border pt-4">
             <div className="grid gap-2 text-sm sm:grid-cols-2">
               <div className="flex items-center justify-between gap-3 border-b border-border/60 py-2">
-                <span className="text-muted-foreground">Adapter</span>
+                <span className="text-muted-foreground">{t("detail.adapter_label")}</span>
                 <span className="font-medium">{adapterLabels[agent.adapterType] ?? agent.adapterType}</span>
               </div>
               <div className="flex items-center justify-between gap-3 border-b border-border/60 py-2">
-                <span className="text-muted-foreground">Skills applied</span>
+                <span className="text-muted-foreground">{t("detail.skills_applied")}</span>
                 <span>{skillApplicationLabel}</span>
               </div>
               <div className="flex items-center justify-between gap-3 border-b border-border/60 py-2">
-                <span className="text-muted-foreground">Selected skills</span>
+                <span className="text-muted-foreground">{t("detail.selected_skills")}</span>
                 <span>{skillDraft.length}</span>
               </div>
             </div>
 
             {syncSkills.isError && (
               <p className="mt-3 text-xs text-destructive">
-                {syncSkills.error instanceof Error ? syncSkills.error.message : "Failed to update skills"}
+                {syncSkills.error instanceof Error ? syncSkills.error.message : t("detail.failed_update_skills")}
               </p>
             )}
           </section>
@@ -2891,7 +2867,7 @@ function RunListItem({ run, isSelected, agentId }: { run: HeartbeatRun; isSelect
           {sourceLabels[run.invocationSource] ?? run.invocationSource}
         </span>
         <span className="ml-auto text-[11px] text-muted-foreground shrink-0">
-          {relativeTime(run.createdAt)}
+          {timeAgo(run.createdAt)}
         </span>
       </div>
       {summary && (
@@ -2926,10 +2902,11 @@ function RunsTab({
   adapterType: string;
   adapterConfig: Record<string, unknown>;
 }) {
+  const { t } = useTranslation("agents");
   const { isMobile } = useSidebar();
 
   if (runs.length === 0) {
-    return <p className="text-sm text-muted-foreground">No runs yet.</p>;
+    return <p className="text-sm text-muted-foreground">{t("detail.no_runs")}</p>;
   }
 
   // Sort by created descending
@@ -2951,7 +2928,7 @@ function RunsTab({
             className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors no-underline"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
-            Back to runs
+            {t("detail.back_to_runs")}
           </Link>
           <RunDetail key={selectedRun.id} run={selectedRun} agentRouteId={agentRouteId} adapterType={adapterType} adapterConfig={adapterConfig} />
         </div>
@@ -2994,6 +2971,7 @@ function RunsTab({
 /* ---- Run Detail (expanded) ---- */
 
 function RunDetail({ run: initialRun, agentRouteId, adapterType, adapterConfig }: { run: HeartbeatRun; agentRouteId: string; adapterType: string; adapterConfig: Record<string, unknown> }) {
+  const { t } = useTranslation("agents");
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { data: hydratedRun } = useQuery({
@@ -3159,7 +3137,7 @@ function RunDetail({ run: initialRun, agentRouteId, adapterType, adapterConfig }
                   onClick={() => cancelRun.mutate()}
                   disabled={cancelRun.isPending}
                 >
-                  {cancelRun.isPending ? "Cancelling…" : "Cancel"}
+                  {cancelRun.isPending ? t("detail.run.cancelling") : t("detail.run.cancel")}
                 </Button>
               )}
               {canResumeLostRun && (
@@ -3171,7 +3149,7 @@ function RunDetail({ run: initialRun, agentRouteId, adapterType, adapterConfig }
                   disabled={resumeRun.isPending}
                 >
                   <RotateCcw className="h-3.5 w-3.5 mr-1" />
-                  {resumeRun.isPending ? "Resuming…" : "Resume"}
+                  {resumeRun.isPending ? t("detail.run.resuming") : t("detail.run.resume")}
                 </Button>
               )}
               {canRetryRun && !canResumeLostRun && (
@@ -3183,7 +3161,7 @@ function RunDetail({ run: initialRun, agentRouteId, adapterType, adapterConfig }
                   disabled={retryRun.isPending}
                 >
                   <RotateCcw className="h-3.5 w-3.5 mr-1" />
-                  {retryRun.isPending ? "Retrying…" : "Retry"}
+                  {retryRun.isPending ? t("detail.run.retrying") : t("detail.run.retry")}
                 </Button>
               )}
             </div>
@@ -3210,12 +3188,12 @@ function RunDetail({ run: initialRun, agentRouteId, adapterType, adapterConfig }
             })()}
             {resumeRun.isError && (
               <div className="text-xs text-destructive">
-                {resumeRun.error instanceof Error ? resumeRun.error.message : "Failed to resume run"}
+                {resumeRun.error instanceof Error ? resumeRun.error.message : t("detail.failed_resume")}
               </div>
             )}
             {retryRun.isError && (
               <div className="text-xs text-destructive">
-                {retryRun.error instanceof Error ? retryRun.error.message : "Failed to retry run"}
+                {retryRun.error instanceof Error ? retryRun.error.message : t("detail.failed_retry")}
               </div>
             )}
             {startTime && (
@@ -3226,20 +3204,21 @@ function RunDetail({ run: initialRun, agentRouteId, adapterType, adapterConfig }
                   {endTime}
                 </div>
                 <div className="text-[11px] text-muted-foreground">
-                  {relativeTime(run.startedAt!)}
-                  {run.finishedAt && <> &rarr; {relativeTime(run.finishedAt)}</>}
+                  {timeAgo(run.startedAt!)}
+                  {run.finishedAt && <> &rarr; {timeAgo(run.finishedAt)}</>}
                 </div>
                 {displayDurationSec !== null && (
                   <div className="text-xs text-muted-foreground">
-                    Duration: {displayDurationSec >= 60 ? `${Math.floor(displayDurationSec / 60)}m ${displayDurationSec % 60}s` : `${displayDurationSec}s`}
+                    {t("detail_view.run_metrics.duration")}: {displayDurationSec >= 60 ? t("detail_view.run_metrics.duration_min_sec", { m: Math.floor(displayDurationSec / 60), s: displayDurationSec % 60 }) : t("detail_view.run_metrics.duration_sec", { count: displayDurationSec })}
                   </div>
                 )}
               </div>
             )}
             {run.error && (
-              <div className="text-xs">
+              <div className="text-xs space-y-0.5">
                 <span className="text-red-600 dark:text-red-400">{run.error}</span>
-                {run.errorCode && <span className="text-muted-foreground ml-1">({run.errorCode})</span>}
+                {run.errorCode && <span className="text-muted-foreground ml-1">({t(`status.${run.errorCode}`, { ns: "common", defaultValue: run.errorCode })})</span>}
+                {(() => { const tr = translateRunError(run.error); return tr ? <div className="text-muted-foreground">{tr}</div> : null; })()}
               </div>
             )}
             {run.errorCode === "claude_auth_required" && adapterType === "claude_local" && (
@@ -3251,18 +3230,18 @@ function RunDetail({ run: initialRun, agentRouteId, adapterType, adapterConfig }
                   onClick={() => runClaudeLogin.mutate()}
                   disabled={runClaudeLogin.isPending}
                 >
-                  {runClaudeLogin.isPending ? "Running claude login..." : "Login to Claude Code"}
+                  {runClaudeLogin.isPending ? t("detail.run.logging_in_claude") : t("detail.run.login_claude")}
                 </Button>
                 {runClaudeLogin.isError && (
                   <p className="text-xs text-destructive">
                     {runClaudeLogin.error instanceof Error
                       ? runClaudeLogin.error.message
-                      : "Failed to run Claude login"}
+                      : t("detail_view.failed_claude_login")}
                   </p>
                 )}
                 {claudeLoginResult?.loginUrl && (
                   <p className="text-xs">
-                    Login URL:
+                    {t("detail.login_url")}
                     <a
                       href={claudeLoginResult.loginUrl}
                       className="text-blue-600 underline underline-offset-2 ml-1 break-all dark:text-blue-400"
@@ -3291,7 +3270,7 @@ function RunDetail({ run: initialRun, agentRouteId, adapterType, adapterConfig }
             )}
             {hasNonZeroExit && (
               <div className="text-xs text-red-600 dark:text-red-400">
-                Exit code {run.exitCode}
+                {t("detail.exit_code")} {run.exitCode}
                 {run.signal && <span className="text-muted-foreground ml-1">(signal: {run.signal})</span>}
               </div>
             )}
@@ -3301,19 +3280,19 @@ function RunDetail({ run: initialRun, agentRouteId, adapterType, adapterConfig }
           {hasMetrics && (
             <div className="border-t sm:border-t-0 sm:border-l border-border p-4 grid grid-cols-2 gap-x-4 sm:gap-x-8 gap-y-3 content-center tabular-nums">
               <div>
-                <div className="text-xs text-muted-foreground">Input</div>
+                <div className="text-xs text-muted-foreground">{t("detail_view.run_metrics.input")}</div>
                 <div className="text-sm font-medium font-mono">{formatTokens(metrics.input)}</div>
               </div>
               <div>
-                <div className="text-xs text-muted-foreground">Output</div>
+                <div className="text-xs text-muted-foreground">{t("detail_view.run_metrics.output")}</div>
                 <div className="text-sm font-medium font-mono">{formatTokens(metrics.output)}</div>
               </div>
               <div>
-                <div className="text-xs text-muted-foreground">Cached</div>
+                <div className="text-xs text-muted-foreground">{t("detail_view.run_metrics.cached")}</div>
                 <div className="text-sm font-medium font-mono">{formatTokens(metrics.cached)}</div>
               </div>
               <div>
-                <div className="text-xs text-muted-foreground">Cost</div>
+                <div className="text-xs text-muted-foreground">{t("detail_view.run_metrics.cost")}</div>
                 <div className="text-sm font-medium font-mono">{metrics.cost > 0 ? `$${metrics.cost.toFixed(4)}` : "-"}</div>
               </div>
             </div>
@@ -3328,20 +3307,20 @@ function RunDetail({ run: initialRun, agentRouteId, adapterType, adapterConfig }
               onClick={() => setSessionOpen((v) => !v)}
             >
               <ChevronRight className={cn("h-3 w-3 transition-transform", sessionOpen && "rotate-90")} />
-              Session
-              {sessionChanged && <span className="text-yellow-400 ml-1">(changed)</span>}
+              {t("detail_view.session")}
+              {sessionChanged && <span className="text-yellow-400 ml-1">{t("detail_view.session_changed")}</span>}
             </button>
             {sessionOpen && (
               <div className="px-4 pb-3 space-y-1 text-xs">
                 {run.sessionIdBefore && (
                   <div className="flex items-center gap-2">
-                    <span className="text-muted-foreground w-12">{sessionChanged ? "Before" : "ID"}</span>
+                    <span className="text-muted-foreground w-12">{sessionChanged ? t("detail_view.session_before") : t("detail_view.session_id")}</span>
                     <CopyText text={run.sessionIdBefore} className="font-mono" />
                   </div>
                 )}
                 {sessionChanged && run.sessionIdAfter && (
                   <div className="flex items-center gap-2">
-                    <span className="text-muted-foreground w-12">After</span>
+                    <span className="text-muted-foreground w-12">{t("detail_view.session_after")}</span>
                     <CopyText text={run.sessionIdAfter} className="font-mono" />
                   </div>
                 )}
@@ -3361,14 +3340,14 @@ function RunDetail({ run: initialRun, agentRouteId, adapterType, adapterConfig }
                       }}
                     >
                       {clearSessionsForTouchedIssues.isPending
-                        ? "clearing session..."
-                        : "clear session for these issues"}
+                        ? t("detail.clear_session_confirm")
+                        : t("detail.clear_session_btn")}
                     </button>
                     {clearSessionsForTouchedIssues.isError && (
                       <p className="text-[11px] text-destructive mt-1">
                         {clearSessionsForTouchedIssues.error instanceof Error
                           ? clearSessionsForTouchedIssues.error.message
-                          : "Failed to clear sessions"}
+                          : t("detail_view.failed_clear_sessions")}
                       </p>
                     )}
                   </div>
@@ -3382,7 +3361,7 @@ function RunDetail({ run: initialRun, agentRouteId, adapterType, adapterConfig }
       {/* Issues touched by this run */}
       {touchedIssues && touchedIssues.length > 0 && (
         <div className="space-y-2">
-          <span className="text-xs font-medium text-muted-foreground">Issues Touched ({touchedIssues.length})</span>
+          <span className="text-xs font-medium text-muted-foreground">{t("detail.issues_touched")} ({touchedIssues.length})</span>
           <div className="border border-border rounded-lg divide-y divide-border">
             {touchedIssues.map((issue) => (
               <Link
@@ -3404,7 +3383,7 @@ function RunDetail({ run: initialRun, agentRouteId, adapterType, adapterConfig }
       {/* stderr excerpt for failed runs */}
       {run.stderrExcerpt && (
         <div className="space-y-1">
-          <span className="text-xs font-medium text-red-600 dark:text-red-400">stderr</span>
+          <span className="text-xs font-medium text-red-600 dark:text-red-400">{t("detail_view.stderr_label")}</span>
           <pre className="bg-neutral-100 dark:bg-neutral-950 rounded-md p-3 text-xs font-mono text-red-700 dark:text-red-300 overflow-x-auto whitespace-pre-wrap">{run.stderrExcerpt}</pre>
         </div>
       )}
@@ -3412,7 +3391,7 @@ function RunDetail({ run: initialRun, agentRouteId, adapterType, adapterConfig }
       {/* stdout excerpt when no log is available */}
       {run.stdoutExcerpt && !run.logRef && (
         <div className="space-y-1">
-          <span className="text-xs font-medium text-muted-foreground">stdout</span>
+          <span className="text-xs font-medium text-muted-foreground">{t("detail_view.stdout_label")}</span>
           <pre className="bg-neutral-100 dark:bg-neutral-950 rounded-md p-3 text-xs font-mono text-foreground overflow-x-auto whitespace-pre-wrap">{run.stdoutExcerpt}</pre>
         </div>
       )}
@@ -3427,6 +3406,7 @@ function RunDetail({ run: initialRun, agentRouteId, adapterType, adapterConfig }
 /* ---- Log Viewer ---- */
 
 function LogViewer({ run, adapterType }: { run: HeartbeatRun; adapterType: string }) {
+  const { t } = useTranslation("agents");
   const [events, setEvents] = useState<HeartbeatRunEvent[]>([]);
   const [logLines, setLogLines] = useState<Array<{ ts: string; stream: "stdout" | "stderr" | "system"; chunk: string }>>([]);
   const [loading, setLoading] = useState(true);
@@ -3622,7 +3602,7 @@ function LogViewer({ run, adapterType }: { run: HeartbeatRun; adapterType: strin
             setLogLoading(false);
             return;
           }
-          setLogError(err instanceof Error ? err.message : "Failed to load run log");
+          setLogError(err instanceof Error ? err.message : t("detail_view.failed_load_run_log"));
         }
       } finally {
         if (!cancelled) setLogLoading(false);
@@ -3817,11 +3797,11 @@ function LogViewer({ run, adapterType }: { run: HeartbeatRun; adapterType: strin
   }, [run.id]);
 
   if (loading && logLoading) {
-    return <p className="text-xs text-muted-foreground">Loading run logs...</p>;
+    return <p className="text-xs text-muted-foreground">{t("detail.loading_run_logs")}</p>;
   }
 
   if (events.length === 0 && logLines.length === 0 && !logError) {
-    return <p className="text-xs text-muted-foreground">No log events.</p>;
+    return <p className="text-xs text-muted-foreground">{t("detail.no_log_events")}</p>;
   }
 
   const levelColors: Record<string, string> = {
@@ -3848,7 +3828,7 @@ function LogViewer({ run, adapterType }: { run: HeartbeatRun; adapterType: strin
 
       <div className="flex items-center justify-between">
         <span className="text-xs font-medium text-muted-foreground">
-          Transcript ({transcript.length})
+          {t("detail.transcript")} ({transcript.length})
         </span>
         <div className="flex items-center gap-2">
           <div className="inline-flex rounded-lg border border-border/70 bg-background/70 p-0.5">
@@ -3864,7 +3844,7 @@ function LogViewer({ run, adapterType }: { run: HeartbeatRun; adapterType: strin
                 )}
                 onClick={() => setTranscriptMode(mode)}
               >
-                {mode}
+                {mode === "nice" ? t("detail.nice_mode") : t("detail.raw_mode")}
               </button>
             ))}
           </div>
@@ -3880,7 +3860,7 @@ function LogViewer({ run, adapterType }: { run: HeartbeatRun; adapterType: strin
                 lastMetricsRef.current = readScrollMetrics(container);
               }}
             >
-              Jump to live
+              {t("detail.jump_to_live")}
             </Button>
           )}
           {isLive && (
@@ -3889,7 +3869,7 @@ function LogViewer({ run, adapterType }: { run: HeartbeatRun; adapterType: strin
                 <span className="animate-pulse absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-400" />
               </span>
-              Live
+              {t("detail.run.live")}
             </span>
           )}
         </div>
@@ -3899,7 +3879,7 @@ function LogViewer({ run, adapterType }: { run: HeartbeatRun; adapterType: strin
           entries={transcript}
           mode={transcriptMode}
           streaming={isLive}
-          emptyMessage={run.logRef ? "Waiting for transcript..." : "No persisted transcript for this run."}
+          emptyMessage={run.logRef ? t("detail.waiting_transcript") : t("detail.no_persisted_transcript")}
         />
         {logError && (
           <div className="mt-3 rounded-xl border border-red-500/20 bg-red-500/[0.06] px-3 py-2 text-xs text-red-700 dark:text-red-300">
@@ -3911,16 +3891,19 @@ function LogViewer({ run, adapterType }: { run: HeartbeatRun; adapterType: strin
 
       {(run.status === "failed" || run.status === "timed_out") && (
         <div className="rounded-lg border border-red-300 dark:border-red-500/30 bg-red-50 dark:bg-red-950/20 p-3 space-y-2">
-          <div className="text-xs font-medium text-red-700 dark:text-red-300">Failure details</div>
+          <div className="text-xs font-medium text-red-700 dark:text-red-300">{t("detail.failure_details")}</div>
           {run.error && (
-            <div className="text-xs text-red-600 dark:text-red-200">
-              <span className="text-red-700 dark:text-red-300">Error: </span>
-              {redactPathText(run.error, censorUsernameInLogs)}
+            <div className="text-xs space-y-0.5">
+              <div className="text-red-600 dark:text-red-200">
+                <span className="text-red-700 dark:text-red-300">{t("detail_view.error_prefix")}: </span>
+                {redactPathText(run.error, censorUsernameInLogs)}
+              </div>
+              {(() => { const tr = translateRunError(run.error); return tr ? <div className="text-muted-foreground">{tr}</div> : null; })()}
             </div>
           )}
           {run.stderrExcerpt && run.stderrExcerpt.trim() && (
             <div>
-              <div className="text-xs text-red-700 dark:text-red-300 mb-1">stderr excerpt</div>
+              <div className="text-xs text-red-700 dark:text-red-300 mb-1">{t("detail_view.stderr_excerpt")}</div>
               <pre className="bg-red-50 dark:bg-neutral-950 rounded-md p-2 text-xs overflow-x-auto whitespace-pre-wrap text-red-800 dark:text-red-100">
                 {redactPathText(run.stderrExcerpt, censorUsernameInLogs)}
               </pre>
@@ -3928,7 +3911,7 @@ function LogViewer({ run, adapterType }: { run: HeartbeatRun; adapterType: strin
           )}
           {run.resultJson && (
             <div>
-              <div className="text-xs text-red-700 dark:text-red-300 mb-1">adapter result JSON</div>
+              <div className="text-xs text-red-700 dark:text-red-300 mb-1">{t("detail_view.adapter_result_json")}</div>
               <pre className="bg-red-50 dark:bg-neutral-950 rounded-md p-2 text-xs overflow-x-auto whitespace-pre-wrap text-red-800 dark:text-red-100">
                 {JSON.stringify(redactPathValue(run.resultJson, censorUsernameInLogs), null, 2)}
               </pre>
@@ -3936,7 +3919,7 @@ function LogViewer({ run, adapterType }: { run: HeartbeatRun; adapterType: strin
           )}
           {run.stdoutExcerpt && run.stdoutExcerpt.trim() && !run.resultJson && (
             <div>
-              <div className="text-xs text-red-700 dark:text-red-300 mb-1">stdout excerpt</div>
+              <div className="text-xs text-red-700 dark:text-red-300 mb-1">{t("detail_view.stdout_excerpt")}</div>
               <pre className="bg-red-50 dark:bg-neutral-950 rounded-md p-2 text-xs overflow-x-auto whitespace-pre-wrap text-red-800 dark:text-red-100">
                 {redactPathText(run.stdoutExcerpt, censorUsernameInLogs)}
               </pre>
@@ -3947,7 +3930,7 @@ function LogViewer({ run, adapterType }: { run: HeartbeatRun; adapterType: strin
 
       {events.length > 0 && (
         <div>
-          <div className="mb-2 text-xs font-medium text-muted-foreground">Events ({events.length})</div>
+          <div className="mb-2 text-xs font-medium text-muted-foreground">{t("detail.events")} ({events.length})</div>
           <div className="bg-neutral-100 dark:bg-neutral-950 rounded-lg p-3 font-mono text-xs space-y-0.5">
             {events.map((evt) => {
               const color = evt.color
@@ -3961,7 +3944,7 @@ function LogViewer({ run, adapterType }: { run: HeartbeatRun; adapterType: strin
                     {new Date(evt.createdAt).toLocaleTimeString("en-US", { hour12: false })}
                   </span>
                   <span className={cn("shrink-0 w-14", evt.stream ? (streamColors[evt.stream] ?? "text-neutral-500") : "text-neutral-500")}>
-                    {evt.stream ? `[${evt.stream}]` : ""}
+                    {evt.stream ? `[${t(`detail_view.stream.${evt.stream}`, { defaultValue: evt.stream })}]` : ""}
                   </span>
                   <span className={cn("break-all", color)}>
                     {evt.message
@@ -3983,6 +3966,7 @@ function LogViewer({ run, adapterType }: { run: HeartbeatRun; adapterType: strin
 /* ---- Keys Tab ---- */
 
 function KeysTab({ agentId, companyId }: { agentId: string; companyId?: string }) {
+  const { t } = useTranslation("agents");
   const queryClient = useQueryClient();
   const [newKeyName, setNewKeyName] = useState("");
   const [newToken, setNewToken] = useState<string | null>(null);
@@ -4027,7 +4011,7 @@ function KeysTab({ agentId, companyId }: { agentId: string; companyId?: string }
       {newToken && (
         <div className="border border-yellow-300 dark:border-yellow-600/40 bg-yellow-50 dark:bg-yellow-500/5 rounded-lg p-4 space-y-2">
           <p className="text-sm font-medium text-yellow-700 dark:text-yellow-400">
-            API key created — copy it now, it will not be shown again.
+            {t("detail.api_key_created")}
           </p>
           <div className="flex items-center gap-2">
             <code className="flex-1 bg-neutral-100 dark:bg-neutral-950 rounded px-3 py-1.5 text-xs font-mono text-green-700 dark:text-green-300 truncate">
@@ -4037,7 +4021,7 @@ function KeysTab({ agentId, companyId }: { agentId: string; companyId?: string }
               variant="ghost"
               size="icon-sm"
               onClick={() => setTokenVisible((v) => !v)}
-              title={tokenVisible ? "Hide" : "Show"}
+              title={tokenVisible ? t("detail_view.token_hide") : t("detail_view.token_show")}
             >
               {tokenVisible ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
             </Button>
@@ -4045,11 +4029,11 @@ function KeysTab({ agentId, companyId }: { agentId: string; companyId?: string }
               variant="ghost"
               size="icon-sm"
               onClick={copyToken}
-              title="Copy"
+              title={t("detail_view.token_copy")}
             >
               <Copy className="h-3.5 w-3.5" />
             </Button>
-            {copied && <span className="text-xs text-green-400">Copied!</span>}
+            {copied && <span className="text-xs text-green-400">{t("detail_view.token_copied")}</span>}
           </div>
           <Button
             variant="ghost"
@@ -4057,7 +4041,7 @@ function KeysTab({ agentId, companyId }: { agentId: string; companyId?: string }
             className="text-muted-foreground text-xs"
             onClick={() => setNewToken(null)}
           >
-            Dismiss
+            {t("detail.dismiss")}
           </Button>
         </div>
       )}
@@ -4066,14 +4050,14 @@ function KeysTab({ agentId, companyId }: { agentId: string; companyId?: string }
       <div className="border border-border rounded-lg p-4 space-y-3">
         <h3 className="text-xs font-medium text-muted-foreground flex items-center gap-2">
           <Key className="h-3.5 w-3.5" />
-          Create API Key
+          {t("detail.create_api_key")}
         </h3>
         <p className="text-xs text-muted-foreground">
-          API keys allow this agent to authenticate calls to the Paperclip server.
+          {t("detail.api_keys_desc")}
         </p>
         <div className="flex items-center gap-2">
           <Input
-            placeholder="Key name (e.g. production)"
+            placeholder={t("detail.key_name_placeholder")}
             value={newKeyName}
             onChange={(e) => setNewKeyName(e.target.value)}
             className="h-8 text-sm"
@@ -4087,22 +4071,22 @@ function KeysTab({ agentId, companyId }: { agentId: string; companyId?: string }
             disabled={createKey.isPending}
           >
             <Plus className="h-3.5 w-3.5 mr-1" />
-            Create
+            {t("detail.create")}
           </Button>
         </div>
       </div>
 
       {/* Active keys */}
-      {isLoading && <p className="text-sm text-muted-foreground">Loading keys...</p>}
+      {isLoading && <p className="text-sm text-muted-foreground">{t("detail.loading_keys")}</p>}
 
       {!isLoading && activeKeys.length === 0 && !newToken && (
-        <p className="text-sm text-muted-foreground">No active API keys.</p>
+        <p className="text-sm text-muted-foreground">{t("detail.no_active_keys")}</p>
       )}
 
       {activeKeys.length > 0 && (
         <div>
           <h3 className="text-xs font-medium text-muted-foreground mb-2">
-            Active Keys
+            {t("detail.active_keys")}
           </h3>
           <div className="border border-border rounded-lg divide-y divide-border">
             {activeKeys.map((key: AgentKey) => (
@@ -4110,7 +4094,7 @@ function KeysTab({ agentId, companyId }: { agentId: string; companyId?: string }
                 <div>
                   <span className="text-sm font-medium">{key.name}</span>
                   <span className="text-xs text-muted-foreground ml-3">
-                    Created {formatDate(key.createdAt)}
+                    {t("detail.key_created")} {formatDate(key.createdAt)}
                   </span>
                 </div>
                 <Button
@@ -4120,7 +4104,7 @@ function KeysTab({ agentId, companyId }: { agentId: string; companyId?: string }
                   onClick={() => revokeKey.mutate(key.id)}
                   disabled={revokeKey.isPending}
                 >
-                  Revoke
+                  {t("detail.revoke")}
                 </Button>
               </div>
             ))}
@@ -4132,7 +4116,7 @@ function KeysTab({ agentId, companyId }: { agentId: string; companyId?: string }
       {revokedKeys.length > 0 && (
         <div>
           <h3 className="text-xs font-medium text-muted-foreground mb-2">
-            Revoked Keys
+            {t("detail.revoked_keys")}
           </h3>
           <div className="border border-border rounded-lg divide-y divide-border opacity-50">
             {revokedKeys.map((key: AgentKey) => (
@@ -4140,7 +4124,7 @@ function KeysTab({ agentId, companyId }: { agentId: string; companyId?: string }
                 <div>
                   <span className="text-sm line-through">{key.name}</span>
                   <span className="text-xs text-muted-foreground ml-3">
-                    Revoked {key.revokedAt ? formatDate(key.revokedAt) : ""}
+                    {t("detail_view.revoked_prefix")} {key.revokedAt ? formatDate(key.revokedAt) : ""}
                   </span>
                 </div>
               </div>

@@ -1,11 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import {
-  WORKSPACE_BRANCH_ROUTINE_VARIABLE,
-  type Agent,
-  type IssueExecutionWorkspaceSettings,
-  type Project,
-  type RoutineVariable,
-} from "@paperclipai/shared";
+import { useTranslation } from "react-i18next";
+import type { Agent, IssueExecutionWorkspaceSettings, Project, RoutineVariable } from "@paperclipai/shared";
 import { useQuery } from "@tanstack/react-query";
 import { instanceSettingsApi } from "../api/instanceSettings";
 import { queryKeys } from "../lib/queryKeys";
@@ -13,7 +8,6 @@ import { IssueWorkspaceCard } from "./IssueWorkspaceCard";
 import { AgentIcon } from "./AgentIconPicker";
 import { InlineEntitySelector, type InlineEntityOption } from "./InlineEntitySelector";
 import { getRecentAssigneeIds, sortAgentsByRecency, trackRecentAssignee } from "../lib/recent-assignees";
-import { getRecentProjectIds, trackRecentProject } from "../lib/recent-projects";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -159,6 +153,7 @@ export function RoutineRunVariablesDialog({
   isPending: boolean;
   onSubmit: (data: RoutineRunDialogSubmitData) => void;
 }) {
+  const { t } = useTranslation("common");
   const [values, setValues] = useState<Record<string, unknown>>({});
   const [selection, setSelection] = useState(() => buildInitialRunSelection({
     defaultAssigneeAgentId,
@@ -169,7 +164,6 @@ export function RoutineRunVariablesDialog({
     [projects, selection.projectId],
   );
   const recentAssigneeIds = useMemo(() => getRecentAssigneeIds(), [open]);
-  const recentProjectIds = useMemo(() => getRecentProjectIds(), [open]);
   const assigneeOptions = useMemo<InlineEntityOption[]>(
     () =>
       sortAgentsByRecency(
@@ -195,7 +189,6 @@ export function RoutineRunVariablesDialog({
     : null;
   const [workspaceConfig, setWorkspaceConfig] = useState(() => buildInitialWorkspaceConfig(selectedProject));
   const [workspaceConfigValid, setWorkspaceConfigValid] = useState(true);
-  const [workspaceBranchName, setWorkspaceBranchName] = useState<string | null>(null);
 
   const { data: experimentalSettings } = useQuery({
     queryKey: queryKeys.instance.experimentalSettings,
@@ -215,27 +208,15 @@ export function RoutineRunVariablesDialog({
     setSelection(nextSelection);
     setWorkspaceConfig(buildInitialWorkspaceConfig(projects.find((project) => project.id === nextSelection.projectId) ?? null));
     setWorkspaceConfigValid(true);
-    setWorkspaceBranchName(null);
   }, [defaultAssigneeAgentId, defaultProjectId, open, projects, variables]);
-
-  const workspaceBranchAutoValue = workspaceSelectionEnabled && workspaceBranchName
-    ? workspaceBranchName
-    : null;
-
-  const isAutoWorkspaceBranchVariable = useCallback(
-    (variable: RoutineVariable) =>
-      variable.name === WORKSPACE_BRANCH_ROUTINE_VARIABLE && Boolean(workspaceBranchAutoValue),
-    [workspaceBranchAutoValue],
-  );
 
   const missingRequired = useMemo(
     () =>
       variables
         .filter((variable) => variable.required)
-        .filter((variable) => !isAutoWorkspaceBranchVariable(variable))
         .filter((variable) => isMissingRequiredValue(values[variable.name]))
         .map((variable) => variable.label || variable.name),
-    [isAutoWorkspaceBranchVariable, values, variables],
+    [values, variables],
   );
 
   const workspaceIssue = useMemo(() => ({
@@ -266,14 +247,10 @@ export function RoutineRunVariablesDialog({
 
   const handleWorkspaceDraftChange = useCallback((
     data: Record<string, unknown>,
-    meta: { canSave: boolean; workspaceBranchName?: string | null },
+    meta: { canSave: boolean },
   ) => {
     setWorkspaceConfig((current) => applyWorkspaceDraft(current, data));
     setWorkspaceConfigValid((current) => (current === meta.canSave ? current : meta.canSave));
-    setWorkspaceBranchName((current) => {
-      const next = meta.workspaceBranchName ?? null;
-      return current === next ? current : next;
-    });
   }, []);
 
   return (
@@ -296,11 +273,10 @@ export function RoutineRunVariablesDialog({
               <InlineEntitySelector
                 value={selection.assigneeAgentId}
                 options={assigneeOptions}
-                recentOptionIds={recentAssigneeIds}
-                placeholder="Agent"
-                noneLabel="Select an agent"
-                searchPlaceholder="Search agents..."
-                emptyMessage="No agents found."
+                placeholder={t("placeholders.select_agent")}
+                noneLabel={t("placeholders.select_agent")}
+                searchPlaceholder={t("placeholders.search_agents")}
+                emptyMessage={t("placeholders.no_agents_found")}
                 disablePortal
                 openOnFocus={false}
                 onChange={(assigneeAgentId) => {
@@ -338,20 +314,17 @@ export function RoutineRunVariablesDialog({
               <InlineEntitySelector
                 value={selection.projectId}
                 options={projectOptions}
-                recentOptionIds={recentProjectIds}
-                placeholder="Project"
-                noneLabel="No project"
-                searchPlaceholder="Search projects..."
-                emptyMessage="No projects found."
+                placeholder={t("placeholders.select_project")}
+                noneLabel={t("placeholders.no_project")}
+                searchPlaceholder={t("placeholders.search_projects")}
+                emptyMessage={t("placeholders.no_projects_found")}
                 disablePortal
                 openOnFocus={false}
                 onChange={(projectId) => {
                   const project = projects.find((entry) => entry.id === projectId) ?? null;
-                  if (projectId) trackRecentProject(projectId);
                   setSelection((current) => ({ ...current, projectId }));
                   setWorkspaceConfig(buildInitialWorkspaceConfig(project));
                   setWorkspaceConfigValid(true);
-                  setWorkspaceBranchName(null);
                 }}
                 renderTriggerValue={(option) =>
                   option && selectedProject ? (
@@ -389,13 +362,7 @@ export function RoutineRunVariablesDialog({
                 {variable.label || variable.name}
                 {variable.required ? " *" : ""}
               </Label>
-              {isAutoWorkspaceBranchVariable(variable) ? (
-                <Input
-                  readOnly
-                  disabled
-                  value={workspaceBranchAutoValue ?? ""}
-                />
-              ) : variable.type === "textarea" ? (
+              {variable.type === "textarea" ? (
                 <Textarea
                   rows={4}
                   value={typeof values[variable.name] === "string" ? values[variable.name] as string : ""}
@@ -427,7 +394,7 @@ export function RoutineRunVariablesDialog({
                   }))}
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder="Choose a value" />
+                    <SelectValue placeholder={t("placeholders.choose_value")} />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="__unset__">No value</SelectItem>
@@ -480,10 +447,6 @@ export function RoutineRunVariablesDialog({
             onClick={() => {
               const nextVariables: Record<string, string | number | boolean> = {};
               for (const variable of variables) {
-                if (isAutoWorkspaceBranchVariable(variable)) {
-                  nextVariables[variable.name] = workspaceBranchAutoValue!;
-                  continue;
-                }
                 const rawValue = values[variable.name];
                 if (isMissingRequiredValue(rawValue)) continue;
                 if (variable.type === "number") {
@@ -509,7 +472,7 @@ export function RoutineRunVariablesDialog({
             }}
             disabled={isPending || !canSubmit}
           >
-            {isPending ? "Running..." : "Run routine"}
+            {isPending ? t("actions.running") : t("actions.run")}
           </Button>
         </DialogFooter>
       </DialogContent>

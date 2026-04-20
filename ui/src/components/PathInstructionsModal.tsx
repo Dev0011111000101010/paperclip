@@ -1,4 +1,5 @@
 import { useState } from "react";
+import i18n from "../locales/i18n";
 import { Apple, Monitor, Terminal } from "lucide-react";
 import {
   Dialog,
@@ -13,8 +14,8 @@ type Platform = "mac" | "windows" | "linux";
 
 const platforms: { id: Platform; label: string; icon: typeof Apple }[] = [
   { id: "mac", label: "macOS", icon: Apple },
-  { id: "windows", label: "Windows", icon: Monitor },
-  { id: "linux", label: "Linux", icon: Terminal },
+  { id: "windows", label: i18n.t("path_instructions.windows"), icon: Monitor },
+  { id: "linux", label: i18n.t("path_instructions.linux"), icon: Terminal },
 ];
 
 const instructions: Record<Platform, { steps: string[]; tip?: string }> = {
