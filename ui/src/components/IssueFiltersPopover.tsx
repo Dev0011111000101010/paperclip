@@ -10,7 +10,7 @@ import { PriorityIcon } from "./PriorityIcon";
 import { StatusIcon } from "./StatusIcon";
 import {
   defaultIssueFilterState,
-  getIssueQuickFilterPresets,
+  issueQuickFilterPresets,
   issueFilterArraysEqual,
   issueFilterLabel,
   issuePriorityOrder,
@@ -147,7 +147,7 @@ export function IssueFiltersPopover({
           <div className="space-y-1.5">
             <span className="text-xs text-muted-foreground">{t("filters.quick_filters")}</span>
             <div className="flex flex-wrap gap-1.5">
-              {getIssueQuickFilterPresets(t).map((preset) => {
+              {issueQuickFilterPresets.map((preset) => {
                 const isActive = issueFilterArraysEqual(state.statuses, preset.statuses);
                 return (
                   <button
