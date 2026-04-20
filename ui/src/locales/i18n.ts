@@ -309,6 +309,17 @@ export function setLanguage(lang: SupportedLanguage): void {
   }
 }
 
+export const LANGUAGE_NATIVE_NAMES: Record<SupportedLanguage, string> = {
+  en: "English",
+  ru: "Русский",
+  uk: "Українська",
+  es: "Español",
+  de: "Deutsch",
+  pt: "Português (BR)",
+  zh: "中文",
+  el: "Ελληνικά",
+};
+
 export { LANGUAGE_KEY, SUPPORTED_LANGUAGES };
 export type { SupportedLanguage };
 export default i18n;

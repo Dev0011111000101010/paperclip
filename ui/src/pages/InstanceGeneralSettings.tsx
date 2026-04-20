@@ -25,7 +25,7 @@ import { useBreadcrumbs } from "../context/BreadcrumbContext";
 import { queryKeys } from "../lib/queryKeys";
 import { ToggleSwitch } from "@/components/ui/toggle-switch";
 import { cn } from "../lib/utils";
-import { setLanguage } from "../locales/i18n";
+import { setLanguage, SUPPORTED_LANGUAGES, LANGUAGE_NATIVE_NAMES } from "../locales/i18n";
 
 const FEEDBACK_TERMS_URL = import.meta.env.VITE_FEEDBACK_TERMS_URL?.trim() || "https://paperclip.ing/tos";
 
@@ -368,19 +368,9 @@ export function InstanceGeneralSettings() {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="en">English</SelectItem>
-                <SelectItem value="ru">Русский</SelectItem>
-                <SelectItem value="es">Español</SelectItem>
-                <SelectItem value="fr">Français</SelectItem>
-                <SelectItem value="de">Deutsch</SelectItem>
-                <SelectItem value="it">Italiano</SelectItem>
-                <SelectItem value="pt">Português</SelectItem>
-                <SelectItem value="zh">中文</SelectItem>
-                <SelectItem value="ja">日本語</SelectItem>
-                <SelectItem value="ko">한국어</SelectItem>
-                <SelectItem value="el">Ελληνικά</SelectItem>
-                <SelectItem value="tr">Türkçe</SelectItem>
-                <SelectItem value="ar">العربية</SelectItem>
+                {SUPPORTED_LANGUAGES.map((lang) => (
+                  <SelectItem key={lang} value={lang}>{LANGUAGE_NATIVE_NAMES[lang]}</SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>

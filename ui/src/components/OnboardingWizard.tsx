@@ -11,7 +11,10 @@ import { approvalsApi } from "../api/approvals";
 import { issuesApi } from "../api/issues";
 import { projectsApi } from "../api/projects";
 import { queryKeys } from "../lib/queryKeys";
+import { useTranslation } from "react-i18next";
+import { SUPPORTED_LANGUAGES, LANGUAGE_NATIVE_NAMES, setLanguage } from "../locales/i18n";
 import { Dialog, DialogPortal } from "@/components/ui/dialog";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
   Popover,
   PopoverContent,
@@ -67,8 +70,10 @@ const DEFAULT_TASK_DESCRIPTION = `You are the CEO. You set the direction for the
 - write a hiring plan
 - break the roadmap into concrete tasks and start delegating work`;
 
+
 export function OnboardingWizard() {
   const { onboardingOpen, onboardingOptions, closeOnboarding } = useDialog();
+  const { i18n } = useTranslation();
   const { companies, setSelectedCompanyId, loading: companiesLoading } = useCompany();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -638,6 +643,22 @@ export function OnboardingWizard() {
             <X className="h-5 w-5" />
             <span className="sr-only">Close</span>
           </button>
+
+          {/* Language picker */}
+          <div className="absolute top-3 right-4 z-[60]">
+            <Select value={i18n.language} onValueChange={(v) => setLanguage(v as typeof SUPPORTED_LANGUAGES[number])}>
+              <SelectTrigger className="h-8 text-xs w-[130px]">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {SUPPORTED_LANGUAGES.map((lang) => (
+                  <SelectItem key={lang} value={lang} className="text-xs">
+                    {LANGUAGE_NATIVE_NAMES[lang]}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
 
           {/* Left half — form */}
           <div

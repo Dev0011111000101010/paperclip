@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { Link } from "@/lib/router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { setLanguage } from "../locales/i18n";
+import { setLanguage, SUPPORTED_LANGUAGES, LANGUAGE_NATIVE_NAMES } from "../locales/i18n";
 import { DEFAULT_FEEDBACK_DATA_SHARING_TERMS_VERSION } from "@paperclipai/shared";
 import { useCompany } from "../context/CompanyContext";
 import { useBreadcrumbs } from "../context/BreadcrumbContext";
@@ -597,19 +597,9 @@ export function CompanySettings() {
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="en">English</SelectItem>
-              <SelectItem value="ru">Русский</SelectItem>
-              <SelectItem value="es">Español</SelectItem>
-              <SelectItem value="fr">Français</SelectItem>
-              <SelectItem value="de">Deutsch</SelectItem>
-              <SelectItem value="it">Italiano</SelectItem>
-              <SelectItem value="pt">Português</SelectItem>
-              <SelectItem value="zh">中文</SelectItem>
-              <SelectItem value="ja">日本語</SelectItem>
-              <SelectItem value="ko">한국어</SelectItem>
-              <SelectItem value="el">Ελληνικά</SelectItem>
-              <SelectItem value="tr">Türkçe</SelectItem>
-              <SelectItem value="ar">العربية</SelectItem>
+              {SUPPORTED_LANGUAGES.map((lang) => (
+                <SelectItem key={lang} value={lang}>{LANGUAGE_NATIVE_NAMES[lang]}</SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
