@@ -201,7 +201,11 @@
     "company_settings": "Unternehmenseinstellungen",
     "sign_out": "Abmelden",
     "signing_out": "Wird abgemeldet...",
-    "select_company": "Unternehmen auswählen"
+    "select_company": "Unternehmen auswählen",
+    "switch_workspace": "Workspace wechseln",
+    "no_workspaces": "Keine Workspaces",
+    "open_switcher": "{{company}}-Workspace-Umschalter öffnen",
+    "open_switcher_generic": "Workspace-Umschalter öffnen"
   },
   "not_found": {
     "breadcrumb": "Nicht gefunden",
@@ -669,5 +673,28 @@
     "hours_other": "{{count}} Stunden",
     "hours_minutes_one": "{{hours}} Stunde {{minutes}} Min.",
     "hours_minutes_other": "{{hours}} Stunden {{minutes}} Min."
+  },
+  "layout": {
+    "skip_to_main_content": "Zum Hauptinhalt springen",
+    "close_sidebar": "Seitenleiste schließen"
+  },
+  "auth": {
+    "loading": "Laden…",
+    "sign_in_title": "Bei Paperclip anmelden",
+    "sign_up_title": "Paperclip-Konto erstellen",
+    "sign_in_desc": "Verwenden Sie Ihre E-Mail und Ihr Passwort, um auf diese Instanz zuzugreifen.",
+    "sign_up_desc": "Erstellen Sie ein Konto für diese Instanz. E-Mail-Bestätigung ist in v1 nicht erforderlich.",
+    "fill_required": "Bitte füllen Sie alle Pflichtfelder aus.",
+    "label_name": "Name",
+    "label_email": "E-Mail",
+    "label_password": "Passwort",
+    "working": "Wird verarbeitet…",
+    "sign_in_btn": "Anmelden",
+    "create_account_btn": "Konto erstellen",
+    "need_account": "Noch kein Konto?",
+    "already_have_account": "Bereits ein Konto?",
+    "create_one": "Erstellen",
+    "sign_in_link": "Anmelden",
+    "failed": "Authentifizierung fehlgeschlagen"
   }
 }

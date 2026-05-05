@@ -201,7 +201,11 @@
     "company_settings": "Configurações da empresa",
     "sign_out": "Sair",
     "signing_out": "Saindo...",
-    "select_company": "Selecionar empresa"
+    "select_company": "Selecionar empresa",
+    "switch_workspace": "Mudar espaço de trabalho",
+    "no_workspaces": "Sem espaços de trabalho",
+    "open_switcher": "Abrir seletor de espaço de trabalho de {{company}}",
+    "open_switcher_generic": "Abrir seletor de espaço de trabalho"
   },
   "not_found": {
     "breadcrumb": "Não Encontrado",
@@ -669,5 +673,28 @@
     "hours_other": "{{count}} horas",
     "hours_minutes_one": "{{hours}} hora {{minutes}} min",
     "hours_minutes_other": "{{hours}} horas {{minutes}} min"
+  },
+  "layout": {
+    "skip_to_main_content": "Ir para o conteúdo principal",
+    "close_sidebar": "Fechar barra lateral"
+  },
+  "auth": {
+    "loading": "Carregando…",
+    "sign_in_title": "Entrar no Paperclip",
+    "sign_up_title": "Criar sua conta no Paperclip",
+    "sign_in_desc": "Use seu e-mail e senha para acessar esta instância.",
+    "sign_up_desc": "Crie uma conta para esta instância. Confirmação de e-mail não é necessária na v1.",
+    "fill_required": "Por favor, preencha todos os campos obrigatórios.",
+    "label_name": "Nome",
+    "label_email": "E-mail",
+    "label_password": "Senha",
+    "working": "Processando…",
+    "sign_in_btn": "Entrar",
+    "create_account_btn": "Criar conta",
+    "need_account": "Precisa de uma conta?",
+    "already_have_account": "Já tem uma conta?",
+    "create_one": "Crie uma",
+    "sign_in_link": "Entrar",
+    "failed": "Falha na autenticação"
   }
 }

@@ -75,7 +75,9 @@
     "dismiss_from_inbox": "Dismiss from inbox",
     "assignment": "Assignment",
     "timer": "Timer",
-    "on_demand": "On-demand"
+    "on_demand": "On-demand",
+    "reset": "Reset",
+    "run_now": "Run now"
   },
   "status": {
     "all": "All",
@@ -198,7 +200,11 @@
     "company_settings": "Company settings",
     "sign_out": "Sign out",
     "signing_out": "Signing out...",
-    "select_company": "Select company"
+    "select_company": "Select company",
+    "switch_workspace": "Switch workspace",
+    "no_workspaces": "No workspaces",
+    "open_switcher": "Open {{company}} workspace switcher",
+    "open_switcher_generic": "Open workspace switcher"
   },
   "not_found": {
     "breadcrumb": "Not Found",
@@ -230,7 +236,10 @@
     "toast_archived": "\"{{name}}\" has been archived",
     "toast_unarchived": "\"{{name}}\" has been unarchived",
     "toast_archive_failed": "Failed to archive project",
-    "toast_unarchive_failed": "Failed to unarchive project"
+    "toast_unarchive_failed": "Failed to unarchive project",
+    "add_project": "Add Project",
+    "no_projects": "No projects yet.",
+    "select_company_for_projects": "Select a company to view projects."
   },
   "board_claim": {
     "invalid_url": "Invalid board claim URL.",
@@ -308,7 +317,37 @@
     "failed_load": "Failed to load workspace",
     "tab_configuration": "Configuration",
     "tab_runtime_logs": "Runtime logs",
-    "tab_issues": "Issues"
+    "tab_issues": "Issues",
+    "tab_routines": "Routines",
+    "configure_workspace_desc": "Configure the concrete runtime workspace that Paperclip reuses for this issue flow.",
+    "configure_workspace_detail": "These settings stay attached to the execution workspace so future runs can keep local paths, repo refs, provisioning, teardown, and runtime-service behavior in sync with the actual workspace being reused.",
+    "workspace_settings_title": "Workspace settings",
+    "workspace_settings_desc": "Edit the concrete path, repo, branch, provisioning, teardown, and runtime overrides attached to this execution workspace.",
+    "runtime_config_source_title": "Runtime config source",
+    "runtime_config_source_execution": "This execution workspace currently overrides the project workspace runtime config.",
+    "runtime_config_source_project": "This execution workspace is inheriting the project workspace runtime config.",
+    "runtime_config_source_none": "No runtime config is currently defined on this execution workspace or its project workspace.",
+    "runtime_source_execution_override": "execution workspace override",
+    "runtime_source_project_default": "project workspace default",
+    "runtime_source_none": "none",
+    "services_and_jobs_title": "Services and jobs",
+    "services_source_label": "Source: {{source}}",
+    "workspace_context_title": "Workspace context",
+    "workspace_context_desc": "Linked objects and relationships",
+    "concrete_location_title": "Concrete location",
+    "concrete_location_desc": "Paths and refs",
+    "workspace_routines_title": "Workspace routines",
+    "workspace_routines_desc": "Routines that use workspace-specific variables can be run against this execution workspace.",
+    "runtime_cleanup_logs_title": "Runtime and cleanup logs",
+    "runtime_cleanup_logs_desc": "Recent operations",
+    "workspace_count": "{{count}} workspace",
+    "workspace_count_plural": "{{count}} workspaces",
+    "no_activity_yet": "No workspace activity yet.",
+    "provision_command_hint": "Runs when Paperclip prepares this execution workspace",
+    "teardown_command_hint": "Runs when the execution workspace is archived or cleaned up",
+    "cleanup_command_hint": "Workspace-specific cleanup before teardown",
+    "advanced_runtime_override_desc": "Override the inherited workspace command model only when this execution workspace truly needs different service or job behavior.",
+    "workspace_commands_hint": "Legacy `services` arrays still work, but `commands` supports both services and jobs."
   },
   "plugins": {
     "breadcrumb_plugins": "Plugins",
@@ -507,7 +546,24 @@
     "cleanup_command": "Cleanup command",
     "workspace_commands_json": "Workspace commands JSON",
     "inherit_project_workspace_runtime": "Inherit project workspace runtime config",
-    "reset_to_inherit": "Reset to inherit"
+    "reset_to_inherit": "Reset to inherit",
+    "project_workspace": "Project workspace",
+    "source_issue": "Source issue",
+    "derived_from": "Derived from",
+    "workspace_id": "Workspace ID",
+    "working_dir": "Working dir",
+    "provider_ref": "Provider ref",
+    "branch": "Branch",
+    "opened": "Opened",
+    "last_used": "Last used",
+    "cleanup": "Cleanup",
+    "not_scheduled": "Not scheduled",
+    "none": "None",
+    "general": "General",
+    "source_control": "Source control",
+    "paths": "Paths",
+    "lifecycle_commands": "Lifecycle commands",
+    "runtime_config": "Runtime config"
   },
   "workspace_types": {
     "local_git_checkout": "Local git checkout",
@@ -579,7 +635,10 @@
     "each_command_independent": "Each command can be controlled independently.",
     "long_running_desc": "Long-running commands that Paperclip can supervise for this workspace.",
     "one_shot_desc": "One-shot commands that run now and exit when they finish.",
-    "mismatched_services_desc": "Running services that no longer match current workspace command config."
+    "mismatched_services_desc": "Running services that no longer match current workspace command config.",
+    "default_agent_set": "Default agent set",
+    "choose_agent_when_running": "Choose agent when running",
+    "last_run": "Last run {{time}}"
   },
   "placeholders": {
     "search_labels": "Search labels...",
@@ -624,7 +683,13 @@
     "close_workspace": "Close workspace",
     "retry_was_skipped": "Retry was skipped.",
     "detach_skill_first": "Detach this skill from all agents before removing it.",
-    "select_skill_inspect": "Select a skill to inspect its files."
+    "select_skill_inspect": "Select a skill to inspect its files.",
+    "loading_routines": "Loading routines...",
+    "no_routines_with_workspace_vars": "No routines use workspace-specific variables yet.",
+    "routine_started": "Routine started",
+    "routine_started_body": "Paperclip created a run using this execution workspace.",
+    "routine_run_failed": "Routine run failed",
+    "routine_run_failed_body": "Paperclip could not start the routine run."
   },
   "path_instructions": {
     "windows": "Windows",
@@ -656,5 +721,28 @@
     "tooltip_runs": "{{day}}: {{total}} runs",
     "tooltip_issues": "{{day}}: {{total}} issues",
     "tooltip_success_rate": "{{day}}: {{rate}}% ({{succeeded}}/{{total}})"
+  },
+  "layout": {
+    "skip_to_main_content": "Skip to Main Content",
+    "close_sidebar": "Close sidebar"
+  },
+  "auth": {
+    "loading": "Loading…",
+    "sign_in_title": "Sign in to Paperclip",
+    "sign_up_title": "Create your Paperclip account",
+    "sign_in_desc": "Use your email and password to access this instance.",
+    "sign_up_desc": "Create an account for this instance. Email confirmation is not required in v1.",
+    "fill_required": "Please fill in all required fields.",
+    "label_name": "Name",
+    "label_email": "Email",
+    "label_password": "Password",
+    "working": "Working…",
+    "sign_in_btn": "Sign In",
+    "create_account_btn": "Create Account",
+    "need_account": "Need an account?",
+    "already_have_account": "Already have an account?",
+    "create_one": "Create one",
+    "sign_in_link": "Sign in",
+    "failed": "Authentication failed"
   }
 }

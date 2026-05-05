@@ -201,7 +201,11 @@
     "company_settings": "公司设置",
     "sign_out": "退出登录",
     "signing_out": "退出中...",
-    "select_company": "选择公司"
+    "select_company": "选择公司",
+    "switch_workspace": "切换工作区",
+    "no_workspaces": "没有工作区",
+    "open_switcher": "打开 {{company}} 工作区切换器",
+    "open_switcher_generic": "打开工作区切换器"
   },
   "not_found": {
     "breadcrumb": "未找到",
@@ -669,5 +673,28 @@
     "hours_other": "{{count}} 小时",
     "hours_minutes_one": "{{hours}} 小时 {{minutes}} 分",
     "hours_minutes_other": "{{hours}} 小时 {{minutes}} 分"
+  },
+  "auth": {
+    "loading": "加载中…",
+    "sign_in_title": "登录 Paperclip",
+    "sign_up_title": "创建 Paperclip 账户",
+    "sign_in_desc": "使用您的电子邮件和密码访问此实例。",
+    "sign_up_desc": "为此实例创建账户。v1 版本不需要邮件确认。",
+    "fill_required": "请填写所有必填字段。",
+    "label_name": "姓名",
+    "label_email": "电子邮件",
+    "label_password": "密码",
+    "working": "处理中…",
+    "sign_in_btn": "登录",
+    "create_account_btn": "创建账户",
+    "need_account": "需要账户？",
+    "already_have_account": "已有账户？",
+    "create_one": "创建",
+    "sign_in_link": "登录",
+    "failed": "认证失败"
+  },
+  "layout": {
+    "skip_to_main_content": "跳至主要内容",
+    "close_sidebar": "关闭侧边栏"
   }
 }

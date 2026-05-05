@@ -201,7 +201,11 @@
     "company_settings": "Налаштування компанії",
     "sign_out": "Вийти",
     "signing_out": "Вихід...",
-    "select_company": "Обрати компанію"
+    "select_company": "Обрати компанію",
+    "switch_workspace": "Перемкнути робочий простір",
+    "no_workspaces": "Немає робочих просторів",
+    "open_switcher": "Відкрити перемикач робочого простору {{company}}",
+    "open_switcher_generic": "Відкрити перемикач робочого простору"
   },
   "not_found": {
     "breadcrumb": "Не знайдено",
@@ -677,5 +681,28 @@
     "hours_minutes_few": "{{hours}} год {{minutes}} хв",
     "hours_minutes_many": "{{hours}} год {{minutes}} хв",
     "hours_minutes_other": "{{hours}} год {{minutes}} хв"
+  },
+  "layout": {
+    "skip_to_main_content": "Перейти до основного вмісту",
+    "close_sidebar": "Закрити бічну панель"
+  },
+  "auth": {
+    "loading": "Завантаження…",
+    "sign_in_title": "Увійти до Paperclip",
+    "sign_up_title": "Створити акаунт Paperclip",
+    "sign_in_desc": "Використовуйте пошту та пароль для доступу до цього екземпляра.",
+    "sign_up_desc": "Створіть акаунт для цього екземпляра. Підтвердження пошти не потрібне у v1.",
+    "fill_required": "Будь ласка, заповніть усі обов'язкові поля.",
+    "label_name": "Ім'я",
+    "label_email": "Пошта",
+    "label_password": "Пароль",
+    "working": "Обробка…",
+    "sign_in_btn": "Увійти",
+    "create_account_btn": "Створити акаунт",
+    "need_account": "Немає акаунту?",
+    "already_have_account": "Вже є акаунт?",
+    "create_one": "Створіть",
+    "sign_in_link": "Увійти",
+    "failed": "Помилка автентифікації"
   }
 }
