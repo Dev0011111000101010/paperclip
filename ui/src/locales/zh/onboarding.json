@@ -50,7 +50,8 @@
     "task_title": "任务标题",
     "task_title_placeholder": "例如：研究竞争对手定价",
     "description": "描述（可选）",
-    "description_placeholder": "添加更多关于智能体应该做什么的细节..."
+    "description_placeholder": "添加更多关于智能体应该做什么的细节...",
+    "task_title_default": "招募您的第一位工程师并制定招聘计划"
   },
   "step4": {
     "title": "准备启动",

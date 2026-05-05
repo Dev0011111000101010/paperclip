@@ -131,7 +131,7 @@ export function OnboardingWizard() {
 
   // Step 3
   const [taskTitle, setTaskTitle] = useState(
-    "Hire your first engineer and create a hiring plan"
+    () => t("step3.task_title_default")
   );
   const [taskDescription, setTaskDescription] = useState(
     DEFAULT_TASK_DESCRIPTION
@@ -306,7 +306,7 @@ export function OnboardingWizard() {
     setAdapterEnvLoading(false);
     setForceUnsetAnthropicApiKey(false);
     setUnsetAnthropicLoading(false);
-    setTaskTitle("Hire your first engineer and create a hiring plan");
+    setTaskTitle(t("step3.task_title_default"));
     setTaskDescription(DEFAULT_TASK_DESCRIPTION);
     setCreatedCompanyId(null);
     setCreatedCompanyPrefix(null);
