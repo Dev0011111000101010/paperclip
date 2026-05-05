@@ -333,7 +333,18 @@
     "tools_count": "{{count}} 个工具",
     "stdout_label": "标准输出",
     "collapse_stdout": "收起标准输出",
-    "expand_stdout": "展开标准输出"
+    "expand_stdout": "展开标准输出",
+    "inspect_input": "Inspect {{name}} input",
+    "no_input": "No {{name}} input",
+    "key_payload": "{{key}} payload",
+    "paths_summary": "{{count}} path, starting with {{path}}",
+    "paths_summary_plural": "{{count}} paths, starting with {{path}}",
+    "fields_summary": "{{count}} field: {{keys}}",
+    "fields_summary_plural": "{{count}} fields: {{keys}}",
+    "log_lines": "{{count}} log line",
+    "log_lines_plural": "{{count}} log lines",
+    "system_messages": "{{count}} system message",
+    "system_messages_plural": "{{count}} system messages"
   },
   "detail_view": {
     "invocation": "调用",

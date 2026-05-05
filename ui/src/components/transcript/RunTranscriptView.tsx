@@ -216,7 +216,7 @@ function summarizeToolInput(name: string, input: unknown, density: TranscriptDen
   const record = asRecord(input);
   if (!record) {
     const serialized = compactWhitespace(formatUnknown(input));
-    return serialized ? truncate(serialized, compactMax) : `Inspect ${name} input`;
+    return serialized ? truncate(serialized, compactMax) : i18n.t("transcript_view.inspect_input", { name, ns: "agents" });
   }
 
   const command = typeof record.command === "string"
@@ -237,14 +237,14 @@ function summarizeToolInput(name: string, input: unknown, density: TranscriptDen
   if (Array.isArray(record.paths) && record.paths.length > 0) {
     const first = record.paths.find((value): value is string => typeof value === "string" && value.trim().length > 0);
     if (first) {
-      return truncate(`${record.paths.length} paths, starting with ${first}`, compactMax);
+      return truncate(i18n.t("transcript_view.paths_summary", { count: record.paths.length, path: first, ns: "agents" }), compactMax);
     }
   }
 
   const keys = Object.keys(record);
-  if (keys.length === 0) return `No ${name} input`;
-  if (keys.length === 1) return truncate(`${keys[0]} payload`, compactMax);
-  return truncate(`${keys.length} fields: ${keys.slice(0, 3).join(", ")}`, compactMax);
+  if (keys.length === 0) return i18n.t("transcript_view.no_input", { name, ns: "agents" });
+  if (keys.length === 1) return truncate(i18n.t("transcript_view.key_payload", { key: keys[0], ns: "agents" }), compactMax);
+  return truncate(i18n.t("transcript_view.fields_summary", { count: keys.length, keys: keys.slice(0, 3).join(", "), ns: "agents" }), compactMax);
 }
 
 function parseStructuredToolResult(result: string | undefined) {
@@ -1265,7 +1265,7 @@ function TranscriptStderrGroup({
         onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setOpen((v) => !v); } }}
       >
         <span className={cn("text-[10px] font-semibold uppercase tracking-[0.14em]")}>
-          {block.lines.length} log {block.lines.length === 1 ? "line" : "lines"}
+          {i18n.t("transcript_view.log_lines", { count: block.lines.length, ns: "agents" })}
         </span>
         {open ? <ChevronDown className="h-3.5 w-3.5" /> : <ChevronRight className="h-3.5 w-3.5" />}
       </div>
@@ -1302,7 +1302,7 @@ function TranscriptSystemGroup({
       >
         <TerminalSquare className="h-3.5 w-3.5 shrink-0" />
         <span className="text-[10px] font-semibold uppercase tracking-[0.14em]">
-          {block.lines.length} system {block.lines.length === 1 ? "message" : "messages"}
+          {i18n.t("transcript_view.system_messages", { count: block.lines.length, ns: "agents" })}
         </span>
         {open ? <ChevronDown className="h-3.5 w-3.5" /> : <ChevronRight className="h-3.5 w-3.5" />}
       </div>
