@@ -73,6 +73,15 @@
     "review_linked_issues": "Verknüpfte Aufgaben überprüfen",
     "review_linked_issue": "Verknüpfte Aufgabe überprüfen",
     "open_hired_agent": "Eingestellten Agenten öffnen",
-    "back_to_approvals": "Zurück zu Genehmigungen"
+    "back_to_approvals": "Zurück zu Genehmigungen",
+    "board_author": "Board"
+  },
+  "errors": {
+    "approve_failed": "Genehmigung fehlgeschlagen",
+    "reject_failed": "Ablehnung fehlgeschlagen",
+    "revision_failed": "Überarbeitung konnte nicht angefordert werden",
+    "resubmit_failed": "Erneutes Einreichen fehlgeschlagen",
+    "comment_failed": "Kommentar konnte nicht gepostet werden",
+    "delete_failed": "Agent konnte nicht gelöscht werden"
   }
 }

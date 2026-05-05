@@ -73,6 +73,15 @@
     "review_linked_issues": "Revisar tareas vinculadas",
     "review_linked_issue": "Revisar tarea vinculada",
     "open_hired_agent": "Abrir agente contratado",
-    "back_to_approvals": "Volver a aprobaciones"
+    "back_to_approvals": "Volver a aprobaciones",
+    "board_author": "Board"
+  },
+  "errors": {
+    "approve_failed": "Error al aprobar",
+    "reject_failed": "Error al rechazar",
+    "revision_failed": "Error al solicitar revisión",
+    "resubmit_failed": "Error al reenviar",
+    "comment_failed": "Error al publicar el comentario",
+    "delete_failed": "Error al eliminar el agente"
   }
 }

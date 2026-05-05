@@ -62,7 +62,13 @@
     "remove_dialog_title": "Видалити адаптер",
     "remove_dialog_desc": "Видалити адаптер типу {{type}}? Його буде знято з реєстру та видалено зі сховища.",
     "remove_dialog_npm_cleanup": "npm-пакети буде видалено з диска.",
-    "remove_dialog_undone": "Цю дію не можна скасувати."
+    "remove_dialog_undone": "Цю дію не можна скасувати.",
+    "installed_body": "«{{type}}» зареєстровано.{{versionSuffix}}",
+    "reloaded_body": "«{{type}}» перезавантажено.{{versionSuffix}}",
+    "reinstalled_body": "«{{type}}» оновлено з npm.{{versionSuffix}}",
+    "company_fallback": "Компанія",
+    "tooltip_local_path": "Встановлено з локального шляху",
+    "tooltip_npm": "Встановлено з npm"
   },
   "claude_local": {
     "instructions_file": "Файл інструкцій агента",

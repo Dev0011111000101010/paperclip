@@ -62,7 +62,13 @@
     "remove_dialog_title": "Remover adaptador",
     "remove_dialog_desc": "Remover adaptador do tipo {{type}}? Ele será desregistrado e removido do armazenamento.",
     "remove_dialog_npm_cleanup": "Os pacotes npm serão removidos do disco.",
-    "remove_dialog_undone": "Esta ação não pode ser desfeita."
+    "remove_dialog_undone": "Esta ação não pode ser desfeita.",
+    "installed_body": "\"{{type}}\" registrado.{{versionSuffix}}",
+    "reloaded_body": "\"{{type}}\" recarregado.{{versionSuffix}}",
+    "reinstalled_body": "\"{{type}}\" atualizado do npm.{{versionSuffix}}",
+    "company_fallback": "Empresa",
+    "tooltip_local_path": "Instalado do caminho local",
+    "tooltip_npm": "Instalado do npm"
   },
   "claude_local": {
     "instructions_file": "Arquivo de instruções do agente",

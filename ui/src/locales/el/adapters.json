@@ -62,7 +62,13 @@
     "remove_dialog_title": "Αφαίρεση προσαρμογέα",
     "remove_dialog_desc": "Αφαίρεση προσαρμογέα τύπου {{type}}; Θα αποεγγραφεί και θα αφαιρεθεί από το αποθηκευτικό χώρο.",
     "remove_dialog_npm_cleanup": "Τα πακέτα npm θα αφαιρεθούν από τον δίσκο.",
-    "remove_dialog_undone": "Αυτή η ενέργεια δεν μπορεί να αναιρεθεί."
+    "remove_dialog_undone": "Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.",
+    "installed_body": "«{{type}}» καταχωρήθηκε.{{versionSuffix}}",
+    "reloaded_body": "«{{type}}» επαναφορτώθηκε.{{versionSuffix}}",
+    "reinstalled_body": "«{{type}}» ενημερώθηκε από npm.{{versionSuffix}}",
+    "company_fallback": "Εταιρία",
+    "tooltip_local_path": "Εγκαταστάθηκε από τοπική διαδρομή",
+    "tooltip_npm": "Εγκαταστάθηκε από npm"
   },
   "claude_local": {
     "instructions_file": "Αρχείο οδηγιών πράκτορα",

@@ -73,6 +73,15 @@
     "review_linked_issues": "Επανεξέταση συνδεδεμένων ζητημάτων",
     "review_linked_issue": "Επανεξέταση συνδεδεμένου ζητήματος",
     "open_hired_agent": "Άνοιγμα προσληφθέντος πράκτορα",
-    "back_to_approvals": "Επιστροφή στις εγκρίσεις"
+    "back_to_approvals": "Επιστροφή στις εγκρίσεις",
+    "board_author": "Board"
+  },
+  "errors": {
+    "approve_failed": "Η έγκριση απέτυχε",
+    "reject_failed": "Η απόρριψη απέτυχε",
+    "revision_failed": "Αδυναμία αίτησης αναθεώρησης",
+    "resubmit_failed": "Η εκ νέου υποβολή απέτυχε",
+    "comment_failed": "Αδυναμία δημοσίευσης σχολίου",
+    "delete_failed": "Αδυναμία διαγραφής πράκτορα"
   }
 }

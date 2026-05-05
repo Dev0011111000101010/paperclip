@@ -73,6 +73,15 @@
     "review_linked_issues": "Review linked issues",
     "review_linked_issue": "Review linked issue",
     "open_hired_agent": "Open hired agent",
-    "back_to_approvals": "Back to approvals"
+    "back_to_approvals": "Back to approvals",
+    "board_author": "Board"
+  },
+  "errors": {
+    "approve_failed": "Failed to approve",
+    "reject_failed": "Failed to reject",
+    "revision_failed": "Failed to request revision",
+    "resubmit_failed": "Failed to resubmit",
+    "comment_failed": "Failed to post comment",
+    "delete_failed": "Failed to delete agent"
   }
 }

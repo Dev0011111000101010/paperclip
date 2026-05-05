@@ -73,6 +73,15 @@
     "review_linked_issues": "查看关联任务",
     "review_linked_issue": "查看关联任务",
     "open_hired_agent": "打开已雇用智能体",
-    "back_to_approvals": "返回审批列表"
+    "back_to_approvals": "返回审批列表",
+    "board_author": "系统"
+  },
+  "errors": {
+    "approve_failed": "审批失败",
+    "reject_failed": "拒绝失败",
+    "revision_failed": "请求修改失败",
+    "resubmit_failed": "重新提交失败",
+    "comment_failed": "发表评论失败",
+    "delete_failed": "删除智能体失败"
   }
 }

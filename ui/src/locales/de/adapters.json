@@ -62,7 +62,13 @@
     "remove_dialog_title": "Adapter entfernen",
     "remove_dialog_desc": "Möchten Sie den {{type}}-Adapter wirklich entfernen? Er wird abgemeldet und aus dem Adapter-Speicher entfernt.",
     "remove_dialog_npm_cleanup": "npm-Pakete werden vom Datenträger bereinigt.",
-    "remove_dialog_undone": "Diese Aktion kann nicht rückgängig gemacht werden."
+    "remove_dialog_undone": "Diese Aktion kann nicht rückgängig gemacht werden.",
+    "installed_body": "\"{{type}}\" registriert.{{versionSuffix}}",
+    "reloaded_body": "\"{{type}}\" neu geladen.{{versionSuffix}}",
+    "reinstalled_body": "\"{{type}}\" von npm aktualisiert.{{versionSuffix}}",
+    "company_fallback": "Unternehmen",
+    "tooltip_local_path": "Vom lokalen Pfad installiert",
+    "tooltip_npm": "Von npm installiert"
   },
   "claude_local": {
     "instructions_file": "Agenten-Anweisungsdatei",
