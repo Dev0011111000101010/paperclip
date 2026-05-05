@@ -108,27 +108,27 @@ const STAGED_FILE_ACCEPT = "image/*,application/pdf,text/plain,text/markdown,app
 
 const ISSUE_THINKING_EFFORT_OPTIONS = {
   claude_local: [
-    { value: "", label: "Default" },
+    { value: "", label: i18n.t("priorities.default") },
     { value: "low", label: i18n.t("priorities.low") },
     { value: "medium", label: i18n.t("priorities.medium") },
     { value: "high", label: i18n.t("priorities.high") },
   ],
   codex_local: [
-    { value: "", label: "Default" },
-    { value: "minimal", label: "Minimal" },
+    { value: "", label: i18n.t("priorities.default") },
+    { value: "minimal", label: i18n.t("priorities.minimal") },
     { value: "low", label: i18n.t("priorities.low") },
     { value: "medium", label: i18n.t("priorities.medium") },
     { value: "high", label: i18n.t("priorities.high") },
-    { value: "xhigh", label: "X-High" },
+    { value: "xhigh", label: i18n.t("priorities.x_high") },
   ],
   opencode_local: [
-    { value: "", label: "Default" },
-    { value: "minimal", label: "Minimal" },
+    { value: "", label: i18n.t("priorities.default") },
+    { value: "minimal", label: i18n.t("priorities.minimal") },
     { value: "low", label: i18n.t("priorities.low") },
     { value: "medium", label: i18n.t("priorities.medium") },
     { value: "high", label: i18n.t("priorities.high") },
-    { value: "xhigh", label: "X-High" },
-    { value: "max", label: "Max" },
+    { value: "xhigh", label: i18n.t("priorities.x_high") },
+    { value: "max", label: i18n.t("priorities.max") },
   ],
 } as const;
 
@@ -263,6 +263,7 @@ const IssueTitleTextarea = memo(function IssueTitleTextarea({
   projectSelectorRef: RefObject<HTMLButtonElement | null>;
   onChange: (value: string) => void;
 }) {
+  const { t } = useTranslation("issues");
   const [draftValue, setDraftValue] = useState(value);
 
   useEffect(() => {
@@ -272,7 +273,7 @@ const IssueTitleTextarea = memo(function IssueTitleTextarea({
   return (
     <textarea
       className="w-full text-lg font-semibold bg-transparent outline-none resize-none overflow-hidden placeholder:text-muted-foreground/50"
-      placeholder="Issue title"
+      placeholder={t("dialog.title_placeholder")}
       rows={1}
       value={draftValue}
       onChange={(e) => {
@@ -326,6 +327,7 @@ const IssueDescriptionEditor = memo(function IssueDescriptionEditor({
   imageUploadHandler: (file: File) => Promise<string>;
   onChange: (value: string) => void;
 }) {
+  const { t } = useTranslation("issues");
   const [draftValue, setDraftValue] = useState(value);
 
   useEffect(() => {
@@ -340,7 +342,7 @@ const IssueDescriptionEditor = memo(function IssueDescriptionEditor({
         setDraftValue(nextValue);
         onChange(nextValue);
       }}
-      placeholder="Add description..."
+      placeholder={t("dialog.description_placeholder")}
       bordered={false}
       mentions={mentions}
       contentClassName={cn("text-sm text-muted-foreground pb-12", expanded ? "min-h-[220px]" : "min-h-[120px]")}
@@ -1564,11 +1566,11 @@ export function NewIssueDialog() {
             {assigneeOptionsOpen && (
               <div className="mt-2 rounded-md border border-border p-3 bg-muted/20 space-y-3">
                 <div className="space-y-1.5">
-                  <div className="text-xs text-muted-foreground">Model lane</div>
+                  <div className="text-xs text-muted-foreground">{t("dialog.model_lane")}</div>
                   <div
                     className="flex w-full overflow-hidden rounded-md border border-border"
                     role="radiogroup"
-                    aria-label="Model lane"
+                    aria-label={t("dialog.model_lane")}
                   >
                     {(["primary", ...(assigneeSupportsCheapLane ? (["cheap"] as const) : ([] as const)), "custom"] as const).map((lane) => (
                       <button
@@ -1583,48 +1585,48 @@ export function NewIssueDialog() {
                         onClick={() => setAssigneeModelLane(lane)}
                       >
                         {lane === "primary"
-                          ? "Primary"
+                          ? t("dialog.lane_primary")
                           : lane === "cheap"
-                            ? "Cheap"
-                            : "Custom"}
+                            ? t("dialog.lane_cheap")
+                            : t("dialog.lane_custom")}
                       </button>
                     ))}
                   </div>
                   {assigneeModelLane === "cheap" && (
                     <p className="text-[11px] text-muted-foreground">
-                      Sends <code>modelProfile: "cheap"</code>{" "}
+                      {t("dialog.lane_cheap_prefix")} <code>modelProfile: "cheap"</code>{" "}
                       {assigneeCheapProfile?.adapterConfig && typeof (assigneeCheapProfile.adapterConfig as Record<string, unknown>).model === "string"
-                        ? <>· adapter default <code>{String((assigneeCheapProfile.adapterConfig as Record<string, unknown>).model)}</code></>
+                        ? <>{t("dialog.lane_cheap_adapter_default")} <code>{String((assigneeCheapProfile.adapterConfig as Record<string, unknown>).model)}</code></>
                         : assigneeCheapProfile
-                          ? <>· uses the agent's configured cheap profile</>
-                          : <>· falls back to the primary model if no cheap profile is configured</>}
+                          ? <>{t("dialog.lane_cheap_uses_profile")}</>
+                          : <>{t("dialog.lane_cheap_fallback")}</>}
                     </p>
                   )}
                   {assigneeModelLane === "primary" && (
-                    <p className="text-[11px] text-muted-foreground">Runs on the agent's primary model.</p>
+                    <p className="text-[11px] text-muted-foreground">{t("dialog.lane_primary_desc")}</p>
                   )}
                   {assigneeModelLane === "custom" && (
-                    <p className="text-[11px] text-muted-foreground">Override the model and effort for this issue only.</p>
+                    <p className="text-[11px] text-muted-foreground">{t("dialog.lane_custom_desc")}</p>
                   )}
                 </div>
                 {assigneeModelLane === "custom" && (
                   <div className="space-y-1.5">
-                    <div className="text-xs text-muted-foreground">Model</div>
+                    <div className="text-xs text-muted-foreground">{t("dialog.model")}</div>
                     <InlineEntitySelector
                       value={assigneeModelOverride}
                       options={modelOverrideOptions}
-                      placeholder="Default model"
+                      placeholder={t("dialog.default_model")}
                       disablePortal
-                      noneLabel="Default model"
-                      searchPlaceholder="Search models..."
-                      emptyMessage="No models found."
+                      noneLabel={t("dialog.default_model")}
+                      searchPlaceholder={t("dialog.search_models")}
+                      emptyMessage={t("dialog.no_models_found")}
                       onChange={setAssigneeModelOverride}
                     />
                   </div>
                 )}
                 {assigneeModelLane === "custom" && (
                   <div className="space-y-1.5">
-                    <div className="text-xs text-muted-foreground">Thinking effort</div>
+                    <div className="text-xs text-muted-foreground">{t("dialog.thinking_effort")}</div>
                     <div className="flex items-center gap-1.5 flex-wrap">
                       {thinkingEffortOptions.map((option) => (
                         <button

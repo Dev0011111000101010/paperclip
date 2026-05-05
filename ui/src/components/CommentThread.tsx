@@ -380,7 +380,7 @@ function CommentCard({
           ) : null}
           {followUpRequested ? (
             <Badge variant="outline" className="text-[10px] uppercase tracking-[0.14em]">
-              Follow-up
+              {t("comment.follow_up")}
             </Badge>
           ) : null}
           {companyId && !isPending ? (
@@ -655,18 +655,18 @@ const TimelineList = memo(function TimelineList({
                 <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
                   {run.environment ? (
                     <span>
-                      Environment <span className="text-foreground">{run.environment.name}</span>
+                      {t("comment.environment_label")}{" "}<span className="text-foreground">{run.environment.name}</span>
                       <span> · {run.environment.driver}</span>
                     </span>
                   ) : null}
                   {run.environmentLease?.provider ? (
                     <span>
-                      Provider <span className="text-foreground">{run.environmentLease.provider}</span>
+                      {t("comment.provider_label")}{" "}<span className="text-foreground">{run.environmentLease.provider}</span>
                     </span>
                   ) : null}
                   {run.environmentLease ? (
                     <span>
-                      Lease{" "}
+                      {t("comment.lease_label")}{" "}
                       <span className="font-mono text-foreground">
                         {run.environmentLease.id.slice(0, 8)}
                       </span>
@@ -680,7 +680,7 @@ const TimelineList = memo(function TimelineList({
                   ) : null}
                   {run.environmentLease?.failureReason ? (
                     <span className="text-destructive">
-                      Failure: {run.environmentLease.failureReason}
+                      {t("comment.failure_label")} {run.environmentLease.failureReason}
                     </span>
                   ) : null}
                 </div>
@@ -1037,7 +1037,7 @@ export function CommentThread({
                 onChange={setReassignTarget}
                 className="text-xs h-8"
                 renderTriggerValue={(option) => {
-                  if (!option) return <span className="text-muted-foreground">Assignee</span>;
+                  if (!option) return <span className="text-muted-foreground">{t("comment.assignee_placeholder")}</span>;
                   const agentId = option.id.startsWith("agent:") ? option.id.slice("agent:".length) : null;
                   const agent = agentId ? agentMap?.get(agentId) : null;
                   return (

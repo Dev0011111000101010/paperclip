@@ -444,6 +444,7 @@ function SubIssueProgressSummaryStrip({
   summary: SubIssueProgressSummary;
   issueLinkState?: unknown;
 }) {
+  const { t } = useTranslation("issues");
   const target = summary.target;
   const targetIssue = target?.issue ?? null;
   const targetPathId = targetIssue?.identifier ?? targetIssue?.id ?? "";
@@ -458,18 +459,18 @@ function SubIssueProgressSummaryStrip({
         <div className="min-w-0 flex-1 space-y-2">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
             <span className="font-medium text-foreground">
-              {summary.doneCount}/{summary.totalCount} done
+              {t("sub_issues.done_count", { done: summary.doneCount, total: summary.totalCount })}
             </span>
             <span className="text-muted-foreground">
-              {summary.inProgressCount} in progress
+              {t("sub_issues.in_progress_count", { count: summary.inProgressCount })}
             </span>
             <span className="text-muted-foreground">
-              {summary.blockedCount} blocked
+              {t("sub_issues.blocked_count", { count: summary.blockedCount })}
             </span>
           </div>
           <div
             role="progressbar"
-            aria-label="Sub-issues completion progress"
+            aria-label={t("sub_issues.progress_aria")}
             aria-valuemin={0}
             aria-valuenow={summary.doneCount}
             aria-valuemax={summary.totalCount}
@@ -491,7 +492,7 @@ function SubIssueProgressSummaryStrip({
           {target && targetIssue ? (
             <>
               <div className="text-xs font-medium text-muted-foreground">
-                {target.kind === "next" ? "Next up" : "Waiting on blockers"}
+                {target.kind === "next" ? t("sub_issues.next_up") : t("sub_issues.waiting_on_blockers")}
               </div>
               <Link
                 to={createIssueDetailPath(targetPathId)}
@@ -506,11 +507,11 @@ function SubIssueProgressSummaryStrip({
               </Link>
             </>
           ) : summary.totalCount === 0 ? (
-            <div className="text-sm font-medium text-foreground">No active sub-issues</div>
+            <div className="text-sm font-medium text-foreground">{t("sub_issues.no_active")}</div>
           ) : summary.doneCount === summary.totalCount ? (
-            <div className="text-sm font-medium text-foreground">All sub-issues done</div>
+            <div className="text-sm font-medium text-foreground">{t("sub_issues.all_done")}</div>
           ) : (
-            <div className="text-sm font-medium text-foreground">No actionable sub-issues</div>
+            <div className="text-sm font-medium text-foreground">{t("sub_issues.no_actionable")}</div>
           )}
         </div>
       </div>
@@ -1263,7 +1264,7 @@ export function IssuesList({
               <PopoverContent align="end" className="w-48 p-0">
                 <div className="p-2 space-y-0.5">
                   {([
-                    ["workflow", "Workflow"],
+                    ["workflow", t("sort.workflow")],
                     ["status", t("sort.status")],
                     ["priority", t("sort.priority")],
                     ["title", t("sort.title")],
@@ -1341,7 +1342,7 @@ export function IssuesList({
       )}
       {boardColumnLimitReached && (
         <p className="text-xs text-muted-foreground">
-          Some board columns are showing up to {ISSUE_BOARD_COLUMN_RESULT_LIMIT} issues. Refine filters or search to reveal the rest.
+          {t("board_column_limit", { count: ISSUE_BOARD_COLUMN_RESULT_LIMIT })}
         </p>
       )}
       {!isLoading && filtered.length === 0 && viewState.viewMode === "list" && (
@@ -1451,14 +1452,16 @@ export function IssuesList({
                       if (!blockerIssue) return null;
                       const label = blockerIssue.identifier ?? blockerIssue.id.slice(0, 8);
                       const blockerStep = checklistMeta?.stepNumberByIssueId.get(blockerId);
-                      const blockerStepSuffix = blockerStep ? ` \u00b7 step ${blockerStep}` : "";
-                      return { blockerId, chipLabel: `blocked by ${label}${blockerStepSuffix}` };
+                      const chipLabel = blockerStep
+                        ? t("blocked_by_step", { label, step: blockerStep })
+                        : t("blocked_by", { label });
+                      return { blockerId, chipLabel };
                     })
                     .filter((chip): chip is { blockerId: string; chipLabel: string } => chip !== null);
                   const firstVisibleBlockerChip = visibleBlockerChips[0] ?? null;
                   const additionalVisibleBlockerCount = Math.max(visibleBlockerChips.length - 1, 0);
                   const additionalVisibleBlockerLabel = additionalVisibleBlockerCount > 0
-                    ? ` ... and ${additionalVisibleBlockerCount} more`
+                    ? t("and_more_count", { count: additionalVisibleBlockerCount })
                     : "";
                   const firstVisibleBlockerDisplayLabel = firstVisibleBlockerChip
                     ? `${firstVisibleBlockerChip.chipLabel}${additionalVisibleBlockerLabel}`
@@ -1522,11 +1525,11 @@ export function IssuesList({
                               issueBadge === "Paused" ? (
                                 <span
                                   className={cn("ml-1.5 inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-medium", statusBadge.paused)}
-                                  aria-label="Paused"
-                                  title="Paused"
+                                  aria-label={t("paused")}
+                                  title={t("paused")}
                                 >
                                   <CircleSlash2 className="h-3 w-3" />
-                                  Paused
+                                  {t("paused")}
                                 </span>
                               ) : (
                                 <span className="ml-1.5 inline-flex items-center rounded-full border border-amber-500/40 bg-amber-500/10 px-1.5 py-0.5 text-[10px] font-medium text-amber-700 dark:text-amber-300">
@@ -1613,7 +1616,7 @@ export function IssuesList({
                                         <Identity name={agentName(issue.assigneeAgentId)!} size="sm" className="min-w-0" />
                                       ) : issue.assigneeUserId ? (
                                         <Identity
-                                          name={assigneeUserLabel ?? "User"}
+                                          name={assigneeUserLabel ?? t("assignee_user")}
                                           avatarUrl={assigneeUserProfile?.image ?? null}
                                           size="sm"
                                           className="min-w-0"
@@ -1715,10 +1718,10 @@ export function IssuesList({
             <div className="py-2" data-testid="issues-load-more-sentinel">
               <p className="text-xs text-muted-foreground">
                 {isLoadingMoreIssues
-                  ? "Loading more issues..."
+                  ? t("loading_more")
                   : remainingIssueRowCount > 0
                     ? t("rendering_count", { shown: Math.min(renderedIssueRowLimit, filtered.length), total: filtered.length })
-                    : "Scroll to load more issues"}
+                    : t("scroll_to_load")}
               </p>
             </div>
           )}

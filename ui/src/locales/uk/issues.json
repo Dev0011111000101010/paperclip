@@ -27,6 +27,7 @@
   "group_no_parent": "Без батьківської",
   "group_by": "Група",
   "sort": {
+    "workflow": "Workflow",
     "status": "Статус",
     "priority": "Пріоритет",
     "title": "Назва",
@@ -186,13 +187,34 @@
     "labels": "Мітки",
     "workspace": "Простір роботи",
     "visibility": "Видимість",
+    "live_runs_only": "Live runs only",
     "hide_routine_runs": "Приховати запуски процедур",
     "board": "Рада",
     "remove_creator": "Видалити автора {{label}}"
   },
+  "sub_issues": {
+    "next_up": "Next up",
+    "waiting_on_blockers": "Waiting on blockers",
+    "no_active": "No active sub-issues",
+    "all_done": "All sub-issues done",
+    "no_actionable": "No actionable sub-issues",
+    "done_count": "{{done}}/{{total}} done",
+    "in_progress_count": "{{count}} in progress",
+    "blocked_count": "{{count}} blocked",
+    "progress_aria": "Sub-issues completion progress"
+  },
+  "board_column_limit": "Some board columns are showing up to {{count}} issues. Refine filters or search to reveal the rest.",
+  "paused": "Paused",
+  "loading_more": "Loading more issues...",
+  "scroll_to_load": "Scroll to load more issues",
+  "blocked_by": "blocked by {{label}}",
+  "blocked_by_step": "blocked by {{label}} · step {{step}}",
+  "and_more_count": " ... and {{count}} more",
   "row": {
     "mark_as_read": "Позначити прочитаним",
-    "dismiss_from_inbox": "Закрити з вхідних"
+    "dismiss_from_inbox": "Закрити з вхідних",
+    "productivity_review_title": "Productivity review: {{trigger}}",
+    "productivity_review_open": "Productivity review open"
   },
   "chat": {
     "agent": "Агент",
@@ -300,6 +322,7 @@
     }
   },
   "comment": {
+    "follow_up": "Follow-up",
     "copy": "Копіювати",
     "copied": "Скопійовано",
     "copy_failed": "Помилка копіювання",
@@ -338,7 +361,11 @@
       "queued": "в черзі",
       "pending": "очікує",
       "cancelled": "скасовано"
-    }
+    },
+    "environment_label": "Середовище",
+    "provider_label": "Провайдер",
+    "lease_label": "Оренда",
+    "failure_label": "Помилка:"
   },
   "dialog": {
     "new_issue": "Нова задача",
@@ -373,6 +400,16 @@
     "search_models": "Пошук моделей...",
     "no_models_found": "Моделей не знайдено.",
     "thinking_effort": "Глибина мислення",
+    "model_lane": "Model lane",
+    "lane_primary": "Primary",
+    "lane_cheap": "Cheap",
+    "lane_custom": "Custom",
+    "lane_primary_desc": "Runs on the agent's primary model.",
+    "lane_custom_desc": "Override the model and effort for this issue only.",
+    "lane_cheap_prefix": "Sends",
+    "lane_cheap_adapter_default": "· adapter default",
+    "lane_cheap_uses_profile": "· uses the agent's configured cheap profile",
+    "lane_cheap_fallback": "· falls back to the primary model if no cheap profile is configured",
     "enable_chrome": "Увімкнути Chrome (--chrome)",
     "documents": "Документи",
     "remove_document": "Видалити документ",

@@ -25,6 +25,7 @@
   "group_no_parent": "无父任务",
   "group_by": "分组",
   "sort": {
+    "workflow": "Workflow",
     "status": "状态",
     "priority": "优先级",
     "title": "标题",
@@ -184,13 +185,34 @@
     "labels": "标签",
     "workspace": "工作空间",
     "visibility": "可见性",
+    "live_runs_only": "Live runs only",
     "hide_routine_runs": "隐藏例程运行",
     "board": "系统用户",
     "remove_creator": "移除创建者 {{label}}"
   },
+  "sub_issues": {
+    "next_up": "Next up",
+    "waiting_on_blockers": "Waiting on blockers",
+    "no_active": "No active sub-issues",
+    "all_done": "All sub-issues done",
+    "no_actionable": "No actionable sub-issues",
+    "done_count": "{{done}}/{{total}} done",
+    "in_progress_count": "{{count}} in progress",
+    "blocked_count": "{{count}} blocked",
+    "progress_aria": "Sub-issues completion progress"
+  },
+  "board_column_limit": "Some board columns are showing up to {{count}} issues. Refine filters or search to reveal the rest.",
+  "paused": "Paused",
+  "loading_more": "Loading more issues...",
+  "scroll_to_load": "Scroll to load more issues",
+  "blocked_by": "blocked by {{label}}",
+  "blocked_by_step": "blocked by {{label}} · step {{step}}",
+  "and_more_count": " ... and {{count}} more",
   "row": {
     "mark_as_read": "标为已读",
-    "dismiss_from_inbox": "从收件箱移除"
+    "dismiss_from_inbox": "从收件箱移除",
+    "productivity_review_title": "Productivity review: {{trigger}}",
+    "productivity_review_open": "Productivity review open"
   },
   "chat": {
     "agent": "智能体",
@@ -294,6 +316,7 @@
     }
   },
   "comment": {
+    "follow_up": "Follow-up",
     "copy": "复制",
     "copied": "已复制",
     "copy_failed": "复制失败",
@@ -332,7 +355,11 @@
       "queued": "排队中",
       "pending": "待处理",
       "cancelled": "已取消"
-    }
+    },
+    "environment_label": "环境",
+    "provider_label": "提供商",
+    "lease_label": "租约",
+    "failure_label": "失败："
   },
   "dialog": {
     "new_issue": "新建任务",
@@ -367,6 +394,16 @@
     "search_models": "搜索模型...",
     "no_models_found": "未找到模型。",
     "thinking_effort": "思考强度",
+    "model_lane": "Model lane",
+    "lane_primary": "Primary",
+    "lane_cheap": "Cheap",
+    "lane_custom": "Custom",
+    "lane_primary_desc": "Runs on the agent's primary model.",
+    "lane_custom_desc": "Override the model and effort for this issue only.",
+    "lane_cheap_prefix": "Sends",
+    "lane_cheap_adapter_default": "· adapter default",
+    "lane_cheap_uses_profile": "· uses the agent's configured cheap profile",
+    "lane_cheap_fallback": "· falls back to the primary model if no cheap profile is configured",
     "enable_chrome": "启用 Chrome (--chrome)",
     "documents": "文档",
     "remove_document": "移除文档",
