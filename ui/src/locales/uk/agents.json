@@ -333,7 +333,18 @@
     "tools_count": "{{count}} інструментів",
     "stdout_label": "stdout",
     "collapse_stdout": "Згорнути stdout",
-    "expand_stdout": "Розгорнути stdout"
+    "expand_stdout": "Розгорнути stdout",
+    "inspect_input": "Inspect {{name}} input",
+    "no_input": "No {{name}} input",
+    "key_payload": "{{key}} payload",
+    "paths_summary": "{{count}} path, starting with {{path}}",
+    "paths_summary_plural": "{{count}} paths, starting with {{path}}",
+    "fields_summary": "{{count}} field: {{keys}}",
+    "fields_summary_plural": "{{count}} fields: {{keys}}",
+    "log_lines": "{{count}} log line",
+    "log_lines_plural": "{{count}} log lines",
+    "system_messages": "{{count}} system message",
+    "system_messages_plural": "{{count}} system messages"
   },
   "detail_view": {
     "invocation": "Виклик",
