@@ -638,7 +638,13 @@
     "mismatched_services_desc": "Running services that no longer match current workspace command config.",
     "default_agent_set": "Default agent set",
     "choose_agent_when_running": "Choose agent when running",
-    "last_run": "Last run {{time}}"
+    "last_run": "Last run {{time}}",
+    "run_once": "run once",
+    "kind_service": "service",
+    "kind_job": "job",
+    "health_healthy": "healthy",
+    "health_unhealthy": "unhealthy",
+    "health_unknown": "unknown"
   },
   "placeholders": {
     "search_labels": "Search labels...",
