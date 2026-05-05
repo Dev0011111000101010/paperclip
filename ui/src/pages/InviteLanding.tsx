@@ -320,12 +320,12 @@ export function InviteLandingPage() {
 
   const acceptMutation = useMutation({
     mutationFn: async () => {
-      if (!invite) throw new Error("Invite not found");
+      if (!invite) throw new Error(t("invite.error_not_found"));
       if (isCheckingExistingMembership) {
-        throw new Error("Checking your company access. Try again in a moment.");
+        throw new Error(t("invite.error_checking_access"));
       }
       if (isCurrentMember) {
-        throw new Error("This account already belongs to the company.");
+        throw new Error(t("invite.error_already_member_generic"));
       }
       if (invite.inviteType === "bootstrap_ceo" || invite.allowedJoinTypes !== "agent") {
         return accessApi.acceptInvite(token, { requestType: "human" });
@@ -350,7 +350,7 @@ export function InviteLandingPage() {
       }
     },
     onError: (err) => {
-      setError(err instanceof Error ? err.message : "Failed to accept invite");
+      setError(err instanceof Error ? err.message : t("invite.error_accept_failed"));
     },
   });
 
@@ -414,11 +414,11 @@ export function InviteLandingPage() {
   });
 
   const joinButtonLabel = useMemo(() => {
-    if (!invite) return "Continue";
-    if (invite.inviteType === "bootstrap_ceo") return "Accept invite";
-    if (showsAgentForm) return "Submit request";
-    return sessionQuery.data ? "Accept invite" : "Continue";
-  }, [invite, sessionQuery.data, showsAgentForm]);
+    if (!invite) return t("invite.btn_continue");
+    if (invite.inviteType === "bootstrap_ceo") return t("invite.btn_accept");
+    if (showsAgentForm) return t("invite.btn_submit_request");
+    return sessionQuery.data ? t("invite.btn_accept") : t("invite.btn_continue");
+  }, [invite, sessionQuery.data, showsAgentForm, t]);
 
   if (!token) {
     return <div className="mx-auto max-w-xl py-10 text-sm text-destructive">{t("invite.invalid_token")}</div>;
@@ -649,7 +649,7 @@ export function InviteLandingPage() {
                   disabled={acceptMutation.isPending || agentName.trim().length === 0}
                   onClick={() => acceptMutation.mutate()}
                 >
-                  {acceptMutation.isPending ? "Working..." : joinButtonLabel}
+                  {acceptMutation.isPending ? t("invite.working") : joinButtonLabel}
                 </Button>
               </div>
             ) : requiresHumanAccount ? (
@@ -816,7 +816,7 @@ export function InviteLandingPage() {
                     disabled={acceptMutation.isPending || isCurrentMember}
                     onClick={() => acceptMutation.mutate()}
                   >
-                    {acceptMutation.isPending ? "Working..." : joinButtonLabel}
+                    {acceptMutation.isPending ? t("invite.working") : joinButtonLabel}
                   </Button>
                 )}
               </div>

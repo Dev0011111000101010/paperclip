@@ -508,7 +508,14 @@
     "error_account_exists": "Акаунт для {{email}} вже існує. Увійдіть нижче, щоб продовжити з цим запрошенням.",
     "error_invalid_credentials": "Email і пароль не відповідають жодному існуючому акаунту Paperclip. Перевірте обидва поля або спочатку створіть акаунт.",
     "error_account_may_exist": "Акаунт для {{email}} вже може існувати. Спробуйте увійти.",
-    "error_auth_failed": "Помилка аутентифікації"
+    "error_auth_failed": "Помилка аутентифікації",
+    "error_not_found": "Запрошення не знайдено",
+    "error_checking_access": "Перевірка доступу. Спробуйте ще раз за мить.",
+    "error_already_member_generic": "Цей акаунт вже належить компанії.",
+    "error_accept_failed": "Не вдалося прийняти запрошення",
+    "btn_continue": "Продовжити",
+    "btn_accept": "Прийняти запрошення",
+    "btn_submit_request": "Надіслати запит"
   },
   "language": {
     "title": "Мова",

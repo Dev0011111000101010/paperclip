@@ -1,4 +1,4 @@
-{
+﻿{
   "tabs": {
     "company": "Unternehmen",
     "agent": "Agent",
@@ -50,7 +50,8 @@
     "task_title": "Aufgabentitel",
     "task_title_placeholder": "z.B. Konkurrenzpreise recherchieren",
     "description": "Beschreibung (optional)",
-    "description_placeholder": "Fügen Sie weitere Details hinzu, was der Agent tun soll..."
+    "description_placeholder": "Fügen Sie weitere Details hinzu, was der Agent tun soll...",
+    "task_title_default": "Deinen ersten Ingenieur einstellen und einen Einstellungsplan erstellen"
   },
   "step4": {
     "title": "Bereit zum Starten",

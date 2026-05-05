@@ -50,7 +50,8 @@
     "task_title": "Task title",
     "task_title_placeholder": "e.g. Research competitor pricing",
     "description": "Description (optional)",
-    "description_placeholder": "Add more detail about what the agent should do..."
+    "description_placeholder": "Add more detail about what the agent should do...",
+    "task_title_default": "Hire your first engineer and create a hiring plan"
   },
   "step4": {
     "title": "Ready to launch",

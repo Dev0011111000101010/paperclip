@@ -506,7 +506,14 @@
     "error_account_exists": "Für {{email}} existiert bereits ein Konto. Melden Sie sich unten an, um mit dieser Einladung fortzufahren.",
     "error_invalid_credentials": "E-Mail und Passwort stimmen nicht mit einem bestehenden Paperclip-Konto überein. Prüfen Sie beide Felder oder erstellen Sie zuerst ein Konto, wenn Sie neu hier sind.",
     "error_account_may_exist": "Für {{email}} existiert möglicherweise bereits ein Konto. Versuchen Sie, sich stattdessen anzumelden.",
-    "error_auth_failed": "Authentifizierung fehlgeschlagen"
+    "error_auth_failed": "Authentifizierung fehlgeschlagen",
+    "error_not_found": "Einladung nicht gefunden",
+    "error_checking_access": "Zugang wird geprüft. Bitte versuche es gleich noch einmal.",
+    "error_already_member_generic": "Dieses Konto gehört bereits zu diesem Unternehmen.",
+    "error_accept_failed": "Einladung konnte nicht angenommen werden",
+    "btn_continue": "Weiter",
+    "btn_accept": "Einladung annehmen",
+    "btn_submit_request": "Anfrage senden"
   },
   "language": {
     "title": "Sprache",

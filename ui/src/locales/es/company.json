@@ -506,7 +506,14 @@
     "error_account_exists": "Ya existe una cuenta para {{email}}. Inicia sesión a continuación para continuar con esta invitación.",
     "error_invalid_credentials": "El correo y la contraseña no coinciden con una cuenta de Paperclip existente. Verifica ambos campos o crea una cuenta si eres nuevo.",
     "error_account_may_exist": "Es posible que ya exista una cuenta para {{email}}. Intenta iniciar sesión en su lugar.",
-    "error_auth_failed": "Error de autenticación"
+    "error_auth_failed": "Error de autenticación",
+    "error_not_found": "Invitación no encontrada",
+    "error_checking_access": "Verificando tu acceso. Inténtalo de nuevo en un momento.",
+    "error_already_member_generic": "Esta cuenta ya pertenece a la empresa.",
+    "error_accept_failed": "Error al aceptar la invitación",
+    "btn_continue": "Continuar",
+    "btn_accept": "Aceptar invitación",
+    "btn_submit_request": "Enviar solicitud"
   },
   "language": {
     "title": "Idioma",

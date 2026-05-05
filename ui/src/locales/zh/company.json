@@ -506,7 +506,14 @@
     "error_account_exists": "{{email}} 已有账号。请在下方登录以继续接受此邀请。",
     "error_invalid_credentials": "该邮箱和密码与现有 Paperclip 账号不匹配。请检查两个字段，或者如果您是新用户，请先创建账号。",
     "error_account_may_exist": "{{email}} 可能已有账号。请尝试登录。",
-    "error_auth_failed": "身份验证失败"
+    "error_auth_failed": "身份验证失败",
+    "error_not_found": "邀请未找到",
+    "error_checking_access": "正在检查访问权限，请稍后再试。",
+    "error_already_member_generic": "此账户已属于该公司。",
+    "error_accept_failed": "接受邀请失败",
+    "btn_continue": "继续",
+    "btn_accept": "接受邀请",
+    "btn_submit_request": "提交请求"
   },
   "language": {
     "title": "语言",
