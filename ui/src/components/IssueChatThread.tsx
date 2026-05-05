@@ -7,7 +7,7 @@ import {
   useAuiState,
   useMessage,
 } from "@assistant-ui/react";
-import type { ToolCallMessagePart } from "@assistant-ui/react";
+import type { ReasoningMessagePart, TextMessagePart, ThreadMessage, ToolCallMessagePart } from "@assistant-ui/react";
 import {
   createContext,
   Component,
@@ -715,7 +715,10 @@ function cleanToolDisplayText(tool: ToolCallMessagePart): string {
   return summary ? `${name} ${summary}` : name;
 }
 
-function IssueChatChainOfThought() {
+type IssueChatCoTPart = ReasoningMessagePart | ToolCallMessagePart;
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function IssueChatChainOfThought(_props?: { message?: ThreadMessage; cotParts?: readonly IssueChatCoTPart[] }) {
   const { t } = useTranslation("issues");
   const { agentMap } = useContext(IssueChatCtx);
   const message = useMessage();
