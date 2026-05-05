@@ -1,0 +1,61 @@
+{
+  "title": "Inbox",
+  "tabs": {
+    "mine": "Mine",
+    "board": "Board",
+    "recent": "Recent",
+    "unread": "Unread",
+    "all": "All"
+  },
+  "actions": {
+    "retry": "Retry",
+    "retrying": "Retrying…",
+    "mark_as_read": "Mark as read",
+    "dismiss": "Dismiss",
+    "mark_all_read": "Mark all as read",
+    "marking": "Marking…"
+  },
+  "group": {
+    "none": "None",
+    "type": "Type",
+    "workspace": "Workspace",
+    "archived": "Archived",
+    "other": "Other results",
+    "group": "Group",
+    "earlier": "Earlier"
+  },
+  "search": {
+    "placeholder": "Search inbox…"
+  },
+  "filters": {
+    "category": "Category",
+    "approval_status": "Approval status",
+    "category_everything": "All categories",
+    "category_issues_i_touched": "My recent issues",
+    "category_join_requests": "Join requests",
+    "category_approvals": "Approvals",
+    "category_alerts": "Alerts",
+    "status_all": "All approval statuses",
+    "status_actionable": "Needs action",
+    "status_resolved": "Resolved"
+  },
+  "placeholders": {
+    "category": "Category",
+    "approval_status": "Approval status"
+  },
+  "misc": {
+    "human_join_request": "Human join request",
+    "run_error": "Run exited with an error.",
+    "enable_nesting": "Enable parent-child nesting",
+    "disable_nesting": "Disable parent-child nesting",
+    "choose_columns": "Choose which inbox columns stay visible"
+  },
+  "empty": {
+    "select_company": "Select a company to view inbox.",
+    "no_search_match": "No inbox items match your search.",
+    "inbox_zero": "Inbox zero.",
+    "no_new": "No new inbox items.",
+    "no_recent": "No recent inbox items.",
+    "no_match_filters": "No inbox items match these filters."
+  }
+}

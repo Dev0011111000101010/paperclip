@@ -240,7 +240,7 @@ const THEMES: Record<OrgChartStyle, StyleTheme> = {
       const roleY = ln.y + 82;
 
       return `<g>
-        <rect x="${ln.x}" y="${ln.y}" width="${ln.width}" height="${ln.height}" rx="${theme.cardRadius}" fill="${bgColor}" stroke="${borderColor}" stroke-width="1"/>
+        <rect x="${ln.x}" y="${ln.y}" width="${ln.width}" height="${ln.height}" rx="${theme.cardRadius}" fill="${bgColor}" stroke="${borderColor}" stroke-width="${STROKE_WIDTH}"/>
         ${renderEmojiAvatar(cx, avatarCY, 17, "rgba(99,102,241,0.08)", emojiSvg, "rgba(99,102,241,0.15)")}
         <text x="${cx}" y="${nameY}" text-anchor="middle" font-family="${theme.font}" font-size="13" font-weight="600" fill="${theme.nameColor}" letter-spacing="-0.005em">${escapeXml(ln.node.name)}</text>
         <text x="${cx}" y="${roleY}" text-anchor="middle" font-family="${theme.font}" font-size="10" font-weight="500" fill="${theme.roleColor}" letter-spacing="0.07em">${escapeXml(roleLabel).toUpperCase()}</text>
@@ -283,7 +283,7 @@ const THEMES: Record<OrgChartStyle, StyleTheme> = {
     watermarkColor: "rgba(139,148,158,0.3)",
     defs: (w, h) => `
       <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
-        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(48,54,61,0.25)" stroke-width="1"/>
+        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(48,54,61,0.25)" stroke-width="${STROKE_WIDTH}"/>
       </pattern>`,
     bgExtras: (w, h) => `<rect width="${w}" height="${h}" fill="url(#grid)"/>`,
     renderCard: (ln: LayoutNode, theme: StyleTheme) => {
@@ -304,7 +304,7 @@ const THEMES: Record<OrgChartStyle, StyleTheme> = {
       const roleY = ln.y + 82;
 
       return `<g>
-        <rect x="${ln.x}" y="${ln.y}" width="${ln.width}" height="${ln.height}" rx="${theme.cardRadius}" fill="${theme.cardBg}" stroke="${theme.cardBorder}" stroke-width="1"/>
+        <rect x="${ln.x}" y="${ln.y}" width="${ln.width}" height="${ln.height}" rx="${theme.cardRadius}" fill="${theme.cardBg}" stroke="${theme.cardBorder}" stroke-width="${STROKE_WIDTH}"/>
         <rect x="${ln.x}" y="${ln.y}" width="${ln.width}" height="2" rx="${theme.cardRadius} ${theme.cardRadius} 0 0" fill="${accentColor}"/>
         ${renderEmojiAvatar(cx, avatarCY, 17, "rgba(48,54,61,0.3)", emojiSvg, theme.cardBorder)}
         <text x="${cx}" y="${nameY}" text-anchor="middle" font-family="${theme.font}" font-size="12" font-weight="600" fill="${theme.nameColor}">${escapeXml(ln.node.name)}</text>
@@ -321,6 +321,7 @@ const CARD_H = 96;
 const CARD_MIN_W = 150;
 const CARD_PAD_X = 22;
 const AVATAR_SIZE = 34;
+const STROKE_WIDTH = "1";
 const GAP_X = 24;
 const GAP_Y = 56;
 
@@ -428,7 +429,7 @@ function renderEmojiAvatar(cx: number, cy: number, radius: number, bgFill: strin
   const emojiSize = radius * 1.3; // emoji fills most of the circle
   const emojiX = cx - emojiSize / 2;
   const emojiY = cy - emojiSize / 2;
-  const stroke = bgStroke ? `stroke="${bgStroke}" stroke-width="1"` : "";
+  const stroke = bgStroke ? `stroke="${bgStroke}" stroke-width="${STROKE_WIDTH}"` : "";
   return `<circle cx="${cx}" cy="${cy}" r="${radius}" fill="${bgFill}" ${stroke}/>
     <svg x="${emojiX}" y="${emojiY}" width="${emojiSize}" height="${emojiSize}" viewBox="0 0 36 36">${emojiSvg}</svg>`;
 }
@@ -439,7 +440,7 @@ function defaultRenderCard(ln: LayoutNode, theme: StyleTheme): string {
     const cx = ln.x + ln.width / 2;
     const cy = ln.y + ln.height / 2;
     return `<g>
-      <rect x="${ln.x}" y="${ln.y}" width="${ln.width}" height="${ln.height}" rx="${theme.cardRadius}" fill="${theme.bgColor}" stroke="${theme.cardBorder}" stroke-width="1" stroke-dasharray="4,3"/>
+      <rect x="${ln.x}" y="${ln.y}" width="${ln.width}" height="${ln.height}" rx="${theme.cardRadius}" fill="${theme.bgColor}" stroke="${theme.cardBorder}" stroke-width="${STROKE_WIDTH}" stroke-dasharray="4,3"/>
       <text x="${cx}" y="${cy + 5}" text-anchor="middle" font-family="${theme.font}" font-size="13" font-weight="600" fill="${theme.roleColor}">${escapeXml(ln.node.name)}</text>
     </g>`;
   }
@@ -491,7 +492,7 @@ function defaultRenderCard(ln: LayoutNode, theme: StyleTheme): string {
 
   return `<g>
     ${shadowDef}
-    <rect x="${ln.x}" y="${ln.y}" width="${ln.width}" height="${ln.height}" rx="${theme.cardRadius}" fill="${theme.cardBg}" stroke="${theme.cardBorder}" stroke-width="1" ${shadowFilter}/>
+    <rect x="${ln.x}" y="${ln.y}" width="${ln.width}" height="${ln.height}" rx="${theme.cardRadius}" fill="${theme.cardBg}" stroke="${theme.cardBorder}" stroke-width="${STROKE_WIDTH}" ${shadowFilter}/>
     ${renderEmojiAvatar(cx, avatarCY, AVATAR_SIZE / 2, avatarBg, emojiSvg, avatarStroke)}
     <text x="${cx}" y="${nameY}" text-anchor="middle" font-family="${theme.font}" font-size="14" font-weight="600" fill="${theme.nameColor}">${escapeXml(ln.node.name)}</text>
     <text x="${cx}" y="${roleY}" text-anchor="middle" font-family="${theme.font}" font-size="11" font-weight="500" fill="${theme.roleColor}">${escapeXml(roleLabel)}</text>

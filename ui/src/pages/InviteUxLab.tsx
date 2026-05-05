@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -524,6 +525,7 @@ function AuthScreenPreview({ mode, error }: { mode: "sign_in" | "sign_up"; error
 }
 
 function CompanyInvitesPreview() {
+  const { t } = useTranslation("company");
   return (
     <div className="grid gap-5 xl:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
       <Card className="rounded-[28px] shadow-none">
@@ -533,7 +535,7 @@ function CompanyInvitesPreview() {
             Company Invites
           </div>
           <div>
-            <CardTitle>Create invite</CardTitle>
+            <CardTitle>{t("invites.create_title")}</CardTitle>
             <CardDescription className="mt-2">
               Generate a human invite link and choose the default access it should request.
             </CardDescription>
@@ -576,7 +578,7 @@ function CompanyInvitesPreview() {
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            <Button type="button">Create invite</Button>
+            <Button type="button">{t("invites.actions.create")}</Button>
             <span className="text-sm text-muted-foreground">Invite history below keeps the audit trail.</span>
           </div>
 
@@ -631,7 +633,7 @@ function CompanyInvitesPreview() {
                   <th className="px-5 py-3 font-medium text-muted-foreground">State</th>
                   <th className="px-5 py-3 font-medium text-muted-foreground">Role</th>
                   <th className="px-5 py-3 font-medium text-muted-foreground">Invited by</th>
-                  <th className="px-5 py-3 font-medium text-muted-foreground">Created</th>
+                  <th className="px-5 py-3 font-medium text-muted-foreground">{t("invites.history.columns.created")}</th>
                   <th className="px-5 py-3 font-medium text-muted-foreground">Join request</th>
                   <th className="px-5 py-3 text-right font-medium text-muted-foreground">Action</th>
                 </tr>

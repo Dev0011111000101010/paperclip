@@ -1,23 +1,20 @@
-import { memo, useMemo } from "react";
+import { useMemo } from "react";
 import { Link } from "@/lib/router";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import type { Issue } from "@paperclipai/shared";
 import { heartbeatsApi, type LiveRunForIssue } from "../api/heartbeats";
 import type { TranscriptEntry } from "../adapters";
 import { issuesApi } from "../api/issues";
 import { queryKeys } from "../lib/queryKeys";
-import { cn, relativeTime } from "../lib/utils";
+import { cn } from "../lib/utils";
+import { timeAgo } from "../lib/timeAgo";
 import { ExternalLink } from "lucide-react";
 import { Identity } from "./Identity";
 import { RunChatSurface } from "./RunChatSurface";
 import { useLiveRunTranscripts } from "./transcript/useLiveRunTranscripts";
 
 const MIN_DASHBOARD_RUNS = 4;
-const DASHBOARD_RUN_CARD_LIMIT = 4;
-const DASHBOARD_LOG_POLL_INTERVAL_MS = 15_000;
-const DASHBOARD_LOG_READ_LIMIT_BYTES = 64_000;
-const DASHBOARD_MAX_CHUNKS_PER_RUN = 40;
-const EMPTY_TRANSCRIPT: TranscriptEntry[] = [];
 
 function isRunActive(run: LiveRunForIssue): boolean {
   return run.status === "queued" || run.status === "running";
@@ -48,6 +45,7 @@ export function ActiveAgentsPanel({
   queryScope = "dashboard",
   showMoreLink = true,
 }: ActiveAgentsPanelProps) {
+  const { t } = useTranslation("agents");
   const { data: liveRuns } = useQuery({
     queryKey: [...queryKeys.liveRuns(companyId), queryScope, { minRunCount, fetchLimit }],
     queryFn: () => heartbeatsApi.liveRunsForCompany(companyId, { minCount: minRunCount, limit: fetchLimit }),
@@ -59,7 +57,7 @@ export function ActiveAgentsPanel({
   const { data: issues } = useQuery({
     queryKey: [...queryKeys.issues.list(companyId), "with-routine-executions"],
     queryFn: () => issuesApi.list(companyId, { includeRoutineExecutions: true }),
-    enabled: visibleRuns.length > 0,
+    enabled: runs.length > 0,
   });
 
   const issueById = useMemo(() => {
@@ -71,12 +69,9 @@ export function ActiveAgentsPanel({
   }, [issues]);
 
   const { transcriptByRun, hasOutputForRun } = useLiveRunTranscripts({
-    runs: visibleRuns,
+    runs,
     companyId,
-    maxChunksPerRun: DASHBOARD_MAX_CHUNKS_PER_RUN,
-    logPollIntervalMs: DASHBOARD_LOG_POLL_INTERVAL_MS,
-    logReadLimitBytes: DASHBOARD_LOG_READ_LIMIT_BYTES,
-    enableRealtimeUpdates: false,
+    maxChunksPerRun: 120,
   });
 
   return (
@@ -96,7 +91,7 @@ export function ActiveAgentsPanel({
               companyId={companyId}
               run={run}
               issue={run.issueId ? issueById.get(run.issueId) : undefined}
-              transcript={transcriptByRun.get(run.id) ?? EMPTY_TRANSCRIPT}
+              transcript={transcriptByRun.get(run.id) ?? []}
               hasOutput={hasOutputForRun(run.id)}
               isActive={isRunActive(run)}
               className={cardClassName}
@@ -115,7 +110,7 @@ export function ActiveAgentsPanel({
   );
 }
 
-const AgentRunCard = memo(function AgentRunCard({
+function AgentRunCard({
   companyId,
   run,
   issue,
@@ -132,6 +127,7 @@ const AgentRunCard = memo(function AgentRunCard({
   isActive: boolean;
   className?: string;
 }) {
+  const { t } = useTranslation("agents");
   return (
     <div className={cn(
       "flex h-[320px] flex-col overflow-hidden rounded-xl border shadow-sm",
@@ -155,7 +151,7 @@ const AgentRunCard = memo(function AgentRunCard({
               <Identity name={run.agentName} size="sm" className="[&>span:last-child]:!text-[11px]" />
             </div>
             <div className="mt-2 flex items-center gap-2 text-[11px] text-muted-foreground">
-              <span>{isActive ? "Live now" : run.finishedAt ? `Finished ${relativeTime(run.finishedAt)}` : `Started ${relativeTime(run.createdAt)}`}</span>
+              <span>{isActive ? t("detail.run.live_run") : run.finishedAt ? t("detail.run_finished_ago", { time: timeAgo(run.finishedAt) }) : t("detail.run_started_ago", { time: timeAgo(run.createdAt) })}</span>
             </div>
           </div>
 
@@ -194,4 +190,4 @@ const AgentRunCard = memo(function AgentRunCard({
       </div>
     </div>
   );
-});
+}

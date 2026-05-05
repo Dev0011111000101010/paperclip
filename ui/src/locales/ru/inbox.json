@@ -1,0 +1,61 @@
+{
+  "title": "Входящие",
+  "tabs": {
+    "mine": "Мои",
+    "board": "Совет Директоров",
+    "recent": "Недавние",
+    "unread": "Непрочитанные",
+    "all": "Все"
+  },
+  "actions": {
+    "retry": "Повторить",
+    "retrying": "Повтор…",
+    "mark_as_read": "Отметить прочитанным",
+    "dismiss": "Закрыть",
+    "mark_all_read": "Отметить все прочитанными",
+    "marking": "Отметка…"
+  },
+  "group": {
+    "none": "Без группировки",
+    "type": "По типу",
+    "workspace": "По рабочему пространству",
+    "archived": "Архив",
+    "other": "Другие результаты",
+    "group": "Группировка",
+    "earlier": "Ранее"
+  },
+  "search": {
+    "placeholder": "Поиск во входящих…"
+  },
+  "filters": {
+    "category": "Категория",
+    "approval_status": "Статус одобрения",
+    "category_everything": "Все категории",
+    "category_issues_i_touched": "Мои недавние задачи",
+    "category_join_requests": "Запросы на вступление",
+    "category_approvals": "Одобрения",
+    "category_alerts": "Оповещения",
+    "status_all": "Все статусы одобрений",
+    "status_actionable": "Требует действия",
+    "status_resolved": "Решено"
+  },
+  "placeholders": {
+    "category": "Категория",
+    "approval_status": "Статус одобрения"
+  },
+  "misc": {
+    "human_join_request": "Запрос на присоединение",
+    "run_error": "Запуск завершился с ошибкой.",
+    "enable_nesting": "Включить вложенность родитель-потомок",
+    "disable_nesting": "Отключить вложенность родитель-потомок",
+    "choose_columns": "Выберите видимые столбцы входящих"
+  },
+  "empty": {
+    "select_company": "Выберите компанию для просмотра входящих.",
+    "no_search_match": "Нет элементов, соответствующих поиску.",
+    "inbox_zero": "Входящие пусты.",
+    "no_new": "Нет новых входящих.",
+    "no_recent": "Нет недавних входящих.",
+    "no_match_filters": "Нет элементов, соответствующих фильтрам."
+  }
+}

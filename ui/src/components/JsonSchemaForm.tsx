@@ -1,4 +1,6 @@
 import React, { useCallback, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import i18n from "../locales/i18n";
 import {
   ChevronDown,
   ChevronRight,
@@ -160,7 +162,7 @@ export function validateField(
 
   // Required check
   if (isRequired && (value === undefined || value === null || value === "")) {
-    return "This field is required";
+    return i18n.t("errors.field_required");
   }
 
   // Skip further validation if empty and not required
@@ -193,7 +195,7 @@ export function validateField(
 
   if (type === "number" || type === "integer") {
     const num = Number(value);
-    if (isNaN(num)) return "Must be a valid number";
+    if (isNaN(num)) return i18n.t("errors.must_be_number");
     if (schema.minimum != null && num < schema.minimum) {
       return `Must be at least ${schema.minimum}`;
     }
@@ -207,7 +209,7 @@ export function validateField(
       return `Must be less than ${schema.exclusiveMaximum}`;
     }
     if (type === "integer" && !Number.isInteger(num)) {
-      return "Must be a whole number";
+      return i18n.t("errors.must_be_whole_number");
     }
     if (schema.multipleOf != null && num % schema.multipleOf !== 0) {
       return `Must be a multiple of ${schema.multipleOf}`;
@@ -437,7 +439,9 @@ const EnumField = React.memo(({
   description?: string;
   error?: string;
   options: unknown[];
-}) => (
+}) => {
+  const { t } = useTranslation("common");
+  return (
   <FieldWrapper
     label={label}
     description={description}
@@ -451,7 +455,7 @@ const EnumField = React.memo(({
       disabled={disabled}
     >
       <SelectTrigger className="w-full">
-        <SelectValue placeholder="Select an option" />
+        <SelectValue placeholder={t("errors.select_an_option")} />
       </SelectTrigger>
       <SelectContent>
         {options.map((option) => (
@@ -462,7 +466,8 @@ const EnumField = React.memo(({
       </SelectContent>
     </Select>
   </FieldWrapper>
-));
+  );
+});
 
 EnumField.displayName = "EnumField";
 
@@ -488,6 +493,7 @@ const SecretField = React.memo(({
   error?: string;
   defaultValue?: unknown;
 }) => {
+  const { t } = useTranslation("common");
   const [isVisible, setIsVisible] = useState(false);
   return (
     <FieldWrapper
@@ -524,7 +530,7 @@ const SecretField = React.memo(({
             <Eye className="h-4 w-4 text-muted-foreground" />
           )}
           <span className="sr-only">
-            {isVisible ? "Hide secret" : "Show secret"}
+            {isVisible ? t("secret_field.hide_secret") : t("secret_field.show_secret")}
           </span>
         </Button>
       </div>
@@ -664,6 +670,7 @@ const ArrayField = React.memo(({
   errors: Record<string, string>;
   path: string;
 }) => {
+  const { t } = useTranslation("common");
   const items = Array.isArray(value) ? value : [];
   const itemSchema = propSchema.items as JsonSchemaNode;
   const isComplex = resolveType(itemSchema) === "object";
@@ -694,7 +701,7 @@ const ArrayField = React.memo(({
           }}
         >
           <Plus className="mr-2 h-4 w-4" />
-          {isComplex ? "Add item" : "Add"}
+          {isComplex ? t("secret_field.add_item") : t("secret_field.add")}
         </Button>
       </div>
 

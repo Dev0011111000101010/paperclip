@@ -397,7 +397,6 @@ describe("WorkspaceRuntimeControls", () => {
       root.render(
         <WorkspaceRuntimeControls
           sections={sections}
-          square
           onAction={vi.fn()}
         />,
       );
