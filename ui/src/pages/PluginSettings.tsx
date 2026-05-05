@@ -245,14 +245,13 @@ export function PluginSettings() {
                 />
               ) : environmentDrivers.length > 0 ? (
                 <div className="rounded-md border border-border/60 bg-muted/20 px-4 py-3 text-sm">
-                  <p className="font-medium text-foreground">Configure this plugin from Company Environments.</p>
+                  <p className="font-medium text-foreground">{t("plugins.env_drivers_heading")}</p>
                   <p className="mt-1 text-muted-foreground">
-                    {driverLabel || "This plugin"} registers environment runtime settings there so credentials stay
-                    company-scoped instead of instance-global.
+                    {t("plugins.env_drivers_body", { drivers: driverLabel || t("plugins.this_plugin") })}
                   </p>
                   <div className="mt-3">
                     <Link to="/company/settings/environments">
-                      <Button variant="outline" size="sm">Open Company Environments</Button>
+                      <Button variant="outline" size="sm">{t("plugins.env_drivers_link")}</Button>
                     </Link>
                   </div>
                 </div>
@@ -769,24 +768,24 @@ function PluginConfigForm({ pluginId, schema, initialValues, isLoading, pluginSt
  * Format an uptime value (in milliseconds) to a human-readable string.
  */
 function formatUptime(uptimeMs: number | null): string {
-  if (uptimeMs == null) return "—";
+  if (uptimeMs == null) return i18n.t("plugins.uptime_none", { ns: "common" });
   const totalSeconds = Math.floor(uptimeMs / 1000);
-  if (totalSeconds < 60) return `${totalSeconds}s`;
+  if (totalSeconds < 60) return i18n.t("plugins.uptime_seconds", { ns: "common", count: totalSeconds });
   const minutes = Math.floor(totalSeconds / 60);
-  if (minutes < 60) return `${minutes}m ${totalSeconds % 60}s`;
+  if (minutes < 60) return i18n.t("plugins.uptime_minutes", { ns: "common", count: minutes, seconds: totalSeconds % 60 });
   const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours}h ${minutes % 60}m`;
+  if (hours < 24) return i18n.t("plugins.uptime_hours", { ns: "common", count: hours, minutes: minutes % 60 });
   const days = Math.floor(hours / 24);
-  return `${days}d ${hours % 24}h`;
+  return i18n.t("plugins.uptime_days", { ns: "common", count: days, hours: hours % 24 });
 }
 
 /**
  * Format a duration in milliseconds to a compact display string.
  */
 function formatDuration(ms: number): string {
-  if (ms < 1000) return `${ms}ms`;
-  if (ms < 60000) return `${(ms / 1000).toFixed(1)}s`;
-  return `${(ms / 60000).toFixed(1)}m`;
+  if (ms < 1000) return i18n.t("plugins.duration_ms", { ns: "common", count: ms });
+  if (ms < 60000) return i18n.t("plugins.duration_s", { ns: "common", count: parseFloat((ms / 1000).toFixed(1)) });
+  return i18n.t("plugins.duration_m", { ns: "common", count: parseFloat((ms / 60000).toFixed(1)) });
 }
 
 /**
@@ -797,15 +796,15 @@ function formatRelativeTime(isoString: string): string {
   const then = new Date(isoString).getTime();
   const diffMs = now - then;
 
-  if (diffMs < 0) return "just now";
+  if (diffMs < 0) return i18n.t("plugins.relative_just_now", { ns: "common" });
   const seconds = Math.floor(diffMs / 1000);
-  if (seconds < 60) return `${seconds}s ago`;
+  if (seconds < 60) return i18n.t("plugins.relative_seconds_ago", { ns: "common", count: seconds });
   const minutes = Math.floor(seconds / 60);
-  if (minutes < 60) return `${minutes}m ago`;
+  if (minutes < 60) return i18n.t("plugins.relative_minutes_ago", { ns: "common", count: minutes });
   const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours}h ago`;
+  if (hours < 24) return i18n.t("plugins.relative_hours_ago", { ns: "common", count: hours });
   const days = Math.floor(hours / 24);
-  return `${days}d ago`;
+  return i18n.t("plugins.relative_days_ago", { ns: "common", count: days });
 }
 
 /**
