@@ -242,6 +242,7 @@ export function RoutineRunVariablesDialog({
   const [workspaceConfig, setWorkspaceConfig] = useState(() =>
     buildInitialWorkspaceConfig(selectedProject, defaultExecutionWorkspace));
   const [workspaceConfigValid, setWorkspaceConfigValid] = useState(true);
+  const [workspaceBranchName, setWorkspaceBranchName] = useState<string | null>(null);
 
   const { data: experimentalSettings } = useQuery({
     queryKey: queryKeys.instance.experimentalSettings,
@@ -308,7 +309,7 @@ export function RoutineRunVariablesDialog({
 
   const handleWorkspaceDraftChange = useCallback((
     data: Record<string, unknown>,
-    meta: { canSave: boolean },
+    meta: { canSave: boolean; workspaceBranchName?: string | null },
   ) => {
     setWorkspaceConfig((current) => applyWorkspaceDraft(current, data));
     setWorkspaceConfigValid((current) => (current === meta.canSave ? current : meta.canSave));

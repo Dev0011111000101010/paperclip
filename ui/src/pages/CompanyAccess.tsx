@@ -48,6 +48,7 @@ function getPermissionLabels(t: (key: string) => string): Record<PermissionKey, 
     "tasks:assign_scope": t("access.permission_labels.tasks_assign_scope"),
     "tasks:manage_active_checkouts": t("access.permission_labels.tasks_manage_active_checkouts"),
     "joins:approve": t("access.permission_labels.joins_approve"),
+    "environments:manage": t("access.permission_labels.environments_manage"),
   };
 }
 
