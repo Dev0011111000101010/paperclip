@@ -25,6 +25,7 @@
   "group_no_parent": "Sin padre",
   "group_by": "Agrupar",
   "sort": {
+    "workflow": "Workflow",
     "status": "Estado",
     "priority": "Prioridad",
     "title": "Título",
@@ -184,13 +185,34 @@
     "labels": "Etiquetas",
     "workspace": "Espacio de trabajo",
     "visibility": "Visibilidad",
+    "live_runs_only": "Live runs only",
     "hide_routine_runs": "Ocultar ejecuciones de rutinas",
     "board": "Board",
     "remove_creator": "Eliminar creador {{label}}"
   },
+  "sub_issues": {
+    "next_up": "Next up",
+    "waiting_on_blockers": "Waiting on blockers",
+    "no_active": "No active sub-issues",
+    "all_done": "All sub-issues done",
+    "no_actionable": "No actionable sub-issues",
+    "done_count": "{{done}}/{{total}} done",
+    "in_progress_count": "{{count}} in progress",
+    "blocked_count": "{{count}} blocked",
+    "progress_aria": "Sub-issues completion progress"
+  },
+  "board_column_limit": "Some board columns are showing up to {{count}} issues. Refine filters or search to reveal the rest.",
+  "paused": "Paused",
+  "loading_more": "Loading more issues...",
+  "scroll_to_load": "Scroll to load more issues",
+  "blocked_by": "blocked by {{label}}",
+  "blocked_by_step": "blocked by {{label}} · step {{step}}",
+  "and_more_count": " ... and {{count}} more",
   "row": {
     "mark_as_read": "Marcar como leído",
-    "dismiss_from_inbox": "Descartar de la bandeja de entrada"
+    "dismiss_from_inbox": "Descartar de la bandeja de entrada",
+    "productivity_review_title": "Productivity review: {{trigger}}",
+    "productivity_review_open": "Productivity review open"
   },
   "chat": {
     "agent": "Agente",
@@ -294,6 +316,7 @@
     }
   },
   "comment": {
+    "follow_up": "Follow-up",
     "copy": "Copiar",
     "copied": "Copiado",
     "copy_failed": "Error al copiar",
@@ -332,7 +355,11 @@
       "queued": "en cola",
       "pending": "pendiente",
       "cancelled": "cancelada"
-    }
+    },
+    "environment_label": "Entorno",
+    "provider_label": "Proveedor",
+    "lease_label": "Arrendamiento",
+    "failure_label": "Fallo:"
   },
   "dialog": {
     "new_issue": "Nueva tarea",
@@ -367,6 +394,16 @@
     "search_models": "Buscar modelos...",
     "no_models_found": "No se encontraron modelos.",
     "thinking_effort": "Esfuerzo de razonamiento",
+    "model_lane": "Model lane",
+    "lane_primary": "Primary",
+    "lane_cheap": "Cheap",
+    "lane_custom": "Custom",
+    "lane_primary_desc": "Runs on the agent's primary model.",
+    "lane_custom_desc": "Override the model and effort for this issue only.",
+    "lane_cheap_prefix": "Sends",
+    "lane_cheap_adapter_default": "· adapter default",
+    "lane_cheap_uses_profile": "· uses the agent's configured cheap profile",
+    "lane_cheap_fallback": "· falls back to the primary model if no cheap profile is configured",
     "enable_chrome": "Habilitar Chrome (--chrome)",
     "documents": "Documentos",
     "remove_document": "Eliminar documento",
