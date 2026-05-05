@@ -5,8 +5,11 @@
     "active": "Aktiv",
     "paused": "Pausiert",
     "error": "Fehler",
-    "show_terminated": "Beendete anzeigen"
+    "show_terminated": "Beendete anzeigen",
+    "filters": "Filter"
   },
+  "agents_count": "{{count}} Agent",
+  "agents_count_plural": "{{count}} Agenten",
   "view": {
     "list": "Liste",
     "org": "Org"
@@ -63,6 +66,7 @@
       "manage_in_adapter": "Skills direkt im Adapter verwalten.",
       "openclaw_unsupported": "Paperclip kann OpenClaw-Skills hier nicht verwalten. Besuchen Sie Ihre OpenClaw-Instanz, um die Skills dieses Agenten zu verwalten.",
       "adapter_unsupported": "Paperclip kann Skills für diesen Adapter noch nicht verwalten. Verwalten Sie sie direkt im Adapter.",
+      "acpx_unsupported": "Paperclip kann Skills für benutzerdefinierte ACP-Befehle noch nicht verwalten.",
       "kept_in_workspace": "Im Arbeitsbereich behalten",
       "applied_when_runs": "Angewendet, wenn der Agent ausgeführt wird",
       "tracked_only": "Nur verfolgt"
@@ -123,6 +127,10 @@
     "loading_run_logs": "Ausführungsprotokolle werden geladen...",
     "loading_log": "Protokoll wird geladen...",
     "no_persisted_log": "Keine persistierten Protokollzeilen.",
+    "load_more_log": "Mehr Protokoll laden",
+    "loading_more_log": "Wird geladen...",
+    "log_showing_kb": "Zeige die ersten {{kb}} KB",
+    "log_of_total_kb": "von {{total}} KB",
     "jump_to_live": "Zur Live-Ansicht springen",
     "failure_details": "Fehlerdetails",
     "api_key_created": "API-Schlüssel erstellt — jetzt kopieren, er wird nicht erneut angezeigt.",
@@ -171,6 +179,21 @@
     "last_heartbeat": "Letzter Heartbeat",
     "reports_to": "Berichtet an",
     "created": "Erstellt"
+  },
+  "new_agent": {
+    "title": "Neuer Agent",
+    "subtitle": "Erweiterte Agentenkonfiguration",
+    "company_skills": "Unternehmens-Skills",
+    "company_skills_desc": "Optionale Skills aus der Unternehmensbibliothek. Integrierte Paperclip-Laufzeit-Skills werden automatisch hinzugefügt.",
+    "no_skills": "Noch keine optionalen Unternehmens-Skills installiert.",
+    "ceo_notice": "Dies wird der CEO sein",
+    "cancel": "Abbrechen",
+    "test_agent": "Agent testen",
+    "testing": "Wird getestet...",
+    "create": "Agent erstellen",
+    "creating": "Wird erstellt…",
+    "failed_create": "Agent konnte nicht erstellt werden",
+    "opencode_model_required": "OpenCode erfordert ein explizites Modell im Format Anbieter/Modell."
   },
   "new_agent_dialog": {
     "title": "Neuen Agenten hinzufügen",

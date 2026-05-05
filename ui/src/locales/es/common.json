@@ -586,7 +586,13 @@
     "each_command_independent": "Cada comando puede controlarse de forma independiente.",
     "long_running_desc": "Comandos de larga duración que Paperclip puede supervisar para este espacio de trabajo.",
     "one_shot_desc": "Comandos de una sola ejecución que se ejecutan ahora y terminan al finalizar.",
-    "mismatched_services_desc": "Servicios en ejecución que ya no coinciden con la configuración actual de comandos del espacio de trabajo."
+    "mismatched_services_desc": "Servicios en ejecución que ya no coinciden con la configuración actual de comandos del espacio de trabajo.",
+    "run_once": "ejecutar una vez",
+    "kind_service": "servicio",
+    "kind_job": "tarea",
+    "health_healthy": "saludable",
+    "health_unhealthy": "no saludable",
+    "health_unknown": "desconocido"
   },
   "placeholders": {
     "search_labels": "Buscar etiquetas...",

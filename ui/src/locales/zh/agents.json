@@ -5,8 +5,11 @@
     "active": "活跃",
     "paused": "已暂停",
     "error": "错误",
-    "show_terminated": "显示已终止"
+    "show_terminated": "显示已终止",
+    "filters": "筛选"
   },
+  "agents_count": "{{count}} 个智能体",
+  "agents_count_plural": "{{count}} 个智能体",
   "view": {
     "list": "列表",
     "org": "组织"
@@ -63,6 +66,7 @@
       "manage_in_adapter": "直接在适配器中管理技能。",
       "openclaw_unsupported": "Paperclip 无法在此管理 OpenClaw 技能。请访问您的 OpenClaw 实例来管理此智能体的技能。",
       "adapter_unsupported": "Paperclip 暂不支持管理此适配器的技能，请直接在适配器中管理。",
+      "acpx_unsupported": "Paperclip 暂不支持管理自定义 ACP 命令的技能。",
       "kept_in_workspace": "保留在工作空间中",
       "applied_when_runs": "智能体运行时应用",
       "tracked_only": "仅跟踪"
@@ -123,6 +127,10 @@
     "loading_run_logs": "加载运行日志中...",
     "loading_log": "加载日志中...",
     "no_persisted_log": "没有持久化日志行。",
+    "load_more_log": "加载更多日志",
+    "loading_more_log": "加载中...",
+    "log_showing_kb": "显示前 {{kb}} KB",
+    "log_of_total_kb": "共 {{total}} KB",
     "jump_to_live": "跳转到实时",
     "failure_details": "失败详情",
     "api_key_created": "API 密钥已创建——请立即复制，之后将不再显示。",
@@ -171,6 +179,21 @@
     "last_heartbeat": "最近心跳检测",
     "reports_to": "汇报对象",
     "created": "创建时间"
+  },
+  "new_agent": {
+    "title": "新建智能体",
+    "subtitle": "高级智能体配置",
+    "company_skills": "公司技能",
+    "company_skills_desc": "来自公司技能库的可选技能。Paperclip 内置运行时技能会自动添加。",
+    "no_skills": "尚未安装可选的公司技能。",
+    "ceo_notice": "这将成为 CEO",
+    "cancel": "取消",
+    "test_agent": "测试智能体",
+    "testing": "测试中...",
+    "create": "创建智能体",
+    "creating": "创建中…",
+    "failed_create": "创建智能体失败",
+    "opencode_model_required": "OpenCode 需要以 provider/model 格式明确指定模型。"
   },
   "new_agent_dialog": {
     "title": "添加新智能体",

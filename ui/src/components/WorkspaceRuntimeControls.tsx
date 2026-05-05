@@ -111,7 +111,7 @@ function buildJobItem(
     key: `command:${command.id}`,
     title: command.name,
     kind: "job",
-    statusLabel: "run once",
+    statusLabel: i18n.t("workspace_runtime.run_once"),
     lifecycle: null,
     healthStatus: null,
     command: command.command,
@@ -286,6 +286,7 @@ function CommandSection({
   pendingRequest: WorkspaceRuntimeControlRequest | null | undefined;
   onAction: (request: WorkspaceRuntimeControlRequest) => void;
 }) {
+  const { t } = useTranslation("common");
   return (
     <div className="space-y-3">
       <div className="space-y-1">
@@ -306,7 +307,7 @@ function CommandSection({
                   <div className="space-y-1">
                     <div className="text-sm font-medium">{item.title}</div>
                     <div className="text-xs text-muted-foreground">
-                      {item.kind} · {item.statusLabel}
+                      {t(`workspace_runtime.kind_${item.kind}`)} · {item.statusLabel}
                       {item.lifecycle ? ` · ${item.lifecycle}` : ""}
                     </div>
                   </div>
@@ -339,7 +340,7 @@ function CommandSection({
                           ? "border-destructive/30 bg-destructive/10 text-destructive"
                           : "border-border text-muted-foreground",
                     )}>
-                      {item.healthStatus}
+                      {t(`workspace_runtime.health_${item.healthStatus}`)}
                     </span>
                   </div>
                 ) : null}
