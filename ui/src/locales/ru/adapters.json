@@ -62,7 +62,13 @@
     "remove_dialog_title": "Удалить адаптер",
     "remove_dialog_desc": "Удалить адаптер типа {{type}}? Он будет снят с регистрации и удалён из хранилища.",
     "remove_dialog_npm_cleanup": "npm-пакеты будут удалены с диска.",
-    "remove_dialog_undone": "Это действие нельзя отменить."
+    "remove_dialog_undone": "Это действие нельзя отменить.",
+    "installed_body": "«{{type}}» зарегистрирован.{{versionSuffix}}",
+    "reloaded_body": "«{{type}}» перезагружен.{{versionSuffix}}",
+    "reinstalled_body": "«{{type}}» обновлён из npm.{{versionSuffix}}",
+    "company_fallback": "Компания",
+    "tooltip_local_path": "Установлен из локального пути",
+    "tooltip_npm": "Установлен из npm"
   },
   "claude_local": {
     "instructions_file": "Файл инструкций агента",

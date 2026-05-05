@@ -1,6 +1,7 @@
 {
   "manager": {
     "title": "Adapter Manager",
+    "adapters_label": "Adapters",
     "settings_breadcrumb": "Settings",
     "loading": "Loading adapters...",
     "install_adapter": "Install Adapter",
@@ -62,7 +63,13 @@
     "remove_dialog_title": "Remove Adapter",
     "remove_dialog_desc": "Are you sure you want to remove the {{type}} adapter? It will be unregistered and removed from the adapter store.",
     "remove_dialog_npm_cleanup": "npm packages will be cleaned up from disk.",
-    "remove_dialog_undone": "This action cannot be undone."
+    "remove_dialog_undone": "This action cannot be undone.",
+    "installed_body": "\"{{type}}\" registered.{{versionSuffix}}",
+    "reloaded_body": "\"{{type}}\" reloaded.{{versionSuffix}}",
+    "reinstalled_body": "\"{{type}}\" updated from npm.{{versionSuffix}}",
+    "company_fallback": "Company",
+    "tooltip_local_path": "Installed from local path",
+    "tooltip_npm": "Installed from npm"
   },
   "claude_local": {
     "instructions_file": "Agent instructions file",

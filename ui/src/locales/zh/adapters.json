@@ -62,7 +62,13 @@
     "remove_dialog_title": "移除适配器",
     "remove_dialog_desc": "确定要移除 {{type}} 适配器吗？该适配器将被注销并从适配器存储中删除。",
     "remove_dialog_npm_cleanup": "npm 包将从磁盘清理。",
-    "remove_dialog_undone": "此操作不可撤销。"
+    "remove_dialog_undone": "此操作不可撤销。",
+    "installed_body": "\"{{type}}\" 已注册。{{versionSuffix}}",
+    "reloaded_body": "\"{{type}}\" 已重新加载。{{versionSuffix}}",
+    "reinstalled_body": "\"{{type}}\" 已从 npm 更新。{{versionSuffix}}",
+    "company_fallback": "公司",
+    "tooltip_local_path": "从本地路径安装",
+    "tooltip_npm": "从 npm 安装"
   },
   "claude_local": {
     "instructions_file": "智能体指令文件",
