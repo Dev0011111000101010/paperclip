@@ -198,7 +198,11 @@
     "company_settings": "Настройки компании",
     "sign_out": "Выйти",
     "signing_out": "Выход...",
-    "select_company": "Выберите компанию"
+    "select_company": "Выберите компанию",
+    "switch_workspace": "Переключить рабочее пространство",
+    "no_workspaces": "Нет рабочих пространств",
+    "open_switcher": "Открыть переключатель рабочего пространства {{company}}",
+    "open_switcher_generic": "Открыть переключатель рабочего пространства"
   },
   "not_found": {
     "breadcrumb": "Не найдено",
@@ -656,5 +660,28 @@
     "tooltip_runs": "{{day}}: {{total}} запусков",
     "tooltip_issues": "{{day}}: {{total}} задач",
     "tooltip_success_rate": "{{day}}: {{rate}}% ({{succeeded}}/{{total}})"
+  },
+  "layout": {
+    "skip_to_main_content": "Перейти к основному содержанию",
+    "close_sidebar": "Закрыть боковую панель"
+  },
+  "auth": {
+    "loading": "Загрузка…",
+    "sign_in_title": "Войти в Paperclip",
+    "sign_up_title": "Создать аккаунт Paperclip",
+    "sign_in_desc": "Используйте почту и пароль для доступа к этому экземпляру.",
+    "sign_up_desc": "Создайте аккаунт для этого экземпляра. Подтверждение почты не требуется в v1.",
+    "fill_required": "Пожалуйста, заполните все обязательные поля.",
+    "label_name": "Имя",
+    "label_email": "Почта",
+    "label_password": "Пароль",
+    "working": "Обработка…",
+    "sign_in_btn": "Войти",
+    "create_account_btn": "Создать аккаунт",
+    "need_account": "Нет аккаунта?",
+    "already_have_account": "Уже есть аккаунт?",
+    "create_one": "Создайте",
+    "sign_in_link": "Войти",
+    "failed": "Ошибка аутентификации"
   }
 }

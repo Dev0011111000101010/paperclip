@@ -201,7 +201,11 @@
     "company_settings": "Ρυθμίσεις εταιρίας",
     "sign_out": "Αποσύνδεση",
     "signing_out": "Αποσύνδεση...",
-    "select_company": "Επιλέξτε εταιρία"
+    "select_company": "Επιλέξτε εταιρία",
+    "switch_workspace": "Εναλλαγή χώρου εργασίας",
+    "no_workspaces": "Δεν υπάρχουν χώροι εργασίας",
+    "open_switcher": "Άνοιγμα επιλογέα χώρου εργασίας {{company}}",
+    "open_switcher_generic": "Άνοιγμα επιλογέα χώρου εργασίας"
   },
   "not_found": {
     "breadcrumb": "Δεν βρέθηκε",
@@ -668,5 +672,28 @@
     "hours_other": "{{count}} ώρες",
     "hours_minutes_one": "{{hours}} ώρα {{minutes}} λ",
     "hours_minutes_other": "{{hours}} ώρες {{minutes}} λ"
+  },
+  "layout": {
+    "skip_to_main_content": "Μετάβαση στο κύριο περιεχόμενο",
+    "close_sidebar": "Κλείσιμο πλευρικής γραμμής"
+  },
+  "auth": {
+    "loading": "Φόρτωση…",
+    "sign_in_title": "Σύνδεση στο Paperclip",
+    "sign_up_title": "Δημιουργία λογαριασμού Paperclip",
+    "sign_in_desc": "Χρησιμοποιήστε το email και τον κωδικό σας για πρόσβαση σε αυτή την εγκατάσταση.",
+    "sign_up_desc": "Δημιουργήστε λογαριασμό για αυτή την εγκατάσταση. Δεν απαιτείται επιβεβαίωση email στην έκδοση v1.",
+    "fill_required": "Παρακαλώ συμπληρώστε όλα τα απαιτούμενα πεδία.",
+    "label_name": "Όνομα",
+    "label_email": "Email",
+    "label_password": "Κωδικός",
+    "working": "Επεξεργασία…",
+    "sign_in_btn": "Σύνδεση",
+    "create_account_btn": "Δημιουργία λογαριασμού",
+    "need_account": "Χρειάζεστε λογαριασμό;",
+    "already_have_account": "Έχετε ήδη λογαριασμό;",
+    "create_one": "Δημιουργήστε",
+    "sign_in_link": "Σύνδεση",
+    "failed": "Η αυθεντικοποίηση απέτυχε"
   }
 }
