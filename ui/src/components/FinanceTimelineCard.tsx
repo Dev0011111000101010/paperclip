@@ -52,16 +52,16 @@ export function FinanceTimelineCard({
                   {(row.description || row.externalInvoiceId || row.region || row.pricingTier) && (
                     <div className="space-y-1 text-xs text-muted-foreground">
                       {row.description ? <div>{row.description}</div> : null}
-                      {row.externalInvoiceId ? <div>invoice {row.externalInvoiceId}</div> : null}
-                      {row.region ? <div>region {row.region}</div> : null}
-                      {row.pricingTier ? <div>tier {row.pricingTier}</div> : null}
+                      {row.externalInvoiceId ? <div>{t("finance_timeline.invoice", { id: row.externalInvoiceId })}</div> : null}
+                      {row.region ? <div>{t("finance_timeline.region", { region: row.region })}</div> : null}
+                      {row.pricingTier ? <div>{t("finance_timeline.tier", { tier: row.pricingTier })}</div> : null}
                     </div>
                   )}
                 </div>
                 <div className="text-right tabular-nums">
                   <div className="text-sm font-semibold">{formatCents(row.amountCents)}</div>
                   <div className="text-xs text-muted-foreground">{row.currency}</div>
-                  {row.estimated ? <div className="text-[11px] uppercase tracking-[0.12em] text-amber-600">estimated</div> : null}
+                  {row.estimated ? <div className="text-[11px] uppercase tracking-[0.12em] text-amber-600">{t("finance_timeline.estimated")}</div> : null}
                 </div>
               </div>
             </div>
