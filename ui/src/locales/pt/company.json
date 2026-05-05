@@ -1,4 +1,4 @@
-{
+﻿{
   "settings": {
     "title": "Configurações da Empresa",
     "breadcrumb_company": "Empresa",
@@ -502,7 +502,11 @@
     "accept_bootstrap_desc": "Isso concluirá a configuração do Paperclip.",
     "accept_company_desc": "Isso enviará ou concluirá sua solicitação de adesão para {{company}}.",
     "accept_submitting": "Enviando solicitação...",
-    "accept_finishing": "Concluindo login..."
+    "accept_finishing": "Concluindo login...",
+    "error_account_exists": "Já existe uma conta para {{email}}. Faça login abaixo para continuar com este convite.",
+    "error_invalid_credentials": "O email e a senha não correspondem a uma conta Paperclip existente. Verifique ambos os campos ou crie uma conta se você é novo.",
+    "error_account_may_exist": "Pode já existir uma conta para {{email}}. Tente fazer login.",
+    "error_auth_failed": "Falha na autenticação"
   },
   "language": {
     "title": "Idioma",

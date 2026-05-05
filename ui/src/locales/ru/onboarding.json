@@ -1,4 +1,4 @@
-{
+﻿{
   "tabs": {
     "company": "Компания",
     "agent": "Агент",
@@ -32,6 +32,9 @@
     "test_now": "Проверить",
     "testing": "Проверка...",
     "passed": "Пройдено",
+    "warnings": "Предупреждения",
+    "failed": "Не пройдено",
+    "hint_prefix": "Подсказка:",
     "manual_debug": "Ручная отладка",
     "prompt_label": "Запрос:",
     "prompt_value": "Respond with hello.",
@@ -64,7 +67,12 @@
   "errors": {
     "create_company": "Не удалось создать компанию",
     "create_agent": "Не удалось создать агента",
-    "create_task": "Не удалось создать задачу"
+    "create_task": "Не удалось создать задачу",
+    "test_env_no_company": "Создайте или выберите компанию перед тестированием среды адаптера.",
+    "test_env_failed": "Сбой теста среды адаптера",
+    "opencode_model_required": "OpenCode требует явного указания модели в формате провайдер/модель.",
+    "anthropic_key_unset_failed": "Повторная попытка с отключённым ANTHROPIC_API_KEY в конфигурации адаптера, но тест среды по-прежнему не проходит.",
+    "anthropic_key_unset_error": "Не удалось отключить ANTHROPIC_API_KEY и выполнить повторную попытку."
   },
   "language": {
     "label": "Язык"

@@ -1,4 +1,4 @@
-{
+﻿{
   "tabs": {
     "company": "Εταιρία",
     "agent": "Πράκτορας",
@@ -32,6 +32,9 @@
     "test_now": "Δοκιμή τώρα",
     "testing": "Δοκιμή...",
     "passed": "Πέρασε",
+    "warnings": "Προειδοποιήσεις",
+    "failed": "Αποτυχία",
+    "hint_prefix": "Υπόδειξη:",
     "manual_debug": "Χειροκίνητη αποσφαλμάτωση",
     "prompt_label": "Prompt:",
     "prompt_value": "Απαντήστε με hello.",
@@ -64,7 +67,12 @@
   "errors": {
     "create_company": "Αποτυχία δημιουργίας εταιρίας",
     "create_agent": "Αποτυχία δημιουργίας πράκτορα",
-    "create_task": "Αποτυχία δημιουργίας εργασίας"
+    "create_task": "Αποτυχία δημιουργίας εργασίας",
+    "test_env_no_company": "Δημιουργήστε ή επιλέξτε εταιρεία πριν δοκιμάσετε το περιβάλλον adapter.",
+    "test_env_failed": "Αποτυχία δοκιμής περιβάλλοντος adapter",
+    "opencode_model_required": "Το OpenCode απαιτεί ρητό μοντέλο σε μορφή παρόχος/μοντέλο.",
+    "anthropic_key_unset_failed": "Επαναδοκιμάστηκε με απενεργοποιημένο ANTHROPIC_API_KEY στη διαμόρφωση adapter, αλλά ο έλεγχος περιβάλλοντος εξακολουθεί να αποτυγχάνει.",
+    "anthropic_key_unset_error": "Αποτυχία απενεργοποίησης ANTHROPIC_API_KEY και επαναδοκιμής."
   },
   "language": {
     "label": "Γλώσσα"

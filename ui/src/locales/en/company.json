@@ -502,7 +502,11 @@
     "accept_bootstrap_desc": "This will finish setting up Paperclip.",
     "accept_company_desc": "This will submit or complete your join request for {{company}}.",
     "accept_submitting": "Submitting request...",
-    "accept_finishing": "Finishing sign-in..."
+    "accept_finishing": "Finishing sign-in...",
+    "error_account_exists": "An account already exists for {{email}}. Sign in below to continue with this invite.",
+    "error_invalid_credentials": "That email and password did not match an existing Paperclip account. Check both fields, or create an account first if you are new here.",
+    "error_account_may_exist": "An account may already exist for {{email}}. Try signing in instead.",
+    "error_auth_failed": "Authentication failed"
   },
   "language": {
     "title": "Language",

@@ -32,6 +32,9 @@
     "test_now": "Jetzt testen",
     "testing": "Wird getestet...",
     "passed": "Bestanden",
+    "warnings": "Warnungen",
+    "failed": "Fehlgeschlagen",
+    "hint_prefix": "Hinweis:",
     "manual_debug": "Manuelle Fehlersuche",
     "prompt_label": "Eingabe:",
     "prompt_value": "Antworten Sie mit Hallo.",
@@ -64,7 +67,12 @@
   "errors": {
     "create_company": "Unternehmen konnte nicht erstellt werden",
     "create_agent": "Agent konnte nicht erstellt werden",
-    "create_task": "Aufgabe konnte nicht erstellt werden"
+    "create_task": "Aufgabe konnte nicht erstellt werden",
+    "test_env_no_company": "Erstellen oder wählen Sie ein Unternehmen, bevor Sie die Adapter-Umgebung testen.",
+    "test_env_failed": "Adapter-Umgebungstest fehlgeschlagen",
+    "opencode_model_required": "OpenCode erfordert ein explizites Modell im Format Anbieter/Modell.",
+    "anthropic_key_unset_failed": "Erneut versucht mit deaktiviertem ANTHROPIC_API_KEY in der Adapterkonfiguration, aber der Umgebungstest schlägt weiterhin fehl.",
+    "anthropic_key_unset_error": "ANTHROPIC_API_KEY konnte nicht deaktiviert und erneut versucht werden."
   },
   "language": {
     "label": "Sprache"

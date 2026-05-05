@@ -1,4 +1,4 @@
-{
+﻿{
   "settings": {
     "title": "Налаштування компанії",
     "breadcrumb_company": "Компанія",
@@ -504,7 +504,11 @@
     "accept_bootstrap_desc": "Це завершить налаштування Paperclip.",
     "accept_company_desc": "Це надішле або завершить ваш запит на вступ до {{company}}.",
     "accept_submitting": "Надсилання запиту...",
-    "accept_finishing": "Завершення входу..."
+    "accept_finishing": "Завершення входу...",
+    "error_account_exists": "Акаунт для {{email}} вже існує. Увійдіть нижче, щоб продовжити з цим запрошенням.",
+    "error_invalid_credentials": "Email і пароль не відповідають жодному існуючому акаунту Paperclip. Перевірте обидва поля або спочатку створіть акаунт.",
+    "error_account_may_exist": "Акаунт для {{email}} вже може існувати. Спробуйте увійти.",
+    "error_auth_failed": "Помилка аутентифікації"
   },
   "language": {
     "title": "Мова",
