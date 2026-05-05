@@ -46,6 +46,7 @@ function getPermissionLabels(t: (key: string) => string): Record<PermissionKey, 
     "users:manage_permissions": t("access.permission_labels.users_manage_permissions"),
     "tasks:assign": t("access.permission_labels.tasks_assign"),
     "tasks:assign_scope": t("access.permission_labels.tasks_assign_scope"),
+    "tasks:manage_active_checkouts": t("access.permission_labels.tasks_manage_active_checkouts"),
     "joins:approve": t("access.permission_labels.joins_approve"),
   };
 }
@@ -75,7 +76,7 @@ export function CompanyAccess() {
   const queryClient = useQueryClient();
   const [editingMemberId, setEditingMemberId] = useState<string | null>(null);
   const [draftRole, setDraftRole] = useState<CompanyMember["membershipRole"]>(null);
-  const [draftStatus, setDraftStatus] = useState<CompanyMember["status"]>("active");
+  const [draftStatus, setDraftStatus] = useState<"pending" | "active" | "suspended">("active");
   const [draftGrants, setDraftGrants] = useState<Set<PermissionKey>>(new Set());
 
   useEffect(() => {
@@ -106,7 +107,7 @@ export function CompanyAccess() {
   };
 
   const updateMemberMutation = useMutation({
-    mutationFn: async (input: { memberId: string; membershipRole: CompanyMember["membershipRole"]; status: CompanyMember["status"]; grants: PermissionKey[] }) => {
+    mutationFn: async (input: { memberId: string; membershipRole: CompanyMember["membershipRole"]; status: "pending" | "active" | "suspended"; grants: PermissionKey[] }) => {
       return accessApi.updateMemberAccess(selectedCompanyId!, input.memberId, {
         membershipRole: input.membershipRole,
         status: input.status,
@@ -174,7 +175,8 @@ export function CompanyAccess() {
   useEffect(() => {
     if (!editingMember) return;
     setDraftRole(editingMember.membershipRole);
-    setDraftStatus(editingMember.status);
+    const status = editingMember.status === "archived" ? "suspended" : editingMember.status;
+    setDraftStatus(status);
     setDraftGrants(new Set(editingMember.grants.map((grant) => grant.permissionKey)));
   }, [editingMember]);
 
@@ -356,7 +358,7 @@ export function CompanyAccess() {
                     className="w-full rounded-md border border-border bg-background px-3 py-2"
                     value={draftStatus}
                     onChange={(event) =>
-                      setDraftStatus(event.target.value as CompanyMember["status"])
+                      setDraftStatus(event.target.value as "pending" | "active" | "suspended")
                     }
                   >
                     <option value="active">{t("access.status_active")}</option>

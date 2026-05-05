@@ -392,7 +392,6 @@ function RuntimeControlsMatrix() {
           <WorkspaceRuntimeControls
             sections={disabledSections}
             disabledHint="Add a workspace path before starting runtime services."
-            square
             onAction={() => undefined}
           />
         </CardContent>

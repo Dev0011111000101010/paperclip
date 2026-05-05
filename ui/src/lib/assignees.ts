@@ -75,15 +75,17 @@ export function formatAssigneeUserLabel(
   userId: string | null | undefined,
   currentUserId: string | null | undefined,
   userLabels?: ReadonlyMap<string, string> | Record<string, string> | null,
+  tYou?: string,
+  tBoard?: string,
 ): string | null {
   if (!userId) return null;
-  if (currentUserId && userId === currentUserId) return "You";
+  if (currentUserId && userId === currentUserId) return tYou ?? "You";
   if (userLabels) {
     const label = userLabels instanceof Map
       ? userLabels.get(userId)
       : (userLabels as Record<string, string>)[userId];
     if (typeof label === "string" && label.trim()) return label;
   }
-  if (userId === "local-board") return "Board";
+  if (userId === "local-board") return tBoard ?? "Board";
   return userId.slice(0, 5);
 }
