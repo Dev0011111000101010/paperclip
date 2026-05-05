@@ -291,7 +291,9 @@
     "called_tools_one": "вызвал {{count}} инструмент",
     "called_tools_few": "вызвал {{count}} инструмента",
     "called_tools_many": "вызвал {{count}} инструментов",
-    "called_tools_other": "вызвал {{count}} инструментов"
+    "called_tools_other": "вызвал {{count}} инструментов",
+    "no_assignee_selected": "Исполнитель не выбран",
+    "no_assignee_body": "Выберите исполнителя или нажмите «Отправить» ещё раз, чтобы опубликовать без него."
   },
   "columns": {
     "button": "Столбцы",

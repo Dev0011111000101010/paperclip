@@ -285,7 +285,9 @@
     "ran_commands_one": "ran {{count}} command",
     "ran_commands_other": "ran {{count}} commands",
     "called_tools_one": "called {{count}} tool",
-    "called_tools_other": "called {{count}} tools"
+    "called_tools_other": "called {{count}} tools",
+    "no_assignee_selected": "No assignee selected",
+    "no_assignee_body": "Pick an assignee or click Send again to post without one."
   },
   "columns": {
     "button": "Columns",
