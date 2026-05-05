@@ -1,4 +1,4 @@
-{
+﻿{
   "settings": {
     "title": "公司设置",
     "breadcrumb_company": "公司",
@@ -502,7 +502,11 @@
     "accept_bootstrap_desc": "这将完成 Paperclip 的设置。",
     "accept_company_desc": "这将提交或完成您加入 {{company}} 的请求。",
     "accept_submitting": "提交请求中...",
-    "accept_finishing": "完成登录中..."
+    "accept_finishing": "完成登录中...",
+    "error_account_exists": "{{email}} 已有账号。请在下方登录以继续接受此邀请。",
+    "error_invalid_credentials": "该邮箱和密码与现有 Paperclip 账号不匹配。请检查两个字段，或者如果您是新用户，请先创建账号。",
+    "error_account_may_exist": "{{email}} 可能已有账号。请尝试登录。",
+    "error_auth_failed": "身份验证失败"
   },
   "language": {
     "title": "语言",

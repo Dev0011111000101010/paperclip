@@ -32,6 +32,9 @@
     "test_now": "Test now",
     "testing": "Testing...",
     "passed": "Passed",
+    "warnings": "Warnings",
+    "failed": "Failed",
+    "hint_prefix": "Hint:",
     "manual_debug": "Manual debug",
     "prompt_label": "Prompt:",
     "prompt_value": "Respond with hello.",
@@ -64,7 +67,12 @@
   "errors": {
     "create_company": "Failed to create company",
     "create_agent": "Failed to create agent",
-    "create_task": "Failed to create task"
+    "create_task": "Failed to create task",
+    "test_env_no_company": "Create or select a company before testing adapter environment.",
+    "test_env_failed": "Adapter environment test failed",
+    "opencode_model_required": "OpenCode requires an explicit model in provider/model format.",
+    "anthropic_key_unset_failed": "Retried with ANTHROPIC_API_KEY unset in adapter config, but the environment test is still failing.",
+    "anthropic_key_unset_error": "Failed to unset ANTHROPIC_API_KEY and retry."
   },
   "language": {
     "label": "Language"

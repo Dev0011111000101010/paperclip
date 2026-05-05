@@ -30,7 +30,8 @@
     "email_label": "E-Mail",
     "email_hint": "Die E-Mail wird durch Ihre Auth-Sitzung verwaltet und ist hier schreibgeschützt.",
     "save": "Profil speichern",
-    "saving": "Wird gespeichert..."
+    "saving": "Wird gespeichert...",
+    "loading": "Profil wird geladen..."
   },
   "instance": {
     "title": "Allgemein",

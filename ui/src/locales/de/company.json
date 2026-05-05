@@ -1,4 +1,4 @@
-{
+﻿{
   "settings": {
     "title": "Unternehmenseinstellungen",
     "breadcrumb_company": "Unternehmen",
@@ -502,7 +502,11 @@
     "accept_bootstrap_desc": "Dies schließt die Einrichtung von Paperclip ab.",
     "accept_company_desc": "Dies reicht Ihre Beitrittsanfrage für {{company}} ein oder schließt sie ab.",
     "accept_submitting": "Anfrage wird eingereicht...",
-    "accept_finishing": "Anmeldung wird abgeschlossen..."
+    "accept_finishing": "Anmeldung wird abgeschlossen...",
+    "error_account_exists": "Für {{email}} existiert bereits ein Konto. Melden Sie sich unten an, um mit dieser Einladung fortzufahren.",
+    "error_invalid_credentials": "E-Mail und Passwort stimmen nicht mit einem bestehenden Paperclip-Konto überein. Prüfen Sie beide Felder oder erstellen Sie zuerst ein Konto, wenn Sie neu hier sind.",
+    "error_account_may_exist": "Für {{email}} existiert möglicherweise bereits ein Konto. Versuchen Sie, sich stattdessen anzumelden.",
+    "error_auth_failed": "Authentifizierung fehlgeschlagen"
   },
   "language": {
     "title": "Sprache",

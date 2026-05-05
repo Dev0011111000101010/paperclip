@@ -30,7 +30,8 @@
     "email_label": "Correo electrónico",
     "email_hint": "El correo electrónico es gestionado por su sesión de autenticación y es de solo lectura aquí.",
     "save": "Guardar perfil",
-    "saving": "Guardando..."
+    "saving": "Guardando...",
+    "loading": "Cargando perfil..."
   },
   "instance": {
     "title": "General",

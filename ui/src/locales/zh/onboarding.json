@@ -1,4 +1,4 @@
-{
+﻿{
   "tabs": {
     "company": "公司",
     "agent": "智能体",
@@ -32,6 +32,9 @@
     "test_now": "立即测试",
     "testing": "测试中...",
     "passed": "通过",
+    "warnings": "警告",
+    "failed": "失败",
+    "hint_prefix": "提示：",
     "manual_debug": "手动调试",
     "prompt_label": "提示：",
     "prompt_value": "请以 hello 回应。",
@@ -64,7 +67,12 @@
   "errors": {
     "create_company": "创建公司失败",
     "create_agent": "创建智能体失败",
-    "create_task": "创建任务失败"
+    "create_task": "创建任务失败",
+    "test_env_no_company": "测试适配器环境前请先创建或选择公司。",
+    "test_env_failed": "适配器环境测试失败",
+    "opencode_model_required": "OpenCode 需要以 提供商/模型 格式明确指定模型。",
+    "anthropic_key_unset_failed": "已在适配器配置中取消设置 ANTHROPIC_API_KEY 并重试，但环境测试仍然失败。",
+    "anthropic_key_unset_error": "无法取消设置 ANTHROPIC_API_KEY 并重试。"
   },
   "language": {
     "label": "语言"
