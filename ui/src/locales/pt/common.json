@@ -156,7 +156,8 @@
     "group_pages": "Páginas",
     "create_issue": "Criar nova tarefa",
     "create_agent": "Criar novo agente",
-    "create_project": "Criar novo projeto"
+    "create_project": "Criar novo projeto",
+    "title": "Paleta de comandos"
   },
   "company_switcher": {
     "companies": "Empresas",
@@ -191,7 +192,8 @@
     "local_badge": "Local",
     "signed_in": "Conectado",
     "local_workspace": "Espaço de trabalho local do sistema",
-    "board_name": "Sistema"
+    "board_name": "Sistema",
+    "open_menu": "Abrir menu da conta"
   },
   "sidebar_company": {
     "invite_people": "Convidar pessoas para {{company}}",

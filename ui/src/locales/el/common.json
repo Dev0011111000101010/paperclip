@@ -156,7 +156,8 @@
     "group_pages": "Σελίδες",
     "create_issue": "Δημιουργία νέου ζητήματος",
     "create_agent": "Δημιουργία νέου πράκτορα",
-    "create_project": "Δημιουργία νέου έργου"
+    "create_project": "Δημιουργία νέου έργου",
+    "title": "Παλέτα εντολών"
   },
   "company_switcher": {
     "companies": "Εταιρίες",
@@ -191,7 +192,8 @@
     "local_badge": "Τοπικό",
     "signed_in": "Συνδεδεμένο",
     "local_workspace": "Τοπικό ταμπλό χώρου εργασίας",
-    "board_name": "Ταμπλό"
+    "board_name": "Ταμπλό",
+    "open_menu": "Άνοιγμα μενού λογαριασμού"
   },
   "sidebar_company": {
     "invite_people": "Προσκαλέστε ανθρώπους στη {{company}}",

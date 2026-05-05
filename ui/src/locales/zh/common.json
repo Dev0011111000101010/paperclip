@@ -156,7 +156,8 @@
     "group_pages": "页面",
     "create_issue": "创建新任务",
     "create_agent": "创建新智能体",
-    "create_project": "创建新项目"
+    "create_project": "创建新项目",
+    "title": "命令面板"
   },
   "company_switcher": {
     "companies": "公司",
@@ -191,7 +192,8 @@
     "local_badge": "本地",
     "signed_in": "已登录",
     "local_workspace": "本地工作空间系统用户",
-    "board_name": "系统用户"
+    "board_name": "系统用户",
+    "open_menu": "打开账户菜单"
   },
   "sidebar_company": {
     "invite_people": "邀请成员加入 {{company}}",

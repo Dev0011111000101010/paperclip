@@ -156,7 +156,8 @@
     "group_pages": "Сторінки",
     "create_issue": "Створити нову задачу",
     "create_agent": "Створити нового агента",
-    "create_project": "Створити новий проєкт"
+    "create_project": "Створити новий проєкт",
+    "title": "Палітра команд"
   },
   "company_switcher": {
     "companies": "Компанії",
@@ -191,7 +192,8 @@
     "local_badge": "Локальний",
     "signed_in": "Увійшли",
     "local_workspace": "Локальна панель",
-    "board_name": "Рада"
+    "board_name": "Рада",
+    "open_menu": "Відкрити меню акаунта"
   },
   "sidebar_company": {
     "invite_people": "Запросити людей до {{company}}",

@@ -153,7 +153,8 @@
     "group_pages": "Pages",
     "create_issue": "Create new issue",
     "create_agent": "Create new agent",
-    "create_project": "Create new project"
+    "create_project": "Create new project",
+    "title": "Command Palette"
   },
   "company_switcher": {
     "companies": "Companies",
@@ -188,7 +189,8 @@
     "local_badge": "Local",
     "signed_in": "Signed in",
     "local_workspace": "Local workspace board",
-    "board_name": "Board"
+    "board_name": "Board",
+    "open_menu": "Open account menu"
   },
   "sidebar_company": {
     "invite_people": "Invite people to {{company}}",

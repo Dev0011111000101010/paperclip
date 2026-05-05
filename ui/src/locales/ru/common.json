@@ -153,7 +153,8 @@
     "group_pages": "Страницы",
     "create_issue": "Создать задачу",
     "create_agent": "Создать агента",
-    "create_project": "Создать проект"
+    "create_project": "Создать проект",
+    "title": "Палитра команд"
   },
   "company_switcher": {
     "companies": "Компании",
@@ -188,7 +189,8 @@
     "local_badge": "Локальный",
     "signed_in": "Выполнен вход",
     "local_workspace": "Локальное рабочее пространство",
-    "board_name": "Совет"
+    "board_name": "Совет",
+    "open_menu": "Открыть меню аккаунта"
   },
   "sidebar_company": {
     "invite_people": "Пригласить людей в {{company}}",

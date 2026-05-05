@@ -156,7 +156,8 @@
     "group_pages": "Seiten",
     "create_issue": "Neue Aufgabe erstellen",
     "create_agent": "Neuen Agenten erstellen",
-    "create_project": "Neues Projekt erstellen"
+    "create_project": "Neues Projekt erstellen",
+    "title": "Befehlspalette"
   },
   "company_switcher": {
     "companies": "Unternehmen",
@@ -191,7 +192,8 @@
     "local_badge": "Lokal",
     "signed_in": "Angemeldet",
     "local_workspace": "Lokaler Arbeitsbereich-Board",
-    "board_name": "Board"
+    "board_name": "Board",
+    "open_menu": "Kontomenü öffnen"
   },
   "sidebar_company": {
     "invite_people": "Personen zu {{company}} einladen",
