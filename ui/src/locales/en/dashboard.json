@@ -31,5 +31,15 @@
     "issues_by_status": "Issues by Status",
     "success_rate": "Success Rate",
     "last_14_days": "Last 14 days"
+  },
+  "live": {
+    "breadcrumb": "Live runs",
+    "title": "Live agent runs",
+    "subtitle": "Active runs first, followed by the most recent completed runs.",
+    "showing_up_to": "Showing up to {{count}}",
+    "active_recent": "Active / recent",
+    "empty_create_company": "Create a company to view live runs.",
+    "empty_select_company": "Select a company to view live runs.",
+    "panel_empty": "No active or recent agent runs."
   }
 }
