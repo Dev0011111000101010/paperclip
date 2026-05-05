@@ -1,0 +1,75 @@
+{
+  "tabs": {
+    "company": "Empresa",
+    "agent": "Agente",
+    "task": "Tarea",
+    "launch": "Lanzar"
+  },
+  "step1": {
+    "title": "Nombra tu empresa",
+    "subtitle": "Esta es la organización para la que trabajarán sus agentes.",
+    "company_name": "Nombre de la empresa",
+    "company_name_placeholder": "Acme Corp",
+    "mission": "Misión / objetivo (opcional)",
+    "mission_placeholder": "¿Qué quiere lograr esta empresa?"
+  },
+  "step2": {
+    "title": "Crea tu primer agente",
+    "subtitle": "Elige cómo ejecutará tareas este agente.",
+    "agent_name": "Nombre del agente",
+    "agent_name_placeholder": "CEO",
+    "adapter_type": "Tipo de adaptador",
+    "more_adapters": "Más tipos de adaptadores de agente",
+    "model": "Modelo",
+    "model_default": "Por defecto",
+    "model_search": "Buscar modelos...",
+    "model_required": "Seleccionar modelo (requerido)",
+    "no_models": "No se encontraron modelos.",
+    "recommended": "Recomendado",
+    "coming_soon": "Próximamente",
+    "env_check_title": "Verificación del entorno del adaptador",
+    "env_check_desc": "Ejecuta una prueba en vivo que solicita al CLI del adaptador responder con hola.",
+    "test_now": "Probar ahora",
+    "testing": "Probando...",
+    "passed": "Aprobado",
+    "manual_debug": "Depuración manual",
+    "prompt_label": "Prompt:",
+    "prompt_value": "Responda con hola.",
+    "anthropic_key_warning": "Claude falló mientras {{key}} está configurado. Puede borrarlo en la configuración del adaptador CEO y reintentar.",
+    "unset_anthropic": "Borrar ANTHROPIC_API_KEY",
+    "retrying": "Reintentando...",
+    "gateway_url": "URL de gateway",
+    "webhook_url": "URL de webhook"
+  },
+  "step3": {
+    "title": "Dale algo que hacer",
+    "subtitle": "Dale a tu agente una tarea pequeña para empezar — una corrección de error, una pregunta de investigación, escribir un script.",
+    "task_title": "Título de la tarea",
+    "task_title_placeholder": "p.ej. Investigar precios de competidores",
+    "description": "Descripción (opcional)",
+    "description_placeholder": "Añade más detalles sobre lo que debe hacer el agente..."
+  },
+  "step4": {
+    "title": "Listo para lanzar",
+    "subtitle": "Todo está configurado. Al lanzar se creará la tarea inicial, se despertará el agente y se abrirá la tarea.",
+    "company": "Empresa",
+    "task": "Tarea"
+  },
+  "actions": {
+    "back": "Atrás",
+    "next": "Siguiente",
+    "creating": "Creando...",
+    "create_and_open": "Crear y abrir tarea"
+  },
+  "errors": {
+    "create_company": "Error al crear la empresa",
+    "create_agent": "Error al crear el agente",
+    "create_task": "Error al crear la tarea"
+  },
+  "language": {
+    "label": "Idioma"
+  },
+  "defaults": {
+    "project_name": "Incorporación"
+  }
+}

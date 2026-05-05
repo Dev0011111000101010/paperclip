@@ -1,5 +1,7 @@
 import type { QuotaWindow } from "@paperclipai/shared";
+import { useTranslation } from "react-i18next";
 import { cn, quotaSourceDisplayName } from "@/lib/utils";
+import i18n from "@/locales/i18n";
 
 interface ClaudeSubscriptionPanelProps {
   windows: QuotaWindow[];
@@ -19,21 +21,6 @@ const WINDOW_ORDER = [
 
 function normalizeLabel(text: string): string {
   return text.toLowerCase().replace(/[^a-z0-9]+/g, "");
-}
-
-function detailText(window: QuotaWindow): string | null {
-  if (typeof window.detail === "string" && window.detail.trim().length > 0) return window.detail.trim();
-  if (window.resetsAt) {
-    const formatted = new Date(window.resetsAt).toLocaleString(undefined, {
-      month: "short",
-      day: "numeric",
-      hour: "numeric",
-      minute: "2-digit",
-      timeZoneName: "short",
-    });
-    return `Resets ${formatted}`;
-  }
-  return null;
 }
 
 function orderedWindows(windows: QuotaWindow[]): QuotaWindow[] {
@@ -56,17 +43,34 @@ export function ClaudeSubscriptionPanel({
   source = null,
   error = null,
 }: ClaudeSubscriptionPanelProps) {
+  const { t } = useTranslation("costs");
   const ordered = orderedWindows(windows);
+
+  function detailText(window: QuotaWindow): string | null {
+    if (typeof window.detail === "string" && window.detail.trim().length > 0) return window.detail.trim();
+    if (window.resetsAt) {
+      const formatted = new Date(window.resetsAt).toLocaleString(i18n.language, {
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: false,
+        timeZoneName: "short",
+      });
+      return t("subscription_panel.resets", { date: formatted });
+    }
+    return null;
+  }
 
   return (
     <div className="border border-border px-4 py-4">
       <div className="flex items-start justify-between gap-3 border-b border-border pb-3">
         <div className="min-w-0">
           <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-            Anthropic subscription
+            {t("subscription_panel.title")}
           </div>
           <div className="mt-1 text-sm text-muted-foreground">
-            Live Claude quota windows.
+            {t("subscription_panel.subtitle")}
           </div>
         </div>
         {source ? (
@@ -120,7 +124,7 @@ export function ClaudeSubscriptionPanel({
                 </div>
                 {window.usedPercent != null ? (
                   <div className="shrink-0 text-sm font-semibold tabular-nums text-foreground">
-                    {window.usedPercent}% used
+                    {t("subscription_panel.percent_used", { percent: window.usedPercent })}
                   </div>
                 ) : null}
               </div>

@@ -1,0 +1,75 @@
+{
+  "tabs": {
+    "company": "Empresa",
+    "agent": "Agente",
+    "task": "Tarefa",
+    "launch": "Lançar"
+  },
+  "step1": {
+    "title": "Nomeie sua empresa",
+    "subtitle": "Esta é a organização para a qual seus agentes trabalharão.",
+    "company_name": "Nome da empresa",
+    "company_name_placeholder": "Acme Corp",
+    "mission": "Missão / objetivo (opcional)",
+    "mission_placeholder": "O que esta empresa está tentando alcançar?"
+  },
+  "step2": {
+    "title": "Crie seu primeiro agente",
+    "subtitle": "Escolha como este agente executará tarefas.",
+    "agent_name": "Nome do agente",
+    "agent_name_placeholder": "CEO",
+    "adapter_type": "Tipo de adaptador",
+    "more_adapters": "Mais Tipos de Adaptadores de Agente",
+    "model": "Modelo",
+    "model_default": "Padrão",
+    "model_search": "Pesquisar modelos...",
+    "model_required": "Selecione o modelo (obrigatório)",
+    "no_models": "Nenhum modelo descoberto.",
+    "recommended": "Recomendado",
+    "coming_soon": "Em breve",
+    "env_check_title": "Verificação do ambiente do adaptador",
+    "env_check_desc": "Executa uma sonda ao vivo que pede ao CLI do adaptador para responder com olá.",
+    "test_now": "Testar agora",
+    "testing": "Testando...",
+    "passed": "Aprovado",
+    "manual_debug": "Depuração manual",
+    "prompt_label": "Prompt:",
+    "prompt_value": "Responda com olá.",
+    "anthropic_key_warning": "O Claude falhou enquanto {{key}} está definido. Você pode limpá-lo na configuração deste adaptador CEO e tentar novamente a sonda.",
+    "unset_anthropic": "Remover ANTHROPIC_API_KEY",
+    "retrying": "Tentando novamente...",
+    "gateway_url": "URL do gateway",
+    "webhook_url": "URL do webhook"
+  },
+  "step3": {
+    "title": "Dê algo para fazer",
+    "subtitle": "Dê ao seu agente uma pequena tarefa para começar — uma correção de bug, uma pergunta de pesquisa, escrita de um script.",
+    "task_title": "Título da tarefa",
+    "task_title_placeholder": "ex.: Pesquisar preços dos concorrentes",
+    "description": "Descrição (opcional)",
+    "description_placeholder": "Adicione mais detalhes sobre o que o agente deve fazer..."
+  },
+  "step4": {
+    "title": "Pronto para lançar",
+    "subtitle": "Tudo está configurado. Lançar agora criará a tarefa inicial, acordará o agente e abrirá a tarefa.",
+    "company": "Empresa",
+    "task": "Tarefa"
+  },
+  "actions": {
+    "back": "Voltar",
+    "next": "Próximo",
+    "creating": "Criando...",
+    "create_and_open": "Criar e Abrir Tarefa"
+  },
+  "errors": {
+    "create_company": "Falha ao criar empresa",
+    "create_agent": "Falha ao criar agente",
+    "create_task": "Falha ao criar tarefa"
+  },
+  "language": {
+    "label": "Idioma"
+  },
+  "defaults": {
+    "project_name": "Onboarding"
+  }
+}

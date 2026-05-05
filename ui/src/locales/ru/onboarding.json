@@ -1,0 +1,75 @@
+{
+  "tabs": {
+    "company": "Компания",
+    "agent": "Агент",
+    "task": "Задача",
+    "launch": "Запуск"
+  },
+  "step1": {
+    "title": "Назовите компанию",
+    "subtitle": "Это организация, в которой будут работать ваши агенты.",
+    "company_name": "Название компании",
+    "company_name_placeholder": "Acme Corp",
+    "mission": "Миссия / цель (необязательно)",
+    "mission_placeholder": "Чего пытается достичь эта компания?"
+  },
+  "step2": {
+    "title": "Создайте первого агента",
+    "subtitle": "Выберите, как этот агент будет выполнять задачи.",
+    "agent_name": "Имя агента",
+    "agent_name_placeholder": "CEO",
+    "adapter_type": "Тип адаптера",
+    "more_adapters": "Больше типов адаптеров",
+    "model": "Модель",
+    "model_default": "По умолчанию",
+    "model_search": "Поиск моделей...",
+    "model_required": "Выберите модель (обязательно)",
+    "no_models": "Модели не обнаружены.",
+    "recommended": "Рекомендуется",
+    "coming_soon": "Скоро",
+    "env_check_title": "Проверка среды адаптера",
+    "env_check_desc": "Выполняет живой зонд, который просит адаптер CLI ответить hello.",
+    "test_now": "Проверить",
+    "testing": "Проверка...",
+    "passed": "Пройдено",
+    "manual_debug": "Ручная отладка",
+    "prompt_label": "Запрос:",
+    "prompt_value": "Respond with hello.",
+    "anthropic_key_warning": "Claude не прошёл, пока установлен {{key}}. Вы можете очистить его в конфигурации адаптера CEO и повторить зонд.",
+    "unset_anthropic": "Сбросить ANTHROPIC_API_KEY",
+    "retrying": "Повтор...",
+    "gateway_url": "URL шлюза",
+    "webhook_url": "URL вебхука"
+  },
+  "step3": {
+    "title": "Дайте задачу агенту",
+    "subtitle": "Дайте агенту небольшую задачу — исправление бага, исследовательский вопрос, написание скрипта.",
+    "task_title": "Название задачи",
+    "task_title_placeholder": "Например: Исследовать цены конкурентов",
+    "description": "Описание (необязательно)",
+    "description_placeholder": "Добавьте подробности о том, что должен делать агент..."
+  },
+  "step4": {
+    "title": "Готово к запуску",
+    "subtitle": "Всё настроено. Запуск создаст стартовую задачу, разбудит агента и откроет задачу.",
+    "company": "Компания",
+    "task": "Задача"
+  },
+  "actions": {
+    "back": "Назад",
+    "next": "Далее",
+    "creating": "Создание...",
+    "create_and_open": "Создать и открыть задачу"
+  },
+  "errors": {
+    "create_company": "Не удалось создать компанию",
+    "create_agent": "Не удалось создать агента",
+    "create_task": "Не удалось создать задачу"
+  },
+  "language": {
+    "label": "Язык"
+  },
+  "defaults": {
+    "project_name": "Онбординг"
+  }
+}

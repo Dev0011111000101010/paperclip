@@ -262,8 +262,6 @@ function NavigationLayoutStories() {
                 <SidebarAccountMenu
                   deploymentMode="authenticated"
                   instanceSettingsTarget="/instance/settings/general"
-                  open
-                  onOpenChange={() => undefined}
                   version="0.3.1"
                 />
               </div>
