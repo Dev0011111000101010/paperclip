@@ -586,7 +586,13 @@
     "each_command_independent": "Jeder Befehl kann unabhängig gesteuert werden.",
     "long_running_desc": "Dauerlaufende Befehle, die Paperclip für diesen Arbeitsbereich überwachen kann.",
     "one_shot_desc": "Einmalige Befehle, die jetzt ausgeführt werden und beim Abschluss beenden.",
-    "mismatched_services_desc": "Laufende Dienste, die nicht mehr der aktuellen Arbeitsbereich-Befehlskonfiguration entsprechen."
+    "mismatched_services_desc": "Laufende Dienste, die nicht mehr der aktuellen Arbeitsbereich-Befehlskonfiguration entsprechen.",
+    "run_once": "einmalig ausführen",
+    "kind_service": "Dienst",
+    "kind_job": "Auftrag",
+    "health_healthy": "gesund",
+    "health_unhealthy": "ungesund",
+    "health_unknown": "unbekannt"
   },
   "placeholders": {
     "search_labels": "Labels suchen...",

@@ -5,8 +5,11 @@
     "active": "Ativos",
     "paused": "Pausados",
     "error": "Erro",
-    "show_terminated": "Mostrar encerrados"
+    "show_terminated": "Mostrar encerrados",
+    "filters": "Filtros"
   },
+  "agents_count": "{{count}} agente",
+  "agents_count_plural": "{{count}} agentes",
   "view": {
     "list": "Lista",
     "org": "Org"
@@ -63,6 +66,7 @@
       "manage_in_adapter": "Gerenciar habilidades diretamente no adaptador.",
       "openclaw_unsupported": "O Paperclip não pode gerenciar habilidades do OpenClaw aqui. Visite sua instância do OpenClaw para gerenciar as habilidades deste agente.",
       "adapter_unsupported": "O Paperclip ainda não pode gerenciar habilidades para este adaptador. Gerencie-as diretamente no adaptador.",
+      "acpx_unsupported": "O Paperclip ainda não pode gerenciar habilidades para comandos ACP personalizados.",
       "kept_in_workspace": "Mantido no workspace",
       "applied_when_runs": "Aplicado quando o agente executa",
       "tracked_only": "Apenas rastreado"
@@ -123,6 +127,10 @@
     "loading_run_logs": "Carregando logs de execução...",
     "loading_log": "Carregando log...",
     "no_persisted_log": "Nenhuma linha de log persistida.",
+    "load_more_log": "Carregar mais log",
+    "loading_more_log": "Carregando...",
+    "log_showing_kb": "Mostrando os primeiros {{kb}} KB",
+    "log_of_total_kb": "de {{total}} KB",
     "jump_to_live": "Ir para ao vivo",
     "failure_details": "Detalhes da falha",
     "api_key_created": "Chave API criada — copie agora, não será mostrada novamente.",
@@ -171,6 +179,21 @@
     "last_heartbeat": "Último Heartbeat",
     "reports_to": "Reporta a",
     "created": "Criado"
+  },
+  "new_agent": {
+    "title": "Novo Agente",
+    "subtitle": "Configuração avançada do agente",
+    "company_skills": "Habilidades da empresa",
+    "company_skills_desc": "Habilidades opcionais da biblioteca da empresa. As habilidades integradas do runtime do Paperclip são adicionadas automaticamente.",
+    "no_skills": "Nenhuma habilidade opcional da empresa instalada ainda.",
+    "ceo_notice": "Este será o CEO",
+    "cancel": "Cancelar",
+    "test_agent": "Testar Agente",
+    "testing": "Testando...",
+    "create": "Criar agente",
+    "creating": "Criando…",
+    "failed_create": "Falha ao criar agente",
+    "opencode_model_required": "O OpenCode requer um modelo explícito no formato provedor/modelo."
   },
   "new_agent_dialog": {
     "title": "Adicionar um novo agente",

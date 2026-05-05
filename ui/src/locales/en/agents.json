@@ -5,8 +5,11 @@
     "active": "Active",
     "paused": "Paused",
     "error": "Error",
-    "show_terminated": "Show terminated"
+    "show_terminated": "Show terminated",
+    "filters": "Filters"
   },
+  "agents_count": "{{count}} agent",
+  "agents_count_plural": "{{count}} agents",
   "view": {
     "list": "List",
     "org": "Org"
@@ -63,6 +66,7 @@
       "manage_in_adapter": "Manage skills in the adapter directly.",
       "openclaw_unsupported": "Paperclip cannot manage OpenClaw skills here. Visit your OpenClaw instance to manage this agent's skills.",
       "adapter_unsupported": "Paperclip cannot manage skills for this adapter yet. Manage them in the adapter directly.",
+      "acpx_unsupported": "Paperclip cannot manage skills for custom ACP commands yet.",
       "kept_in_workspace": "Kept in the workspace",
       "applied_when_runs": "Applied when the agent runs",
       "tracked_only": "Tracked only"
@@ -123,6 +127,10 @@
     "loading_run_logs": "Loading run logs...",
     "loading_log": "Loading log...",
     "no_persisted_log": "No persisted log lines.",
+    "load_more_log": "Load more log",
+    "loading_more_log": "Loading...",
+    "log_showing_kb": "Showing the first {{kb}} KB",
+    "log_of_total_kb": "of {{total}} KB",
     "jump_to_live": "Jump to live",
     "failure_details": "Failure details",
     "api_key_created": "API key created — copy it now, it will not be shown again.",
@@ -171,6 +179,21 @@
     "last_heartbeat": "Last Heartbeat",
     "reports_to": "Reports To",
     "created": "Created"
+  },
+  "new_agent": {
+    "title": "New Agent",
+    "subtitle": "Advanced agent configuration",
+    "company_skills": "Company skills",
+    "company_skills_desc": "Optional skills from the company library. Built-in Paperclip runtime skills are added automatically.",
+    "no_skills": "No optional company skills installed yet.",
+    "ceo_notice": "This will be the CEO",
+    "cancel": "Cancel",
+    "test_agent": "Test Agent",
+    "testing": "Testing...",
+    "create": "Create agent",
+    "creating": "Creating…",
+    "failed_create": "Failed to create agent",
+    "opencode_model_required": "OpenCode requires an explicit model in provider/model format."
   },
   "new_agent_dialog": {
     "title": "Add a new agent",

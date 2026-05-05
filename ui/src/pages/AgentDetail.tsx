@@ -2638,7 +2638,7 @@ export function AgentSkillsTab({
       typeof agent.adapterConfig.agent === "string" &&
       agent.adapterConfig.agent === "custom"
     ) {
-      return "Paperclip cannot manage skills for custom ACP commands yet.";
+      return t("detail.skills_section.acpx_unsupported");
     }
     if (agent.adapterType === "openclaw_gateway") {
       return t("detail.skills_section.openclaw_unsupported");
@@ -3676,7 +3676,7 @@ function LogViewer({ run, adapterType }: { run: HeartbeatRun; adapterType: strin
       setLogOffset(next);
       setHasMoreLog(result.nextOffset !== undefined);
     } catch (err) {
-      setLogError(err instanceof Error ? err.message : "Failed to load more run log");
+      setLogError(err instanceof Error ? err.message : t("detail.failed_load_run_log"));
     } finally {
       setLoadingMoreLog(false);
     }
@@ -3957,12 +3957,12 @@ function LogViewer({ run, adapterType }: { run: HeartbeatRun; adapterType: strin
               onClick={loadMorePersistedLog}
               disabled={loadingMoreLog}
             >
-              {loadingMoreLog ? "Loading..." : "Load more log"}
+              {loadingMoreLog ? t("detail.loading_more_log") : t("detail.load_more_log")}
             </Button>
             <span className="text-xs text-muted-foreground">
-              Showing the first {Math.round(logOffset / 1024).toLocaleString("en-US")} KB
+              {t("detail.log_showing_kb", { kb: Math.round(logOffset / 1024).toLocaleString() })}
               {typeof run.logBytes === "number" && run.logBytes > 0
-                ? ` of ${Math.round(run.logBytes / 1024).toLocaleString("en-US")} KB`
+                ? ` ${t("detail.log_of_total_kb", { total: Math.round(run.logBytes / 1024).toLocaleString() })}`
                 : ""}
             </span>
           </div>

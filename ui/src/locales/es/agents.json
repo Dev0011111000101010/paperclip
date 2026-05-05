@@ -5,8 +5,11 @@
     "active": "Activo",
     "paused": "Pausado",
     "error": "Error",
-    "show_terminated": "Mostrar terminados"
+    "show_terminated": "Mostrar terminados",
+    "filters": "Filtros"
   },
+  "agents_count": "{{count}} agente",
+  "agents_count_plural": "{{count}} agentes",
   "view": {
     "list": "Lista",
     "org": "Org"
@@ -63,6 +66,7 @@
       "manage_in_adapter": "Gestione las habilidades directamente en el adaptador.",
       "openclaw_unsupported": "Paperclip no puede gestionar habilidades de OpenClaw aquí. Visite su instancia de OpenClaw para gestionar las habilidades de este agente.",
       "adapter_unsupported": "Paperclip aún no puede gestionar habilidades para este adaptador. Gestiónelas directamente en el adaptador.",
+      "acpx_unsupported": "Paperclip aún no puede gestionar habilidades para comandos ACP personalizados.",
       "kept_in_workspace": "Mantenido en el espacio de trabajo",
       "applied_when_runs": "Aplicado cuando el agente se ejecuta",
       "tracked_only": "Solo seguimiento"
@@ -123,6 +127,10 @@
     "loading_run_logs": "Cargando registros de ejecución...",
     "loading_log": "Cargando registro...",
     "no_persisted_log": "No hay líneas de registro persistidas.",
+    "load_more_log": "Cargar más registro",
+    "loading_more_log": "Cargando...",
+    "log_showing_kb": "Mostrando los primeros {{kb}} KB",
+    "log_of_total_kb": "de {{total}} KB",
     "jump_to_live": "Saltar a en vivo",
     "failure_details": "Detalles del fallo",
     "api_key_created": "Clave API creada — cópiela ahora, no se mostrará de nuevo.",
@@ -171,6 +179,21 @@
     "last_heartbeat": "Último heartbeat",
     "reports_to": "Reporta a",
     "created": "Creado"
+  },
+  "new_agent": {
+    "title": "Nuevo agente",
+    "subtitle": "Configuración avanzada del agente",
+    "company_skills": "Habilidades de la empresa",
+    "company_skills_desc": "Habilidades opcionales de la biblioteca de la empresa. Las habilidades integradas del entorno de ejecución de Paperclip se añaden automáticamente.",
+    "no_skills": "Aún no hay habilidades opcionales de la empresa instaladas.",
+    "ceo_notice": "Este será el CEO",
+    "cancel": "Cancelar",
+    "test_agent": "Probar agente",
+    "testing": "Probando...",
+    "create": "Crear agente",
+    "creating": "Creando…",
+    "failed_create": "Error al crear el agente",
+    "opencode_model_required": "OpenCode requiere un modelo explícito en formato proveedor/modelo."
   },
   "new_agent_dialog": {
     "title": "Añadir un nuevo agente",

@@ -583,7 +583,13 @@
     "each_command_independent": "Каждую команду можно контролировать независимо.",
     "long_running_desc": "Долгоживущие команды, которые Paperclip может контролировать для этого workspace.",
     "one_shot_desc": "Разовые команды, которые выполняются сейчас и завершаются после окончания.",
-    "mismatched_services_desc": "Выполняющиеся сервисы, которые больше не соответствуют текущей конфигурации команд workspace."
+    "mismatched_services_desc": "Выполняющиеся сервисы, которые больше не соответствуют текущей конфигурации команд workspace.",
+    "run_once": "разовый запуск",
+    "kind_service": "сервис",
+    "kind_job": "задание",
+    "health_healthy": "здоровый",
+    "health_unhealthy": "нездоровый",
+    "health_unknown": "неизвестно"
   },
   "placeholders": {
     "search_labels": "Поиск меток...",

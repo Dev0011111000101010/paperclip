@@ -586,7 +586,13 @@
     "each_command_independent": "每条命令可独立控制。",
     "long_running_desc": "Paperclip 可为此工作空间监督的长期运行命令。",
     "one_shot_desc": "立即运行并在完成后退出的一次性命令。",
-    "mismatched_services_desc": "运行中的服务与当前工作空间命令配置不再匹配。"
+    "mismatched_services_desc": "运行中的服务与当前工作空间命令配置不再匹配。",
+    "run_once": "运行一次",
+    "kind_service": "服务",
+    "kind_job": "任务",
+    "health_healthy": "健康",
+    "health_unhealthy": "不健康",
+    "health_unknown": "未知"
   },
   "placeholders": {
     "search_labels": "搜索标签...",
