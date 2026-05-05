@@ -17,7 +17,8 @@
     "runs": "Execuções",
     "instructions": "Instruções",
     "configuration": "Configuração",
-    "budget": "Orçamento"
+    "budget": "Orçamento",
+    "workspaces": "Espaços de trabalho"
   },
   "actions": {
     "save": "Salvar",

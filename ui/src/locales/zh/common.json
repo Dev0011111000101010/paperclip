@@ -17,7 +17,8 @@
     "runs": "运行记录",
     "instructions": "指令",
     "configuration": "配置",
-    "budget": "预算"
+    "budget": "预算",
+    "workspaces": "工作区"
   },
   "actions": {
     "save": "保存",

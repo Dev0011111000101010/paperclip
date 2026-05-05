@@ -17,7 +17,8 @@
     "runs": "Εκτελέσεις",
     "instructions": "Οδηγίες",
     "configuration": "Διαμόρφωση",
-    "budget": "Προϋπολογισμός"
+    "budget": "Προϋπολογισμός",
+    "workspaces": "Χώροι εργασίας"
   },
   "actions": {
     "save": "Αποθήκευση",

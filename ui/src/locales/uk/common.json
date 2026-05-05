@@ -17,7 +17,8 @@
     "runs": "Запуски",
     "instructions": "Інструкції",
     "configuration": "Конфігурація",
-    "budget": "Бюджет"
+    "budget": "Бюджет",
+    "workspaces": "Робочі простори"
   },
   "actions": {
     "save": "Зберегти",
