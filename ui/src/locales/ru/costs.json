@@ -191,5 +191,25 @@
     "subscription": "Подписка",
     "resets": "Сбрасывается {{date}}",
     "percent_used": "{{percent}}% использовано"
+  },
+  "finance_event_kind": {
+    "inference_charge": "Плата за инференс",
+    "platform_fee": "Платформенный сбор",
+    "credit_purchase": "Покупка кредитов",
+    "credit_refund": "Возврат кредитов",
+    "credit_expiry": "Истечение кредитов",
+    "byok_fee": "Сбор BYOK",
+    "gateway_overhead": "Накладные расходы шлюза",
+    "log_storage_charge": "Хранение журналов",
+    "logpush_charge": "Logpush",
+    "provisioned_capacity_charge": "Резервированная ёмкость",
+    "training_charge": "Обучение",
+    "custom_model_import_charge": "Импорт модели",
+    "custom_model_storage_charge": "Хранение модели",
+    "manual_adjustment": "Ручная корректировка"
+  },
+  "finance_direction": {
+    "credit": "Кредит",
+    "debit": "Дебет"
   }
 }

@@ -189,5 +189,25 @@
     "subscription": "订阅",
     "resets": "{{date}} 重置",
     "percent_used": "已使用 {{percent}}%"
+  },
+  "finance_event_kind": {
+    "inference_charge": "推理费用",
+    "platform_fee": "平台费用",
+    "credit_purchase": "购买额度",
+    "credit_refund": "额度退款",
+    "credit_expiry": "额度过期",
+    "byok_fee": "BYOK 费用",
+    "gateway_overhead": "网关开销",
+    "log_storage_charge": "日志存储",
+    "logpush_charge": "日志推送",
+    "provisioned_capacity_charge": "预留容量",
+    "training_charge": "训练",
+    "custom_model_import_charge": "模型导入",
+    "custom_model_storage_charge": "模型存储",
+    "manual_adjustment": "手动调整"
+  },
+  "finance_direction": {
+    "credit": "贷项",
+    "debit": "借项"
   }
 }

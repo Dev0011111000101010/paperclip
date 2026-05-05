@@ -128,6 +128,7 @@ export function visibleRunCostUsd(
   return readRunCostUsd(usage) || readRunCostUsd(result);
 }
 
+/** English-only fallback map — callers outside FinanceTimelineCard should migrate to t("costs:finance_event_kind.*"). */
 export function financeEventKindDisplayName(eventKind: FinanceEventKind): string {
   const map: Record<FinanceEventKind, string> = {
     inference_charge: "Inference charge",
@@ -148,6 +149,7 @@ export function financeEventKindDisplayName(eventKind: FinanceEventKind): string
   return map[eventKind];
 }
 
+/** English-only fallback — prefer t("costs:finance_direction.*"). */
 export function financeDirectionDisplayName(direction: FinanceDirection): string {
   return direction === "credit" ? "Credit" : "Debit";
 }

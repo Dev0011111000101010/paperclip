@@ -189,5 +189,25 @@
     "subscription": "Συνδρομή",
     "resets": "Επαναφορά {{date}}",
     "percent_used": "{{percent}}% χρησιμοποιήθηκε"
+  },
+  "finance_event_kind": {
+    "inference_charge": "Χρέωση inference",
+    "platform_fee": "Χρέωση πλατφόρμας",
+    "credit_purchase": "Αγορά πίστωσης",
+    "credit_refund": "Επιστροφή πίστωσης",
+    "credit_expiry": "Λήξη πίστωσης",
+    "byok_fee": "Χρέωση BYOK",
+    "gateway_overhead": "Επιβάρυνση gateway",
+    "log_storage_charge": "Αποθήκευση καταγραφών",
+    "logpush_charge": "Logpush",
+    "provisioned_capacity_charge": "Παρεχόμενη χωρητικότητα",
+    "training_charge": "Εκπαίδευση",
+    "custom_model_import_charge": "Εισαγωγή μοντέλου",
+    "custom_model_storage_charge": "Αποθήκευση μοντέλου",
+    "manual_adjustment": "Χειροκίνητη προσαρμογή"
+  },
+  "finance_direction": {
+    "credit": "Πίστωση",
+    "debit": "Χρέωση"
   }
 }

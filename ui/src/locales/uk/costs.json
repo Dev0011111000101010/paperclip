@@ -197,5 +197,25 @@
     "subscription": "Підписка",
     "resets": "Оновлюється {{date}}",
     "percent_used": "{{percent}}% використано"
+  },
+  "finance_event_kind": {
+    "inference_charge": "Плата за інференс",
+    "platform_fee": "Платформна комісія",
+    "credit_purchase": "Купівля кредитів",
+    "credit_refund": "Повернення кредитів",
+    "credit_expiry": "Закінчення кредитів",
+    "byok_fee": "Комісія BYOK",
+    "gateway_overhead": "Накладні витрати шлюзу",
+    "log_storage_charge": "Зберігання журналів",
+    "logpush_charge": "Logpush",
+    "provisioned_capacity_charge": "Зарезервована ємність",
+    "training_charge": "Навчання",
+    "custom_model_import_charge": "Імпорт моделі",
+    "custom_model_storage_charge": "Зберігання моделі",
+    "manual_adjustment": "Ручне коригування"
+  },
+  "finance_direction": {
+    "credit": "Кредит",
+    "debit": "Дебет"
   }
 }

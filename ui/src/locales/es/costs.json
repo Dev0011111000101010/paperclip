@@ -189,5 +189,25 @@
     "subscription": "Suscripción",
     "resets": "Se restablece {{date}}",
     "percent_used": "{{percent}}% usado"
+  },
+  "finance_event_kind": {
+    "inference_charge": "Cargo de inferencia",
+    "platform_fee": "Tarifa de plataforma",
+    "credit_purchase": "Compra de crédito",
+    "credit_refund": "Reembolso de crédito",
+    "credit_expiry": "Vencimiento de crédito",
+    "byok_fee": "Tarifa BYOK",
+    "gateway_overhead": "Sobrecarga de gateway",
+    "log_storage_charge": "Almacenamiento de registros",
+    "logpush_charge": "Logpush",
+    "provisioned_capacity_charge": "Capacidad aprovisionada",
+    "training_charge": "Entrenamiento",
+    "custom_model_import_charge": "Importación de modelo",
+    "custom_model_storage_charge": "Almacenamiento de modelo",
+    "manual_adjustment": "Ajuste manual"
+  },
+  "finance_direction": {
+    "credit": "Crédito",
+    "debit": "Débito"
   }
 }
