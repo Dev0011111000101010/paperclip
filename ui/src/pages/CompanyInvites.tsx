@@ -11,36 +11,33 @@ import { useToast } from "@/context/ToastContext";
 import { Link } from "@/lib/router";
 import { queryKeys } from "@/lib/queryKeys";
 import i18n from "@/locales/i18n";
-import { resolveUserName } from "@/lib/user-display";
 
-function getInviteRoleOptions() {
-  return [
-    {
-      value: "viewer" as const,
-      label: i18n.t("invites.roles.viewer_label", { ns: "company" }),
-      description: i18n.t("invites.roles.viewer_desc", { ns: "company" }),
-      gets: i18n.t("invites.roles.viewer_gets", { ns: "company" }),
-    },
-    {
-      value: "operator" as const,
-      label: i18n.t("invites.roles.operator_label", { ns: "company" }),
-      description: i18n.t("invites.roles.operator_desc", { ns: "company" }),
-      gets: i18n.t("invites.roles.operator_gets", { ns: "company" }),
-    },
-    {
-      value: "admin" as const,
-      label: i18n.t("invites.roles.admin_label", { ns: "company" }),
-      description: i18n.t("invites.roles.admin_desc", { ns: "company" }),
-      gets: i18n.t("invites.roles.admin_gets", { ns: "company" }),
-    },
-    {
-      value: "owner" as const,
-      label: i18n.t("invites.roles.owner_label", { ns: "company" }),
-      description: i18n.t("invites.roles.owner_desc", { ns: "company" }),
-      gets: i18n.t("invites.roles.owner_gets", { ns: "company" }),
-    },
-  ];
-}
+const inviteRoleOptions = [
+  {
+    value: "viewer" as const,
+    label: i18n.t("invites.roles.viewer_label", { ns: "company" }),
+    description: i18n.t("invites.roles.viewer_desc", { ns: "company" }),
+    gets: i18n.t("invites.roles.viewer_gets", { ns: "company" }),
+  },
+  {
+    value: "operator" as const,
+    label: i18n.t("invites.roles.operator_label", { ns: "company" }),
+    description: i18n.t("invites.roles.operator_desc", { ns: "company" }),
+    gets: i18n.t("invites.roles.operator_gets", { ns: "company" }),
+  },
+  {
+    value: "admin" as const,
+    label: i18n.t("invites.roles.admin_label", { ns: "company" }),
+    description: i18n.t("invites.roles.admin_desc", { ns: "company" }),
+    gets: i18n.t("invites.roles.admin_gets", { ns: "company" }),
+  },
+  {
+    value: "owner" as const,
+    label: i18n.t("invites.roles.owner_label", { ns: "company" }),
+    description: i18n.t("invites.roles.owner_desc", { ns: "company" }),
+    gets: i18n.t("invites.roles.owner_gets", { ns: "company" }),
+  },
+];
 
 const INVITE_HISTORY_PAGE_SIZE = 5;
 
@@ -197,7 +194,7 @@ export function CompanyInvites() {
         <fieldset className="space-y-3">
           <legend className="text-sm font-medium">{t("invites.roles.legend")}</legend>
           <div className="rounded-xl border border-border">
-            {getInviteRoleOptions().map((option, index) => {
+            {inviteRoleOptions.map((option, index) => {
               const checked = humanRole === option.value;
               return (
                 <label
@@ -322,13 +319,13 @@ export function CompanyInvites() {
                         {invite.humanRole ? i18n.t(`access.roles.${invite.humanRole}`, { ns: "company", defaultValue: invite.humanRole }) : "—"}
                       </td>
                       <td className="px-5 py-3 align-top">
-                        <div>{resolveUserName(invite.invitedByUser?.name) || invite.invitedByUser?.email || t("invites.unknown_inviter")}</div>
-                        {invite.invitedByUser?.email && resolveUserName(invite.invitedByUser?.name) ? (
+                        <div>{invite.invitedByUser?.name || invite.invitedByUser?.email || t("invites.unknown_inviter")}</div>
+                        {invite.invitedByUser?.email && invite.invitedByUser.name ? (
                           <div className="text-xs text-muted-foreground">{invite.invitedByUser.email}</div>
                         ) : null}
                       </td>
                       <td className="px-5 py-3 align-top text-muted-foreground">
-                        {new Date(invite.createdAt).toLocaleString(i18n.language, { hour12: false })}
+                        {new Date(invite.createdAt).toLocaleString(i18n.language)}
                       </td>
                       <td className="px-5 py-3 align-top">
                         {invite.relatedJoinRequestId ? (
