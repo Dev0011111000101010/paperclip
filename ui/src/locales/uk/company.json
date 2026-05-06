@@ -391,7 +391,9 @@
       "users_manage_permissions": "Управляти учасниками та правами",
       "tasks_assign": "Призначати задачі",
       "tasks_assign_scope": "Призначати задачі з обмеженням",
-      "joins_approve": "Схвалювати запити на вступ"
+      "joins_approve": "Схвалювати запити на вступ",
+      "environments_manage": "Управляти середовищами",
+      "tasks_manage_active_checkouts": "Управляти активними чекаутами задач"
     },
     "no_grants": "Явних прав немає",
     "remove_member_title": "Видалити учасника",

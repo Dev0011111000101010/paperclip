@@ -423,7 +423,9 @@
       "users_manage_permissions": "Управлять участниками и правами",
       "tasks_assign": "Назначать задачи",
       "tasks_assign_scope": "Назначать задачи с ограниченной областью",
-      "joins_approve": "Одобрять заявки на вступление"
+      "joins_approve": "Одобрять заявки на вступление",
+      "environments_manage": "Управлять средами",
+      "tasks_manage_active_checkouts": "Управлять активными чекаутами задач"
     },
     "no_grants": "Нет явных прав",
     "remove_member_title": "Удалить участника",

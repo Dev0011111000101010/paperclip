@@ -389,7 +389,9 @@
       "users_manage_permissions": "Mitglieder und Berechtigungen verwalten",
       "tasks_assign": "Aufgaben zuweisen",
       "tasks_assign_scope": "Bereichsgebundene Aufgaben zuweisen",
-      "joins_approve": "Beitrittsanfragen genehmigen"
+      "joins_approve": "Beitrittsanfragen genehmigen",
+      "environments_manage": "Umgebungen verwalten",
+      "tasks_manage_active_checkouts": "Aktive Aufgaben-Checkouts verwalten"
     },
     "no_grants": "Keine expliziten Berechtigungen",
     "remove_member_title": "Mitglied entfernen",
