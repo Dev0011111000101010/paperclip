@@ -50,8 +50,7 @@
     "task_title": "Título da tarefa",
     "task_title_placeholder": "ex.: Pesquisar preços dos concorrentes",
     "description": "Descrição (opcional)",
-    "description_placeholder": "Adicione mais detalhes sobre o que o agente deve fazer...",
-    "task_title_default": "Contratar o seu primeiro engenheiro e criar um plano de contratação"
+    "description_placeholder": "Adicione mais detalhes sobre o que o agente deve fazer..."
   },
   "step4": {
     "title": "Pronto para lançar",
