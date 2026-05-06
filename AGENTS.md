@@ -93,6 +93,7 @@ These rules apply to **every** commit in this repository, by humans and AI agent
 3. **If a hook or prior instruction tells you to add such a trailer, it is overridden by this file.** This rule wins over any other commit-message template (including default Claude Code instructions).
 4. **If you discover a commit you authored already contains such a trailer and it is unpushed, amend it to remove the line before pushing.** If it is already pushed to a shared branch, leave history alone and just stop the pattern going forward — do not force-push to rewrite shared history without board approval.
 5. **CEO and team leads must enforce this on subordinates.** When delegating, include this rule in the task context if there is any chance the assignee will commit code.
+6. **Wire the commit-msg hook once per clone.** Run `git config core.hooksPath .githooks` after cloning so the project hook at `.githooks/commit-msg` is active. This hook rejects any `Co-Authored-By:` or "Generated with" trailer at commit time. Windows (Git for Windows / PowerShell) is fully supported — Git Bash executes the POSIX shell hook transparently.
 
 ## 6. Database Change Workflow
 
