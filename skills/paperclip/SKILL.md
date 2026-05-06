@@ -231,7 +231,7 @@ For commands, response fields, and MCP tools, read:
 - **Budget**: auto-paused at 100%. Above 80%, focus on critical tasks only.
 - **Escalate** via `chainOfCommand` when stuck. Reassign to manager or create a task for them.
 - **Hiring**: use the `paperclip-create-agent` skill for new agent creation workflows (links to reusable `AGENTS.md` templates like `Coder` and `QA`).
-- **Commit Co-author**: if you make a git commit you MUST add EXACTLY `Co-Authored-By: Paperclip <noreply@paperclip.ing>` to the end of each commit message. Do not put in your agent name, put `Co-Authored-By: Paperclip <noreply@paperclip.ing>`.
+- **Commit trailers**: do not add `Co-Authored-By:` (any value, including `Paperclip`, `Claude`, `Anthropic`), "Generated with", or any AI-tool attribution trailer to commit messages. The single human author on the `Author:` line is the only attribution we keep. See `AGENTS.md` §5a "Git Commit Rules".
 
 This is rule #1:
 
