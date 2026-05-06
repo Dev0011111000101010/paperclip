@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import { Link } from "@/lib/router";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
@@ -7,8 +7,7 @@ import { heartbeatsApi, type LiveRunForIssue } from "../api/heartbeats";
 import type { TranscriptEntry } from "../adapters";
 import { issuesApi } from "../api/issues";
 import { queryKeys } from "../lib/queryKeys";
-import { cn } from "../lib/utils";
-import { timeAgo } from "../lib/timeAgo";
+import { cn, relativeTime } from "../lib/utils";
 import { ExternalLink } from "lucide-react";
 import { Identity } from "./Identity";
 import { RunChatSurface } from "./RunChatSurface";
@@ -16,6 +15,10 @@ import { useLiveRunTranscripts } from "./transcript/useLiveRunTranscripts";
 
 const MIN_DASHBOARD_RUNS = 4;
 const DASHBOARD_RUN_CARD_LIMIT = 4;
+const DASHBOARD_LOG_POLL_INTERVAL_MS = 15_000;
+const DASHBOARD_LOG_READ_LIMIT_BYTES = 64_000;
+const DASHBOARD_MAX_CHUNKS_PER_RUN = 40;
+const EMPTY_TRANSCRIPT: TranscriptEntry[] = [];
 
 function isRunActive(run: LiveRunForIssue): boolean {
   return run.status === "queued" || run.status === "running";
@@ -58,7 +61,7 @@ export function ActiveAgentsPanel({
   const { data: issues } = useQuery({
     queryKey: [...queryKeys.issues.list(companyId), "with-routine-executions"],
     queryFn: () => issuesApi.list(companyId, { includeRoutineExecutions: true }),
-    enabled: runs.length > 0,
+    enabled: visibleRuns.length > 0,
   });
 
   const issueById = useMemo(() => {
@@ -70,9 +73,12 @@ export function ActiveAgentsPanel({
   }, [issues]);
 
   const { transcriptByRun, hasOutputForRun } = useLiveRunTranscripts({
-    runs,
+    runs: visibleRuns,
     companyId,
-    maxChunksPerRun: 120,
+    maxChunksPerRun: DASHBOARD_MAX_CHUNKS_PER_RUN,
+    logPollIntervalMs: DASHBOARD_LOG_POLL_INTERVAL_MS,
+    logReadLimitBytes: DASHBOARD_LOG_READ_LIMIT_BYTES,
+    enableRealtimeUpdates: false,
   });
 
   return (
@@ -92,7 +98,7 @@ export function ActiveAgentsPanel({
               companyId={companyId}
               run={run}
               issue={run.issueId ? issueById.get(run.issueId) : undefined}
-              transcript={transcriptByRun.get(run.id) ?? []}
+              transcript={transcriptByRun.get(run.id) ?? EMPTY_TRANSCRIPT}
               hasOutput={hasOutputForRun(run.id)}
               isActive={isRunActive(run)}
               className={cardClassName}
@@ -111,7 +117,7 @@ export function ActiveAgentsPanel({
   );
 }
 
-function AgentRunCard({
+const AgentRunCard = memo(function AgentRunCard({
   companyId,
   run,
   issue,
@@ -152,7 +158,7 @@ function AgentRunCard({
               <Identity name={run.agentName} size="sm" className="[&>span:last-child]:!text-[11px]" />
             </div>
             <div className="mt-2 flex items-center gap-2 text-[11px] text-muted-foreground">
-              <span>{isActive ? t("detail.run.live_run") : run.finishedAt ? t("detail.run_finished_ago", { time: timeAgo(run.finishedAt) }) : t("detail.run_started_ago", { time: timeAgo(run.createdAt) })}</span>
+              <span>{isActive ? t("detail.run.live_run") : run.finishedAt ? t("detail.run_finished_ago", { time: relativeTime(run.finishedAt) }) : t("detail.run_started_ago", { time: relativeTime(run.createdAt) })}</span>
             </div>
           </div>
 
@@ -191,4 +197,4 @@ function AgentRunCard({
       </div>
     </div>
   );
-}
+});

@@ -23,6 +23,28 @@ import { StatusIcon } from "./StatusIcon";
 
 export const issueTrailingColumns: InboxIssueColumn[] = ["assignee", "project", "workspace", "parent", "labels", "updated"];
 
+const issueColumnLabels: Record<InboxIssueColumn, string> = {
+  status: "Status",
+  id: "ID",
+  assignee: "Assignee",
+  project: "Project",
+  workspace: "Workspace",
+  parent: "Parent issue",
+  labels: "Tags",
+  updated: "Last updated",
+};
+
+const issueColumnDescriptions: Record<InboxIssueColumn, string> = {
+  status: "Issue state chip on the left edge.",
+  id: "Ticket identifier like PAP-1009.",
+  assignee: "Assigned agent or board user.",
+  project: "Linked project pill with its color.",
+  workspace: "Execution or project workspace used for the issue.",
+  parent: "Parent issue identifier and title.",
+  labels: "Issue labels and tags.",
+  updated: "Latest visible activity time.",
+};
+
 export function issueActivityText(issue: Issue): string {
   return `Updated ${timeAgo(issue.lastActivityAt ?? issue.lastExternalCommentAt ?? issue.updatedAt)}`;
 }
@@ -56,26 +78,6 @@ export function IssueColumnPicker({
   iconOnly?: boolean;
 }) {
   const { t } = useTranslation("issues");
-  const issueColumnLabels: Record<InboxIssueColumn, string> = {
-    status: t("columns.labels.status"),
-    id: t("columns.labels.id"),
-    assignee: t("columns.labels.assignee"),
-    project: t("columns.labels.project"),
-    workspace: t("columns.labels.workspace"),
-    parent: t("columns.labels.parent"),
-    labels: t("columns.labels.labels"),
-    updated: t("columns.labels.updated"),
-  };
-  const issueColumnDescriptions: Record<InboxIssueColumn, string> = {
-    status: t("columns.descriptions.status"),
-    id: t("columns.descriptions.id"),
-    assignee: t("columns.descriptions.assignee"),
-    project: t("columns.descriptions.project"),
-    workspace: t("columns.descriptions.workspace"),
-    parent: t("columns.descriptions.parent"),
-    labels: t("columns.descriptions.labels"),
-    updated: t("columns.descriptions.updated"),
-  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
