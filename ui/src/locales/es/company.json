@@ -389,7 +389,9 @@
       "users_manage_permissions": "Gestionar miembros y concesiones",
       "tasks_assign": "Asignar tareas",
       "tasks_assign_scope": "Asignar tareas de alcance",
-      "joins_approve": "Aprobar solicitudes de unión"
+      "joins_approve": "Aprobar solicitudes de unión",
+      "environments_manage": "Gestionar entornos",
+      "tasks_manage_active_checkouts": "Gestionar checkouts de tareas activas"
     },
     "no_grants": "Sin concesiones explícitas",
     "remove_member_title": "Eliminar miembro",

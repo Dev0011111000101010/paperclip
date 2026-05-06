@@ -415,7 +415,9 @@
       "users_manage_permissions": "Manage members and grants",
       "tasks_assign": "Assign tasks",
       "tasks_assign_scope": "Assign scoped tasks",
-      "joins_approve": "Approve join requests"
+      "joins_approve": "Approve join requests",
+      "environments_manage": "Manage environments",
+      "tasks_manage_active_checkouts": "Manage active task checkouts"
     },
     "no_grants": "No explicit grants",
     "remove_member_title": "Remove member",

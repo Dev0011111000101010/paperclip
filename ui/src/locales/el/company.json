@@ -389,7 +389,9 @@
       "users_manage_permissions": "Διαχείριση μελών και χορηγήσεων",
       "tasks_assign": "Ανάθεση εργασιών",
       "tasks_assign_scope": "Ανάθεση εργασιών με εμβέλεια",
-      "joins_approve": "Έγκριση αιτημάτων εγγραφής"
+      "joins_approve": "Έγκριση αιτημάτων εγγραφής",
+      "environments_manage": "Διαχείριση περιβαλλόντων",
+      "tasks_manage_active_checkouts": "Διαχείριση ενεργών ελέγχων εργασιών"
     },
     "no_grants": "Χωρίς ρητές χορηγήσεις",
     "remove_member_title": "Αφαίρεση μέλους",

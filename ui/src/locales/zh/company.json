@@ -389,7 +389,9 @@
       "users_manage_permissions": "管理成员和授予",
       "tasks_assign": "分配任务",
       "tasks_assign_scope": "分配范围任务",
-      "joins_approve": "批准加入请求"
+      "joins_approve": "批准加入请求",
+      "environments_manage": "管理环境",
+      "tasks_manage_active_checkouts": "管理活跃任务检出"
     },
     "no_grants": "没有显式授予",
     "remove_member_title": "移除成员",
