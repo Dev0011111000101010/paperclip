@@ -112,22 +112,7 @@ export function OpenClawGatewayConfigFields({
           }
           immediate
           className={inputClass}
-          placeholder={
-            (() => {
-              const apiUrl = eff(
-                "adapterConfig",
-                "url",
-                String(config.url ?? "")
-              );
-              if (!apiUrl) return "";
-              // Derive WebSocket URL from the configured adapter URL
-              // Convert http:// → ws:// and https:// → wss://
-              // Extract the port from the URL (e.g., 3100 from http://127.0.0.1:3100)
-              const wsUrl = apiUrl.replace(/^https?:\/\//, "").replace(/^http?:\/\//, "");
-              const protocol = apiUrl.startsWith("https") ? "wss" : "ws";
-              return `${protocol}://${wsUrl}`;
-            })()
-          }
+          placeholder="ws://127.0.0.1:18789"
         />
       </Field>
 
