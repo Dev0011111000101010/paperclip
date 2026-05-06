@@ -29,7 +29,9 @@
       "remove_logo": "Remove logo",
       "removing_logo": "Removing...",
       "clear_color": "Clear",
-      "uploading_logo": "Uploading logo..."
+      "uploading_logo": "Uploading logo...",
+      "saving": "Saving...",
+      "failed_to_save": "Failed to save"
     },
     "status": {
       "saved": "Saved",
@@ -46,7 +48,12 @@
       "terms_version": "Terms version:",
       "enabled_at": "Enabled",
       "currently_disabled": "Sharing is currently disabled.",
-      "read_tos": "Read our terms of service"
+      "read_tos": "Read our terms of service",
+      "enabled_at_by": "Enabled {{date}} by {{user}}",
+      "sharing_enabled": "Feedback sharing enabled",
+      "sharing_disabled": "Feedback sharing disabled",
+      "sharing_update_failed": "Failed to update feedback sharing setting",
+      "unknown_error": "Unknown error"
     },
     "openclaw": {
       "generate_snippet": "Generate an OpenClaw agent invite snippet.",
@@ -55,7 +62,9 @@
       "snippet_label": "OpenClaw Invite Prompt",
       "copied": "Copied",
       "copy_snippet": "Copy snippet",
-      "copied_snippet": "Copied snippet"
+      "copied_snippet": "Copied snippet",
+      "generate_snippet_hint": "Generates a short-lived OpenClaw agent invite and shows a prompt to copy.",
+      "failed_to_create": "Failed to create invite"
     },
     "packages": {
       "moved_notice": "Import and export have moved to dedicated pages accessible from the",
@@ -67,8 +76,10 @@
     "danger": {
       "archive_notice": "Archive this company to hide it from the sidebar. This persists in the database.",
       "archive_button": "Archive company",
+      "already_archived": "Already archived",
       "archiving": "Archiving...",
-      "confirm_archive": "Archive company"
+      "confirm_archive": "Archive “{{name}}”? It will be hidden from the sidebar.",
+      "archive_failed": "Failed to archive company"
     }
   },
   "import": {
