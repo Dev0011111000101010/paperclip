@@ -38,6 +38,21 @@ function fillClass(usedPercent: number | null): string {
   return "bg-primary/70";
 }
 
+function detailText(window: QuotaWindow): string | null {
+  if (typeof window.detail === "string" && window.detail.trim().length > 0) return window.detail.trim();
+  if (window.resetsAt) {
+    const formatted = new Date(window.resetsAt).toLocaleString(undefined, {
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      timeZoneName: "short",
+    });
+    return i18n.t("subscription_panel.resets", { ns: "costs", date: formatted });
+  }
+  return null;
+}
+
 export function ClaudeSubscriptionPanel({
   windows,
   source = null,
@@ -45,22 +60,6 @@ export function ClaudeSubscriptionPanel({
 }: ClaudeSubscriptionPanelProps) {
   const { t } = useTranslation("costs");
   const ordered = orderedWindows(windows);
-
-  function detailText(window: QuotaWindow): string | null {
-    if (typeof window.detail === "string" && window.detail.trim().length > 0) return window.detail.trim();
-    if (window.resetsAt) {
-      const formatted = new Date(window.resetsAt).toLocaleString(i18n.language, {
-        month: "short",
-        day: "numeric",
-        hour: "numeric",
-        minute: "2-digit",
-        hour12: false,
-        timeZoneName: "short",
-      });
-      return t("subscription_panel.resets", { date: formatted });
-    }
-    return null;
-  }
 
   return (
     <div className="border border-border px-4 py-4">
