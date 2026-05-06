@@ -4,17 +4,14 @@ import { useTranslation } from "react-i18next";
 import { setLanguage, SUPPORTED_LANGUAGES, LANGUAGE_NATIVE_NAMES } from "../locales/i18n";
 import {
   DEFAULT_COMPANY_ATTACHMENT_MAX_BYTES,
-  DEFAULT_FEEDBACK_DATA_SHARING_TERMS_VERSION,
   MAX_COMPANY_ATTACHMENT_MAX_BYTES,
 } from "@paperclipai/shared";
-import { useToastActions } from "../context/ToastContext";
 import { useCompany } from "../context/CompanyContext";
 import { useBreadcrumbs } from "../context/BreadcrumbContext";
 import { companiesApi } from "../api/companies";
 import { accessApi } from "../api/access";
 import { assetsApi } from "../api/assets";
 import { queryKeys } from "../lib/queryKeys";
-import { cn } from "../lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -25,7 +22,6 @@ import {
 } from "@/components/ui/select";
 import { Settings, Check, Download, Upload } from "lucide-react";
 import { CompanyPatternIcon } from "../components/CompanyPatternIcon";
-import i18n from "@/locales/i18n";
 import {
   Field,
   ToggleField,
@@ -38,7 +34,6 @@ type AgentSnippetInput = {
   testResolutionUrl?: string | null;
 };
 
-const FEEDBACK_TERMS_URL = import.meta.env.VITE_FEEDBACK_TERMS_URL?.trim() || "https://paperclip.ing/tos";
 const BYTES_PER_MIB = 1024 * 1024;
 const DEFAULT_COMPANY_ATTACHMENT_MAX_MIB = DEFAULT_COMPANY_ATTACHMENT_MAX_BYTES / BYTES_PER_MIB;
 const MAX_COMPANY_ATTACHMENT_MAX_MIB = MAX_COMPANY_ATTACHMENT_MAX_BYTES / BYTES_PER_MIB;
@@ -51,7 +46,6 @@ export function CompanySettings() {
   } = useCompany();
   const { setBreadcrumbs } = useBreadcrumbs();
   const { t, i18n: i18n } = useTranslation("company");
-  const { pushToast } = useToastActions();
   const queryClient = useQueryClient();
   // General settings local state
   const [companyName, setCompanyName] = useState("");
@@ -110,28 +104,6 @@ export function CompanySettings() {
       queryClient.invalidateQueries({ queryKey: queryKeys.companies.all });
     }
   });
-
-  const feedbackSharingMutation = useMutation({
-    mutationFn: (enabled: boolean) =>
-      companiesApi.update(selectedCompanyId!, {
-        feedbackDataSharingEnabled: enabled,
-      }),
-    onSuccess: (_company, enabled) => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.companies.all });
-      pushToast({
-        title: enabled ? t("settings.feedback.sharing_enabled") : t("settings.feedback.sharing_disabled"),
-        tone: "success",
-      });
-    },
-    onError: (err) => {
-      pushToast({
-        title: t("settings.feedback.sharing_update_failed"),
-        body: err instanceof Error ? err.message : t("settings.feedback.unknown_error"),
-        tone: "error",
-      });
-    },
-  });
-
 
   const inviteMutation = useMutation({
     mutationFn: () =>
@@ -469,53 +441,6 @@ export function CompanySettings() {
           />
         </div>
       </div>
-
-      <div className="space-y-4">
-        <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-          {t("settings.sections.feedback_sharing")}
-        </div>
-        <div className="space-y-3 rounded-md border border-border px-4 py-4">
-          <ToggleField
-            label={t("settings.feedback.allow_sharing")}
-            hint={t("settings.feedback.allow_sharing_hint")}
-            checked={!!selectedCompany.feedbackDataSharingEnabled}
-            onChange={(enabled) => feedbackSharingMutation.mutate(enabled)}
-          />
-          <p className="text-sm text-muted-foreground">
-            {t("settings.feedback.votes_saved_locally")}
-          </p>
-          <div className="space-y-1 text-xs text-muted-foreground">
-            <div>
-              {t("settings.feedback.terms_version")} {selectedCompany.feedbackDataSharingTermsVersion ?? DEFAULT_FEEDBACK_DATA_SHARING_TERMS_VERSION}
-            </div>
-            {selectedCompany.feedbackDataSharingConsentAt ? (
-              <div>
-                {selectedCompany.feedbackDataSharingConsentByUserId
-                  ? t("settings.feedback.enabled_at_by", {
-                      date: new Date(selectedCompany.feedbackDataSharingConsentAt).toLocaleString(i18n.language, { hour12: false }),
-                      user: selectedCompany.feedbackDataSharingConsentByUserId,
-                    })
-                  : t("settings.feedback.enabled_at", {
-                      date: new Date(selectedCompany.feedbackDataSharingConsentAt).toLocaleString(i18n.language, { hour12: false }),
-                    })}
-              </div>
-            ) : (
-              <div>{t("settings.feedback.currently_disabled")}</div>
-            )}
-            {FEEDBACK_TERMS_URL ? (
-              <a
-                href={FEEDBACK_TERMS_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex text-foreground underline underline-offset-4"
-              >
-                {t("settings.feedback.read_tos")}
-              </a>
-            ) : null}
-          </div>
-        </div>
-      </div>
-
 
       {/* Invites */}
       <div className="space-y-4" data-testid="company-settings-invites-section">
