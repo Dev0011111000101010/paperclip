@@ -226,5 +226,19 @@
   "mode_badge": {
     "local_trusted": "Τοπικά αξιόπιστο",
     "authenticated": "Πιστοποιημένο {{exposure}}"
+  },
+  "role": {
+    "ceo": "CEO",
+    "cto": "CTO",
+    "cmo": "CMO",
+    "cfo": "CFO",
+    "security": "Ασφάλεια",
+    "engineer": "Μηχανικός",
+    "designer": "Σχεδιαστής",
+    "pm": "PM",
+    "qa": "QA",
+    "devops": "DevOps",
+    "researcher": "Ερευνητής",
+    "general": "Γενικός"
   }
 }

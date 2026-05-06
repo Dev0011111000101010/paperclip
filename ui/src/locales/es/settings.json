@@ -226,5 +226,19 @@
   "mode_badge": {
     "local_trusted": "Confianza local",
     "authenticated": "Autenticado {{exposure}}"
+  },
+  "role": {
+    "ceo": "CEO",
+    "cto": "CTO",
+    "cmo": "CMO",
+    "cfo": "CFO",
+    "security": "Seguridad",
+    "engineer": "Ingeniero",
+    "designer": "Diseñador",
+    "pm": "PM",
+    "qa": "QA",
+    "devops": "DevOps",
+    "researcher": "Investigador",
+    "general": "General"
   }
 }
