@@ -22,7 +22,10 @@
       "logo_hint": "Upload a PNG, JPEG, WEBP, GIF, or SVG logo image.",
       "brand_color": "Brand color",
       "brand_color_hint": "Sets the hue for the company icon. Leave empty for auto-generated color.",
-      "auto": "Auto"
+      "auto": "Auto",
+      "attachment_limit": "Attachment size limit",
+      "attachment_limit_hint": "Accepted range: 1-{{max}} MiB.",
+      "attachment_limit_error": "Enter a whole number from 1 to {{max}}."
     },
     "actions": {
       "save_changes": "Save changes",
@@ -414,7 +417,21 @@
       "tasks_assign_scope": "Assign scoped tasks",
       "joins_approve": "Approve join requests"
     },
-    "no_grants": "No explicit grants"
+    "no_grants": "No explicit grants",
+    "remove_member_title": "Remove member",
+    "remove_member_description": "Archive {{name}} and move active assignments before hiding this user from assignment fields.",
+    "remove_member_success_title": "Member removed",
+    "remove_member_issues_cleaned_up_one": "{{count}} assigned issue cleaned up.",
+    "remove_member_issues_cleaned_up_other": "{{count}} assigned issues cleaned up.",
+    "remove_member_error_title": "Failed to remove member",
+    "remove_member_unknown_error": "Unknown error",
+    "remove_member_checking": "Checking assigned issues...",
+    "remove_member_reassignment_heading": "Issue reassignment",
+    "remove_member_leave_unassigned": "Leave unassigned",
+    "remove_member_group_humans": "Humans",
+    "remove_member_group_agents": "Agents",
+    "remove_member_cancel": "Cancel",
+    "remove_member_removing": "Removing..."
   },
   "companies": {
     "breadcrumb": "Companies",

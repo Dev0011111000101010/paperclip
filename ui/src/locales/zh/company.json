@@ -22,7 +22,10 @@
       "logo_hint": "上传 PNG、JPEG、WEBP、GIF 或 SVG 格式的 Logo 图片。",
       "brand_color": "品牌颜色",
       "brand_color_hint": "设置公司图标的色调。留空则自动生成颜色。",
-      "auto": "自动"
+      "auto": "自动",
+      "attachment_limit": "附件大小限制",
+      "attachment_limit_hint": "接受范围：1-{{max}} MiB。",
+      "attachment_limit_error": "请输入 1 到 {{max}} 之间的整数。"
     },
     "actions": {
       "save_changes": "保存更改",
@@ -388,7 +391,21 @@
       "tasks_assign_scope": "分配范围任务",
       "joins_approve": "批准加入请求"
     },
-    "no_grants": "没有显式授予"
+    "no_grants": "没有显式授予",
+    "remove_member_title": "移除成员",
+    "remove_member_description": "归档 {{name}} 并移动活跃任务，然后将此用户从分配字段中隐藏。",
+    "remove_member_success_title": "成员已移除",
+    "remove_member_issues_cleaned_up_one": "已清理 {{count}} 个已分配任务。",
+    "remove_member_issues_cleaned_up_other": "已清理 {{count}} 个已分配任务。",
+    "remove_member_error_title": "移除成员失败",
+    "remove_member_unknown_error": "未知错误",
+    "remove_member_checking": "正在检查已分配的任务...",
+    "remove_member_reassignment_heading": "任务重新分配",
+    "remove_member_leave_unassigned": "保持未分配",
+    "remove_member_group_humans": "人员",
+    "remove_member_group_agents": "代理",
+    "remove_member_cancel": "取消",
+    "remove_member_removing": "正在移除..."
   },
   "companies": {
     "breadcrumb": "公司",

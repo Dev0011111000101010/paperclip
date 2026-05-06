@@ -223,18 +223,18 @@ export function CompanyAccess() {
         await queryClient.invalidateQueries({ queryKey: queryKeys.issues.listTouchedByMe(selectedCompanyId) });
       }
       pushToast({
-        title: "Member removed",
+        title: t("access.remove_member_success_title"),
         body:
           result.reassignedIssueCount > 0
-            ? `${result.reassignedIssueCount} assigned issue${result.reassignedIssueCount === 1 ? "" : "s"} cleaned up.`
+            ? t("access.remove_member_issues_cleaned_up", { count: result.reassignedIssueCount })
             : undefined,
         tone: "success",
       });
     },
     onError: (error) => {
       pushToast({
-        title: "Failed to remove member",
-        body: error instanceof Error ? error.message : "Unknown error",
+        title: t("access.remove_member_error_title"),
+        body: error instanceof Error ? error.message : t("access.remove_member_unknown_error"),
         tone: "error",
       });
     },
@@ -556,9 +556,9 @@ export function CompanyAccess() {
       <Dialog open={!!removingMember} onOpenChange={(open) => !open && setRemovingMemberId(null)}>
         <DialogContent className="max-w-xl">
           <DialogHeader>
-            <DialogTitle>Remove member</DialogTitle>
+            <DialogTitle>{t("access.remove_member_title")}</DialogTitle>
             <DialogDescription>
-              Archive {memberDisplayName(removingMember)} and move active assignments before hiding this user from assignment fields.
+              {t("access.remove_member_description", { name: memberDisplayName(removingMember) })}
             </DialogDescription>
           </DialogHeader>
           {removingMember && (
@@ -568,22 +568,22 @@ export function CompanyAccess() {
                 <div className="text-sm text-muted-foreground">{removingMember.user?.email || removingMember.principalId}</div>
                 <div className="mt-2 text-sm text-muted-foreground">
                   {assignedIssuesQuery.isLoading
-                    ? "Checking assigned issues..."
+                    ? t("access.remove_member_checking")
                     : `${assignedIssues.length} open assigned issue${assignedIssues.length === 1 ? "" : "s"}`}
                 </div>
               </div>
 
               {assignedIssues.length > 0 ? (
                 <div className="space-y-2">
-                  <div className="text-sm font-medium">Issue reassignment</div>
+                  <div className="text-sm font-medium">{t("access.remove_member_reassignment_heading")}</div>
                   <select
                     className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm"
                     value={reassignmentTarget}
                     onChange={(event) => setReassignmentTarget(event.target.value)}
                   >
-                    <option value="__unassigned">Leave unassigned</option>
+                    <option value="__unassigned">{t("access.remove_member_leave_unassigned")}</option>
                     {activeReassignmentUsers.length > 0 ? (
-                      <optgroup label="Humans">
+                      <optgroup label={t("access.remove_member_group_humans")}>
                         {activeReassignmentUsers.map((member) => (
                           <option key={member.id} value={`user:${member.principalId}`}>
                             {memberDisplayName(member)}
@@ -592,7 +592,7 @@ export function CompanyAccess() {
                       </optgroup>
                     ) : null}
                     {activeReassignmentAgents.length > 0 ? (
-                      <optgroup label="Agents">
+                      <optgroup label={t("access.remove_member_group_agents")}>
                         {activeReassignmentAgents.map((agent) => (
                           <option key={agent.id} value={`agent:${agent.id}`}>
                             {agent.name} ({agent.role})
@@ -620,7 +620,7 @@ export function CompanyAccess() {
           )}
           <DialogFooter>
             <Button variant="outline" onClick={() => setRemovingMemberId(null)}>
-              Cancel
+              {t("access.remove_member_cancel")}
             </Button>
             <Button
               variant="destructive"
@@ -633,7 +633,7 @@ export function CompanyAccess() {
               }}
               disabled={archiveMemberMutation.isPending || assignedIssuesQuery.isLoading}
             >
-              {archiveMemberMutation.isPending ? "Removing..." : "Remove member"}
+              {archiveMemberMutation.isPending ? t("access.remove_member_removing") : t("access.remove_member_title")}
             </Button>
           </DialogFooter>
         </DialogContent>

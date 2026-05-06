@@ -22,7 +22,10 @@
       "logo_hint": "Suba una imagen de logo en formato PNG, JPEG, WEBP, GIF o SVG.",
       "brand_color": "Color de marca",
       "brand_color_hint": "Establece el tono para el icono de la empresa. Déjelo vacío para color generado automáticamente.",
-      "auto": "Auto"
+      "auto": "Auto",
+      "attachment_limit": "Límite de tamaño de adjunto",
+      "attachment_limit_hint": "Rango aceptado: 1-{{max}} MiB.",
+      "attachment_limit_error": "Ingrese un número entero del 1 al {{max}}."
     },
     "actions": {
       "save_changes": "Guardar cambios",
@@ -388,7 +391,21 @@
       "tasks_assign_scope": "Asignar tareas de alcance",
       "joins_approve": "Aprobar solicitudes de unión"
     },
-    "no_grants": "Sin concesiones explícitas"
+    "no_grants": "Sin concesiones explícitas",
+    "remove_member_title": "Eliminar miembro",
+    "remove_member_description": "Archivar a {{name}} y mover las asignaciones activas antes de ocultar a este usuario de los campos de asignación.",
+    "remove_member_success_title": "Miembro eliminado",
+    "remove_member_issues_cleaned_up_one": "{{count}} tarea asignada limpiada.",
+    "remove_member_issues_cleaned_up_other": "{{count}} tareas asignadas limpiadas.",
+    "remove_member_error_title": "Error al eliminar miembro",
+    "remove_member_unknown_error": "Error desconocido",
+    "remove_member_checking": "Comprobando tareas asignadas...",
+    "remove_member_reassignment_heading": "Reasignación de tareas",
+    "remove_member_leave_unassigned": "Dejar sin asignar",
+    "remove_member_group_humans": "Personas",
+    "remove_member_group_agents": "Agentes",
+    "remove_member_cancel": "Cancelar",
+    "remove_member_removing": "Eliminando..."
   },
   "companies": {
     "breadcrumb": "Empresas",

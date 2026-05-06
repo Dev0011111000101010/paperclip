@@ -22,7 +22,10 @@
       "logo_hint": "Carregue uma imagem de logotipo PNG, JPEG, WEBP, GIF ou SVG.",
       "brand_color": "Cor da marca",
       "brand_color_hint": "Define o matiz do ícone da empresa. Deixe vazio para cor gerada automaticamente.",
-      "auto": "Auto"
+      "auto": "Auto",
+      "attachment_limit": "Limite de tamanho de anexo",
+      "attachment_limit_hint": "Intervalo aceito: 1-{{max}} MiB.",
+      "attachment_limit_error": "Insira um número inteiro de 1 a {{max}}."
     },
     "actions": {
       "save_changes": "Salvar alterações",
@@ -388,7 +391,21 @@
       "tasks_assign_scope": "Atribuir tarefas com escopo",
       "joins_approve": "Aprovar solicitações de adesão"
     },
-    "no_grants": "Nenhuma concessão explícita"
+    "no_grants": "Nenhuma concessão explícita",
+    "remove_member_title": "Remover membro",
+    "remove_member_description": "Arquivar {{name}} e mover as atribuições ativas antes de ocultar este usuário dos campos de atribuição.",
+    "remove_member_success_title": "Membro removido",
+    "remove_member_issues_cleaned_up_one": "{{count}} tarefa atribuída limpa.",
+    "remove_member_issues_cleaned_up_other": "{{count}} tarefas atribuídas limpas.",
+    "remove_member_error_title": "Falha ao remover membro",
+    "remove_member_unknown_error": "Erro desconhecido",
+    "remove_member_checking": "Verificando tarefas atribuídas...",
+    "remove_member_reassignment_heading": "Reatribuição de tarefa",
+    "remove_member_leave_unassigned": "Deixar sem atribuir",
+    "remove_member_group_humans": "Humanos",
+    "remove_member_group_agents": "Agentes",
+    "remove_member_cancel": "Cancelar",
+    "remove_member_removing": "Removendo..."
   },
   "companies": {
     "breadcrumb": "Empresas",
