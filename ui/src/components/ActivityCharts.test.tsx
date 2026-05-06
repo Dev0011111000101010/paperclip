@@ -86,10 +86,10 @@ function createRun(overrides: Partial<HeartbeatRun> = {}): HeartbeatRun {
 
 describe("ActivityCharts", () => {
   it("renders empty run charts when dashboard aggregate data is temporarily missing", () => {
-    render(<RunActivityChart runs={[]} />);
+    render(<RunActivityChart activity={undefined} />);
     expect(container.textContent).toContain("No runs yet");
 
-    render(<SuccessRateChart runs={[]} />);
+    render(<SuccessRateChart activity={undefined} />);
     expect(container.textContent).toContain("No runs yet");
   });
 
