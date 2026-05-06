@@ -665,6 +665,9 @@
     "hide_advanced": "Скрыть расширенные настройки",
     "show_advanced": "Показать расширенные настройки",
     "implementation_label": "Реализация на хосте: {{value}}",
+    "implementation_prefix": "Реализация на хосте:",
+    "environment_label": "Среда",
+    "no_environment_option": "Без среды",
     "base_ref_label": "Базовый ref",
     "branch_template_label": "Шаблон ветки",
     "worktree_parent_dir_label": "Родительская папка worktree",
@@ -790,5 +793,31 @@
     "provider_mix": "Распределение провайдеров",
     "no_provider_usage": "Использования провайдеров ещё не атрибутировано.",
     "joined": "присоединился {{date}}"
+  },
+  "project": {
+    "budget": {
+      "window_lifetime": "Бюджет на весь период",
+      "window_monthly": "Ежемесячный UTC-бюджет",
+      "observed": "Израсходовано",
+      "no_cap": "Лимит не задан",
+      "of_limit": "{{percent}}% от лимита",
+      "budget_label": "Бюджет",
+      "disabled": "Отключён",
+      "soft_alert_at": "Мягкое оповещение при {{percent}}%",
+      "remaining": "Остаток",
+      "unlimited": "Без ограничений",
+      "paused_project": "Выполнение этого проекта приостановлено до увеличения бюджета или закрытия инцидента.",
+      "paused_scope": "Heartbeat-пинги для этой области приостановлены до увеличения бюджета или закрытия инцидента.",
+      "budget_usd": "Бюджет (USD)",
+      "amount_placeholder": "0.00",
+      "saving": "Сохранение...",
+      "update_budget": "Обновить бюджет",
+      "set_budget": "Установить бюджет",
+      "status_paused": "Приостановлено",
+      "status_warning": "Предупреждение",
+      "status_hard_stop": "Жёсткая остановка",
+      "status_healthy": "В норме",
+      "error_invalid_amount": "Введите корректную неотрицательную сумму в долларах."
+    }
   }
 }

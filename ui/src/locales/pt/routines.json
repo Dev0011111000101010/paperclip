@@ -30,8 +30,17 @@
     "restore": "Restaurar",
     "edit": "Editar",
     "group": "Agrupar",
+    "sort": "Ordenar",
     "cancel": "Cancelar",
     "more_actions": "Mais ações para {{title}}"
+  },
+  "sort": {
+    "updated": "Atualizado",
+    "created": "Criado",
+    "last_run": "Última execução",
+    "title": "Título",
+    "asc": "Asc",
+    "desc": "Desc"
   },
   "concurrency_policy": {
     "coalesce_if_active": "Se uma execução já estiver ativa, mantenha apenas uma execução de acompanhamento na fila.",

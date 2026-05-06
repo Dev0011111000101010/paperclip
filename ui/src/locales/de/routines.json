@@ -30,8 +30,17 @@
     "restore": "Wiederherstellen",
     "edit": "Bearbeiten",
     "group": "Gruppe",
+    "sort": "Sortieren",
     "cancel": "Abbrechen",
     "more_actions": "Weitere Aktionen für {{title}}"
+  },
+  "sort": {
+    "updated": "Aktualisiert",
+    "created": "Erstellt",
+    "last_run": "Letzter Lauf",
+    "title": "Titel",
+    "asc": "Aufst.",
+    "desc": "Abst."
   },
   "concurrency_policy": {
     "coalesce_if_active": "Wenn eine Ausführung bereits aktiv ist, nur eine Folgeausführung in der Warteschlange behalten.",

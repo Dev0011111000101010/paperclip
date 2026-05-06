@@ -30,7 +30,16 @@
     "restore": "Restore",
     "edit": "Edit",
     "group": "Group",
+    "sort": "Sort",
     "cancel": "Cancel"
+  },
+  "sort": {
+    "updated": "Updated",
+    "created": "Created",
+    "last_run": "Last run",
+    "title": "Title",
+    "asc": "Asc",
+    "desc": "Desc"
   },
   "concurrency_policy": {
     "coalesce_if_active": "If a run is already active, keep just one follow-up run queued.",
