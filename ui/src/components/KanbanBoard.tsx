@@ -33,6 +33,9 @@ const boardStatuses = [
   "cancelled",
 ];
 
+function statusLabel(status: string): string {
+  return status.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+}
 
 interface Agent {
   id: string;
@@ -71,7 +74,7 @@ function KanbanColumn({
         {(!isEmpty || isOver) && (
           <>
             <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              {t(`status.${status}`, { defaultValue: status.replace(/_/g, " ") })}
+              {t(`status.${status}`, { defaultValue: statusLabel(status) })}
             </span>
             <span className="text-xs text-muted-foreground/60 ml-auto tabular-nums">
               {issues.length}

@@ -36,13 +36,11 @@ function PickerButton({
   current,
   options,
   onChange,
-  getLabel = label,
   children,
 }: {
   current: string;
   options: readonly string[];
   onChange: (value: string) => void;
-  getLabel?: (opt: string) => string;
   children: React.ReactNode;
 }) {
   const [open, setOpen] = useState(false);
@@ -65,7 +63,7 @@ function PickerButton({
               setOpen(false);
             }}
           >
-            {getLabel(opt)}
+            {label(opt)}
           </Button>
         ))}
       </PopoverContent>
@@ -106,7 +104,6 @@ export function GoalProperties({ goal, onUpdate }: GoalPropertiesProps) {
               current={goal.status}
               options={GOAL_STATUSES}
               onChange={(status) => onUpdate({ status })}
-              getLabel={(opt) => t(`status.${opt}`, { ns: "common", defaultValue: label(opt) })}
             >
               <StatusBadge status={goal.status} />
             </PickerButton>
@@ -121,12 +118,11 @@ export function GoalProperties({ goal, onUpdate }: GoalPropertiesProps) {
               current={goal.level}
               options={GOAL_LEVELS}
               onChange={(level) => onUpdate({ level })}
-              getLabel={(opt) => t(`new_goal_dialog.level_${opt}`, { defaultValue: label(opt) })}
             >
-              <span className="text-sm">{t(`new_goal_dialog.level_${goal.level}`, { defaultValue: goal.level })}</span>
+              <span className="text-sm capitalize">{goal.level}</span>
             </PickerButton>
           ) : (
-            <span className="text-sm">{t(`new_goal_dialog.level_${goal.level}`, { defaultValue: goal.level })}</span>
+            <span className="text-sm capitalize">{goal.level}</span>
           )}
         </PropertyRow>
 

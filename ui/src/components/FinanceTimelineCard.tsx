@@ -3,6 +3,8 @@ import type { FinanceEvent } from "@paperclipai/shared";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
+  financeDirectionDisplayName,
+  financeEventKindDisplayName,
   formatCents,
   formatDateTime,
   providerDisplayName,
@@ -36,9 +38,9 @@ export function FinanceTimelineCard({
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0 space-y-2">
                   <div className="flex flex-wrap items-center gap-2">
-                    <Badge variant="secondary">{t(`finance_event_kind.${row.eventKind}`)}</Badge>
+                    <Badge variant="secondary">{financeEventKindDisplayName(row.eventKind)}</Badge>
                     <Badge variant={row.direction === "credit" ? "outline" : "secondary"}>
-                      {t(`finance_direction.${row.direction}`)}
+                      {financeDirectionDisplayName(row.direction)}
                     </Badge>
                     <span className="text-xs text-muted-foreground">{formatDateTime(row.occurredAt)}</span>
                   </div>
