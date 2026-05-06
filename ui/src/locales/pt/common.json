@@ -193,7 +193,9 @@
     "signed_in": "Conectado",
     "local_workspace": "Espaço de trabalho local do sistema",
     "board_name": "Sistema",
-    "open_menu": "Abrir menu da conta"
+    "open_menu": "Abrir menu da conta",
+    "view_profile": "Ver perfil",
+    "view_profile_desc": "Abra seu registro de atividade, tarefas e uso."
   },
   "sidebar_company": {
     "invite_people": "Convidar pessoas para {{company}}",

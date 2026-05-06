@@ -192,7 +192,9 @@
     "signed_in": "Signed in",
     "local_workspace": "Local workspace board",
     "board_name": "Board",
-    "open_menu": "Open account menu"
+    "open_menu": "Open account menu",
+    "view_profile": "View profile",
+    "view_profile_desc": "Open your activity, task, and usage ledger."
   },
   "sidebar_company": {
     "invite_people": "Invite people to {{company}}",

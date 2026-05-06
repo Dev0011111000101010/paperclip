@@ -193,7 +193,9 @@
     "signed_in": "Увійшли",
     "local_workspace": "Локальна панель",
     "board_name": "Рада",
-    "open_menu": "Відкрити меню акаунта"
+    "open_menu": "Відкрити меню акаунта",
+    "view_profile": "Переглянути профіль",
+    "view_profile_desc": "Відкрити журнал активності, завдань та використання."
   },
   "sidebar_company": {
     "invite_people": "Запросити людей до {{company}}",

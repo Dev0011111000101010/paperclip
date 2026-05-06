@@ -193,7 +193,9 @@
     "signed_in": "Sesión iniciada",
     "local_workspace": "Board de espacio de trabajo local",
     "board_name": "Board",
-    "open_menu": "Abrir menú de cuenta"
+    "open_menu": "Abrir menú de cuenta",
+    "view_profile": "Ver perfil",
+    "view_profile_desc": "Abre tu registro de actividad, tareas y uso."
   },
   "sidebar_company": {
     "invite_people": "Invitar personas a {{company}}",

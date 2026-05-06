@@ -193,7 +193,9 @@
     "signed_in": "已登录",
     "local_workspace": "本地工作空间系统用户",
     "board_name": "系统用户",
-    "open_menu": "打开账户菜单"
+    "open_menu": "打开账户菜单",
+    "view_profile": "查看个人资料",
+    "view_profile_desc": "打开您的活动、任务和使用记录。"
   },
   "sidebar_company": {
     "invite_people": "邀请成员加入 {{company}}",

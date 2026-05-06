@@ -193,7 +193,9 @@
     "signed_in": "Angemeldet",
     "local_workspace": "Lokaler Arbeitsbereich-Board",
     "board_name": "Board",
-    "open_menu": "Kontomenü öffnen"
+    "open_menu": "Kontomenü öffnen",
+    "view_profile": "Profil anzeigen",
+    "view_profile_desc": "Öffne dein Aktivitäts-, Aufgaben- und Verwendungsprotokoll."
   },
   "sidebar_company": {
     "invite_people": "Personen zu {{company}} einladen",
