@@ -10,10 +10,10 @@ import { PriorityIcon } from "./PriorityIcon";
 import { StatusIcon } from "./StatusIcon";
 import {
   defaultIssueFilterState,
-  issueQuickFilterPresets,
   issueFilterArraysEqual,
   issueFilterLabel,
   issuePriorityOrder,
+  issueQuickFilterPresets,
   issueStatusOrder,
   toggleIssueFilterValue,
   type IssueFilterState,
