@@ -341,13 +341,10 @@ export function InstanceGeneralSettings() {
               );
             })}
           </div>
-          <p className="text-xs text-muted-foreground">
-            To retest the first-use prompt in local dev, remove the{" "}
-            <code>feedbackDataSharingPreference</code> key from the{" "}
-            <code>instance_settings.general</code> JSON row for this instance, or set it back to{" "}
-            <code>"prompt"</code>. Unset and <code>"prompt"</code> both mean no default has been
-            chosen yet.
-          </p>
+          <p
+            className="text-xs text-muted-foreground"
+            dangerouslySetInnerHTML={{ __html: t("instance.feedback.retest_hint") }}
+          />
         </div>
       </section>
 
