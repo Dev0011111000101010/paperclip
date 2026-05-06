@@ -5,7 +5,7 @@
 
 MSG_FILE="$1"
 
-if grep -qiE '^Co-Authored-By:|Generated with \[Claude|Sent from.*Claude' "$MSG_FILE"; then
+if LC_ALL=C grep -qiE '^Co-Authored-By:|Generated with \[Claude|Sent from.*Claude' "$MSG_FILE"; then
     echo "ERROR: Commit message contains a banned AI-tool attribution trailer." >&2
     echo "       Remove all Co-Authored-By: and 'Generated with' lines." >&2
     echo "       See AGENTS.md §5a for the full policy." >&2
