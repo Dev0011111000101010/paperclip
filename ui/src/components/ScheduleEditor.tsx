@@ -1,32 +1,41 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import i18n from "../locales/i18n";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
+import { ChevronDown, ChevronRight } from "lucide-react";
 
 type SchedulePreset = "every_minute" | "every_hour" | "every_day" | "weekdays" | "weekly" | "monthly" | "custom";
 
-function formatHourLabel(hour: number, locale: string): string {
-  const resolved = new Intl.DateTimeFormat(locale, { hour: "numeric" }).resolvedOptions();
-  if (resolved.hour12) {
-    if (hour === 0) return "12 AM";
-    if (hour < 12) return `${hour} AM`;
-    if (hour === 12) return "12 PM";
-    return `${hour - 12} PM`;
-  }
-  return String(hour);
-}
+const PRESETS: { value: SchedulePreset; label: string }[] = [
+  { value: "every_minute", label: "Every minute" },
+  { value: "every_hour", label: "Every hour" },
+  { value: "every_day", label: "Every day" },
+  { value: "weekdays", label: "Weekdays" },
+  { value: "weekly", label: "Weekly" },
+  { value: "monthly", label: "Monthly" },
+  { value: "custom", label: "Custom (cron)" },
+];
 
-function formatTimeStr(hour: string, minute: string, locale: string): string {
-  const date = new Date(2000, 0, 1, Number(hour), Number(minute), 0);
-  return date.toLocaleTimeString(locale, { hour: "numeric", minute: "2-digit" });
-}
+const HOURS = Array.from({ length: 24 }, (_, i) => ({
+  value: String(i),
+  label: i === 0 ? "12 AM" : i < 12 ? `${i} AM` : i === 12 ? "12 PM" : `${i - 12} PM`,
+}));
 
 const MINUTES = Array.from({ length: 12 }, (_, i) => ({
   value: String(i * 5),
   label: String(i * 5).padStart(2, "0"),
 }));
+
+const DAYS_OF_WEEK = [
+  { value: "1", label: "Mon" },
+  { value: "2", label: "Tue" },
+  { value: "3", label: "Wed" },
+  { value: "4", label: "Thu" },
+  { value: "5", label: "Fri" },
+  { value: "6", label: "Sat" },
+  { value: "0", label: "Sun" },
+];
 
 const DAYS_OF_MONTH = Array.from({ length: 31 }, (_, i) => ({
   value: String(i + 1),
@@ -53,21 +62,32 @@ function parseCronToPreset(cron: string): {
 
   const [min, hr, dom, , dow] = parts;
 
+  // Every minute: "* * * * *"
   if (min === "*" && hr === "*" && dom === "*" && dow === "*") {
     return { preset: "every_minute", ...defaults };
   }
+
+  // Every hour: "0 * * * *"
   if (hr === "*" && dom === "*" && dow === "*") {
     return { preset: "every_hour", ...defaults, minute: min === "*" ? "0" : min };
   }
+
+  // Every day: "M H * * *"
   if (dom === "*" && dow === "*" && hr !== "*") {
     return { preset: "every_day", ...defaults, hour: hr, minute: min === "*" ? "0" : min };
   }
+
+  // Weekdays: "M H * * 1-5"
   if (dom === "*" && dow === "1-5" && hr !== "*") {
     return { preset: "weekdays", ...defaults, hour: hr, minute: min === "*" ? "0" : min };
   }
+
+  // Weekly: "M H * * D" (single day)
   if (dom === "*" && /^\d$/.test(dow) && hr !== "*") {
     return { preset: "weekly", ...defaults, hour: hr, minute: min === "*" ? "0" : min, dayOfWeek: dow };
   }
+
+  // Monthly: "M H D * *"
   if (/^\d{1,2}$/.test(dom) && dow === "*" && hr !== "*") {
     return { preset: "monthly", ...defaults, hour: hr, minute: min === "*" ? "0" : min, dayOfMonth: dom };
   }
@@ -77,47 +97,52 @@ function parseCronToPreset(cron: string): {
 
 function buildCron(preset: SchedulePreset, hour: string, minute: string, dayOfWeek: string, dayOfMonth: string): string {
   switch (preset) {
-    case "every_minute": return "* * * * *";
-    case "every_hour": return `${minute} * * * *`;
-    case "every_day": return `${minute} ${hour} * * *`;
-    case "weekdays": return `${minute} ${hour} * * 1-5`;
-    case "weekly": return `${minute} ${hour} * * ${dayOfWeek}`;
-    case "monthly": return `${minute} ${hour} ${dayOfMonth} * *`;
-    case "custom": return "";
+    case "every_minute":
+      return "* * * * *";
+    case "every_hour":
+      return `${minute} * * * *`;
+    case "every_day":
+      return `${minute} ${hour} * * *`;
+    case "weekdays":
+      return `${minute} ${hour} * * 1-5`;
+    case "weekly":
+      return `${minute} ${hour} * * ${dayOfWeek}`;
+    case "monthly":
+      return `${minute} ${hour} ${dayOfMonth} * *`;
+    case "custom":
+      return "";
   }
 }
 
-function describeSchedule(cron: string, locale = i18n.language): string {
+function describeSchedule(cron: string): string {
   const { preset, hour, minute, dayOfWeek, dayOfMonth } = parseCronToPreset(cron);
-  const timeStr = formatTimeStr(hour, minute, locale);
-  const daysOfWeek = [
-    { value: "1", label: i18n.t("schedule.mon", { ns: "common" }) },
-    { value: "2", label: i18n.t("schedule.tue", { ns: "common" }) },
-    { value: "3", label: i18n.t("schedule.wed", { ns: "common" }) },
-    { value: "4", label: i18n.t("schedule.thu", { ns: "common" }) },
-    { value: "5", label: i18n.t("schedule.fri", { ns: "common" }) },
-    { value: "6", label: i18n.t("schedule.sat", { ns: "common" }) },
-    { value: "0", label: i18n.t("schedule.sun", { ns: "common" }) },
-  ];
+  const hourLabel = HOURS.find((h) => h.value === hour)?.label ?? `${hour}`;
+  const timeStr = `${hourLabel.replace(/ (AM|PM)$/, "")}:${minute.padStart(2, "0")} ${hourLabel.match(/(AM|PM)$/)?.[0] ?? ""}`;
 
   switch (preset) {
     case "every_minute":
-      return i18n.t("schedule.every_minute", { ns: "common" });
+      return "Every minute";
     case "every_hour":
-      return i18n.t("schedule.desc_every_hour_at", { ns: "common", minute: minute.padStart(2, "0") });
+      return `Every hour at :${minute.padStart(2, "0")}`;
     case "every_day":
-      return i18n.t("schedule.desc_every_day_at", { ns: "common", time: timeStr });
+      return `Every day at ${timeStr}`;
     case "weekdays":
-      return i18n.t("schedule.desc_weekdays_at", { ns: "common", time: timeStr });
+      return `Weekdays at ${timeStr}`;
     case "weekly": {
-      const day = daysOfWeek.find((d) => d.value === dayOfWeek)?.label ?? dayOfWeek;
-      return i18n.t("schedule.desc_weekly_on_at", { ns: "common", day, time: timeStr });
+      const day = DAYS_OF_WEEK.find((d) => d.value === dayOfWeek)?.label ?? dayOfWeek;
+      return `Every ${day} at ${timeStr}`;
     }
     case "monthly":
-      return i18n.t("schedule.desc_monthly_on_at", { ns: "common", day: dayOfMonth, time: timeStr });
+      return `Monthly on the ${dayOfMonth}${ordinalSuffix(Number(dayOfMonth))} at ${timeStr}`;
     case "custom":
-      return cron || i18n.t("schedule.no_schedule_set", { ns: "common" });
+      return cron || "No schedule set";
   }
+}
+
+function ordinalSuffix(n: number): string {
+  const s = ["th", "st", "nd", "rd"];
+  const v = n % 100;
+  return s[(v - 20) % 10] || s[v] || s[0];
 }
 
 export { describeSchedule };
@@ -129,7 +154,7 @@ export function ScheduleEditor({
   value: string;
   onChange: (cron: string) => void;
 }) {
-  const { t, i18n: i18nInstance } = useTranslation("common");
+  const { t } = useTranslation("common");
   const parsed = useMemo(() => parseCronToPreset(value), [value]);
   const [preset, setPreset] = useState<SchedulePreset>(parsed.preset);
   const [hour, setHour] = useState(parsed.hour);
@@ -138,40 +163,7 @@ export function ScheduleEditor({
   const [dayOfMonth, setDayOfMonth] = useState(parsed.dayOfMonth);
   const [customCron, setCustomCron] = useState(preset === "custom" ? value : "");
 
-  const hours = useMemo(
-    () => Array.from({ length: 24 }, (_, i) => ({
-      value: String(i),
-      label: formatHourLabel(i, i18nInstance.language),
-    })),
-    [i18nInstance.language],
-  );
-
-  const daysOfWeek = useMemo(
-    () => [
-      { value: "1", label: t("schedule.mon") },
-      { value: "2", label: t("schedule.tue") },
-      { value: "3", label: t("schedule.wed") },
-      { value: "4", label: t("schedule.thu") },
-      { value: "5", label: t("schedule.fri") },
-      { value: "6", label: t("schedule.sat") },
-      { value: "0", label: t("schedule.sun") },
-    ],
-    [t],
-  );
-
-  const presets = useMemo(
-    () => [
-      { value: "every_minute" as SchedulePreset, label: t("schedule.every_minute") },
-      { value: "every_hour" as SchedulePreset, label: t("schedule.every_hour") },
-      { value: "every_day" as SchedulePreset, label: t("schedule.every_day") },
-      { value: "weekdays" as SchedulePreset, label: t("schedule.weekdays") },
-      { value: "weekly" as SchedulePreset, label: t("schedule.weekly") },
-      { value: "monthly" as SchedulePreset, label: t("schedule.monthly") },
-      { value: "custom" as SchedulePreset, label: t("schedule.custom_cron") },
-    ],
-    [t],
-  );
-
+  // Sync from external value changes
   useEffect(() => {
     const p = parseCronToPreset(value);
     setPreset(p.preset);
@@ -209,7 +201,7 @@ export function ScheduleEditor({
           <SelectValue placeholder={t("schedule.choose_frequency")} />
         </SelectTrigger>
         <SelectContent>
-          {presets.map((p) => (
+          {PRESETS.map((p) => (
             <SelectItem key={p.value} value={p.value}>
               {p.label}
             </SelectItem>
@@ -248,7 +240,7 @@ export function ScheduleEditor({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {hours.map((h) => (
+                  {HOURS.map((h) => (
                     <SelectItem key={h.value} value={h.value}>
                       {h.label}
                     </SelectItem>
@@ -305,7 +297,7 @@ export function ScheduleEditor({
             <>
               <span className="text-sm text-muted-foreground">{t("schedule.on")}</span>
               <div className="flex gap-1">
-                {daysOfWeek.map((d) => (
+                {DAYS_OF_WEEK.map((d) => (
                   <Button
                     key={d.value}
                     type="button"
