@@ -75,7 +75,9 @@
     "dismiss_from_inbox": "Убрать из входящих",
     "assignment": "Назначение",
     "timer": "Таймер",
-    "on_demand": "По запросу"
+    "on_demand": "По запросу",
+    "reset": "Сбросить",
+    "run_now": "Запустить сейчас"
   },
   "status": {
     "all": "Все",
@@ -236,7 +238,10 @@
     "toast_archived": "«{{name}}» архивирован",
     "toast_unarchived": "«{{name}}» разархивирован",
     "toast_archive_failed": "Не удалось архивировать проект",
-    "toast_unarchive_failed": "Не удалось разархивировать проект"
+    "toast_unarchive_failed": "Не удалось разархивировать проект",
+    "add_project": "Добавить проект",
+    "no_projects": "Проектов пока нет.",
+    "select_company_for_projects": "Выберите компанию для просмотра проектов."
   },
   "board_claim": {
     "invalid_url": "Недействительный URL запроса на владение доской.",
@@ -314,7 +319,37 @@
     "failed_load": "Не удалось загрузить рабочее пространство",
     "tab_configuration": "Конфигурация",
     "tab_runtime_logs": "Логи выполнения",
-    "tab_issues": "Задачи"
+    "tab_issues": "Задачи",
+    "tab_routines": "Процедуры",
+    "configure_workspace_desc": "Настройте конкретное рабочее пространство выполнения, которое Paperclip повторно использует для этого потока задач.",
+    "configure_workspace_detail": "Эти настройки привязаны к рабочему пространству выполнения, чтобы будущие запуски могли сохранять локальные пути, ссылки на репозиторий, подготовку, разборку и поведение сервисов runtime в синхронизации с фактически используемым рабочим пространством.",
+    "workspace_settings_title": "Настройки рабочего пространства",
+    "workspace_settings_desc": "Редактируйте конкретный путь, репозиторий, ветку, подготовку, разборку и переопределения runtime, привязанные к этому рабочему пространству выполнения.",
+    "runtime_config_source_title": "Источник конфигурации runtime",
+    "runtime_config_source_execution": "Это рабочее пространство выполнения в настоящее время переопределяет конфигурацию runtime рабочего пространства проекта.",
+    "runtime_config_source_project": "Это рабочее пространство выполнения наследует конфигурацию runtime рабочего пространства проекта.",
+    "runtime_config_source_none": "Для этого рабочего пространства выполнения или его рабочего пространства проекта не определена конфигурация runtime.",
+    "runtime_source_execution_override": "переопределение рабочего пространства выполнения",
+    "runtime_source_project_default": "настройка рабочего пространства проекта по умолчанию",
+    "runtime_source_none": "нет",
+    "services_and_jobs_title": "Сервисы и задачи",
+    "services_source_label": "Источник: {{source}}",
+    "workspace_context_title": "Контекст рабочего пространства",
+    "workspace_context_desc": "Связанные объекты и отношения",
+    "concrete_location_title": "Конкретное расположение",
+    "concrete_location_desc": "Пути и ссылки",
+    "workspace_routines_title": "Процедуры рабочего пространства",
+    "workspace_routines_desc": "Процедуры, использующие переменные, специфичные для рабочего пространства, могут быть запущены для этого рабочего пространства выполнения.",
+    "runtime_cleanup_logs_title": "Логи runtime и очистки",
+    "runtime_cleanup_logs_desc": "Последние операции",
+    "workspace_count": "{{count}} рабочее пространство",
+    "workspace_count_plural": "{{count}} рабочих пространств",
+    "no_activity_yet": "Активности в рабочем пространстве пока нет.",
+    "provision_command_hint": "Запускается при подготовке Paperclip данного рабочего пространства выполнения",
+    "teardown_command_hint": "Запускается при архивировании или очистке рабочего пространства выполнения",
+    "cleanup_command_hint": "Очистка, специфичная для рабочего пространства, перед разборкой",
+    "advanced_runtime_override_desc": "Переопределяйте унаследованную модель команд рабочего пространства только тогда, когда данному рабочему пространству выполнения действительно требуется иное поведение сервисов или задач.",
+    "workspace_commands_hint": "Устаревшие массивы `services` по-прежнему работают, но `commands` поддерживает как сервисы, так и задачи."
   },
   "plugins": {
     "breadcrumb_plugins": "Плагины",
@@ -530,7 +565,24 @@
     "cleanup_command": "Команда очистки",
     "workspace_commands_json": "JSON команд рабочего пространства",
     "inherit_project_workspace_runtime": "Наследовать runtime конфигурацию рабочего пространства проекта",
-    "reset_to_inherit": "Сбросить до наследования"
+    "reset_to_inherit": "Сбросить до наследования",
+    "project_workspace": "Рабочее пространство проекта",
+    "source_issue": "Исходная задача",
+    "derived_from": "Производный от",
+    "workspace_id": "ID рабочего пространства",
+    "working_dir": "Раб. директория",
+    "provider_ref": "Ref провайдера",
+    "branch": "Ветка",
+    "opened": "Открыто",
+    "last_used": "Последнее использование",
+    "cleanup": "Очистка",
+    "not_scheduled": "Не запланировано",
+    "none": "Нет",
+    "general": "Общие",
+    "source_control": "Контроль версий",
+    "paths": "Пути",
+    "lifecycle_commands": "Команды жизненного цикла",
+    "runtime_config": "Конфигурация runtime"
   },
   "workspace_types": {
     "local_git_checkout": "Локальный git checkout",
@@ -608,7 +660,10 @@
     "kind_job": "задание",
     "health_healthy": "здоровый",
     "health_unhealthy": "нездоровый",
-    "health_unknown": "неизвестно"
+    "health_unknown": "неизвестно",
+    "default_agent_set": "Агент по умолчанию установлен",
+    "choose_agent_when_running": "Выберите агента при запуске",
+    "last_run": "Последний запуск {{time}}"
   },
   "placeholders": {
     "search_labels": "Поиск меток...",
@@ -653,7 +708,13 @@
     "close_workspace": "Закрыть workspace",
     "retry_was_skipped": "Повтор был пропущен.",
     "detach_skill_first": "Открепите этот навык от всех агентов перед удалением.",
-    "select_skill_inspect": "Выберите навык для просмотра его файлов."
+    "select_skill_inspect": "Выберите навык для просмотра его файлов.",
+    "loading_routines": "Загрузка процедур...",
+    "no_routines_with_workspace_vars": "Пока нет процедур с переменными, специфичными для рабочего пространства.",
+    "routine_run_failed": "Запуск процедуры не удался",
+    "routine_run_failed_body": "Paperclip не удалось запустить процедуру.",
+    "routine_started": "Процедура запущена",
+    "routine_started_body": "Paperclip создал запуск с использованием этого рабочего пространства выполнения."
   },
   "path_instructions": {
     "windows": "Windows",
