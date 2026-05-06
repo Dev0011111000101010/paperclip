@@ -8,7 +8,6 @@ import { accessApi } from "../api/access";
 import { issuesApi } from "../api/issues";
 import { agentsApi } from "../api/agents";
 import { projectsApi } from "../api/projects";
-import { heartbeatsApi } from "../api/heartbeats";
 import { buildCompanyUserProfileMap } from "../lib/company-members";
 import { useCompany } from "../context/CompanyContext";
 import { useDialogActions } from "../context/DialogContext";
@@ -30,7 +29,6 @@ import type { Agent, Issue } from "@paperclipai/shared";
 import { PluginSlotOutlet } from "@/plugins/slots";
 
 const DASHBOARD_ACTIVITY_LIMIT = 10;
-const DASHBOARD_HEARTBEAT_RUN_LIMIT = 100;
 
 function getRecentIssues(issues: Issue[]): Issue[] {
   return [...issues]
@@ -79,12 +77,6 @@ export function Dashboard() {
   const { data: projects } = useQuery({
     queryKey: queryKeys.projects.list(selectedCompanyId!),
     queryFn: () => projectsApi.list(selectedCompanyId!),
-    enabled: !!selectedCompanyId,
-  });
-
-  const { data: runs } = useQuery({
-    queryKey: [...queryKeys.heartbeats(selectedCompanyId!), "limit", DASHBOARD_HEARTBEAT_RUN_LIMIT],
-    queryFn: () => heartbeatsApi.list(selectedCompanyId!, undefined, DASHBOARD_HEARTBEAT_RUN_LIMIT),
     enabled: !!selectedCompanyId,
   });
 
@@ -312,7 +304,7 @@ export function Dashboard() {
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             <ChartCard title={t("charts.run_activity")} subtitle={t("charts.last_14_days")}>
-              <RunActivityChart runs={runs ?? []} />
+              <RunActivityChart activity={data.runActivity} />
             </ChartCard>
             <ChartCard title={t("charts.issues_by_priority")} subtitle={t("charts.last_14_days")}>
               <PriorityChart issues={issues ?? []} />
@@ -321,7 +313,7 @@ export function Dashboard() {
               <IssueStatusChart issues={issues ?? []} />
             </ChartCard>
             <ChartCard title={t("charts.success_rate")} subtitle={t("charts.last_14_days")}>
-              <SuccessRateChart runs={runs ?? []} />
+              <SuccessRateChart activity={data.runActivity} />
             </ChartCard>
           </div>
 
