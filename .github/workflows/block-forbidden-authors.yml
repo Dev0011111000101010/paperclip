@@ -29,32 +29,87 @@ jobs:
             fi
           fi
 
-          echo "=== Checking commit messages ==="
           FORBIDDEN=0
-
           if echo "$COMMITS" | grep -q '@'; then
-            echo "FAIL: contains '@'"
-            FORBIDDEN=1
+            echo "FAIL: contains '@'"; FORBIDDEN=1
           fi
-
           if echo "$COMMITS" | grep -qi 'co-author'; then
-            echo "FAIL: contains 'Co-Author'"
-            FORBIDDEN=1
+            echo "FAIL: contains 'Co-Author'"; FORBIDDEN=1
           fi
-
           if echo "$COMMITS" | grep -qi 'author'; then
-            echo "FAIL: contains 'Author'"
-            FORBIDDEN=1
+            echo "FAIL: contains 'Author'"; FORBIDDEN=1
           fi
-
           if echo "$COMMITS" | grep -qi 'автор'; then
-            echo "FAIL: contains 'Автор/автор'"
-            FORBIDDEN=1
+            echo "FAIL: contains 'Автор/автор'"; FORBIDDEN=1
           fi
 
           if [ "$FORBIDDEN" -eq 1 ]; then
             echo "Push rejected: forbidden pattern in commit message"
             exit 1
           fi
-
           echo "OK: All commit messages are clean."
+
+  test-forbidden-patterns:
+    name: Test forbidden pattern detection
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Test 1: @ should be rejected"
+        shell: bash
+        run: |
+          MSG="fix: update readme user@example.com"
+          echo "$MSG" | grep -q '@' \
+            && echo "PASS: @ correctly detected" \
+            || { echo "FAIL: @ not detected"; exit 1; }
+
+      - name: "Test 2: Co-Authored-By should be rejected"
+        shell: bash
+        run: |
+          MSG="fix: update readme Co-Authored-By: Bot"
+          echo "$MSG" | grep -qi 'co-author' \
+            && echo "PASS: Co-Author correctly detected" \
+            || { echo "FAIL: Co-Author not detected"; exit 1; }
+
+      - name: "Test 3: Author capital should be rejected"
+        shell: bash
+        run: |
+          MSG="fix: update Author info"
+          echo "$MSG" | grep -qi 'author' \
+            && echo "PASS: Author correctly detected" \
+            || { echo "FAIL: Author not detected"; exit 1; }
+
+      - name: "Test 4: author lowercase should be rejected"
+        shell: bash
+        run: |
+          MSG="feat: add author field"
+          echo "$MSG" | grep -qi 'author' \
+            && echo "PASS: author correctly detected" \
+            || { echo "FAIL: author not detected"; exit 1; }
+
+      - name: "Test 5: Автор capital RU should be rejected"
+        shell: bash
+        run: |
+          MSG="fix: правка Автор Иван"
+          echo "$MSG" | grep -qi 'автор' \
+            && echo "PASS: Автор correctly detected" \
+            || { echo "FAIL: Автор not detected"; exit 1; }
+
+      - name: "Test 6: автор lowercase RU should be rejected"
+        shell: bash
+        run: |
+          MSG="fix: правка автор иван"
+          echo "$MSG" | grep -qi 'автор' \
+            && echo "PASS: автор correctly detected" \
+            || { echo "FAIL: автор not detected"; exit 1; }
+
+      - name: "Test 7: clean message should pass"
+        shell: bash
+        run: |
+          MSG="fix: update readme file"
+          FORBIDDEN=0
+          echo "$MSG" | grep -q '@'          && FORBIDDEN=1
+          echo "$MSG" | grep -qi 'co-author' && FORBIDDEN=1
+          echo "$MSG" | grep -qi 'author'    && FORBIDDEN=1
+          echo "$MSG" | grep -qi 'автор'     && FORBIDDEN=1
+          [ "$FORBIDDEN" -eq 0 ] \
+            && echo "PASS: clean message correctly allowed" \
+            || { echo "FAIL: clean message incorrectly rejected"; exit 1; }
