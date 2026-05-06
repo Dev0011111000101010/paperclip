@@ -11,7 +11,6 @@ import { useBreadcrumbs } from "@/context/BreadcrumbContext";
 import { useCompany } from "@/context/CompanyContext";
 import { useToast } from "@/context/ToastContext";
 import { queryKeys } from "@/lib/queryKeys";
-import { resolveUserPrimaryName } from "@/lib/user-display";
 
 export function InstanceAccess() {
   const { t } = useTranslation("settings");
@@ -138,7 +137,7 @@ export function InstanceAccess() {
               >
                 <div className="flex items-center justify-between gap-2">
                   <div className="min-w-0">
-                    <div className="truncate font-medium">{resolveUserPrimaryName(user.name) || user.email || user.id}</div>
+                    <div className="truncate font-medium">{user.name || user.email || user.id}</div>
                     <div className="truncate text-sm text-muted-foreground">{user.email || user.id}</div>
                   </div>
                   {user.isInstanceAdmin ? (
@@ -167,7 +166,7 @@ export function InstanceAccess() {
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
                   <div className="text-lg font-semibold">
-                    {resolveUserPrimaryName(selectedUser?.name) || selectedUser?.email || selectedUserId}
+                    {selectedUser?.name || selectedUser?.email || selectedUserId}
                   </div>
                   <div className="text-sm text-muted-foreground">
                     {selectedUser?.email || selectedUserId}
