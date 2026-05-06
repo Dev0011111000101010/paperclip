@@ -2,6 +2,7 @@
   "manager": {
     "title": "Adapter Manager",
     "adapters_label": "Adapters",
+    "badge_alpha": "Alpha",
     "settings_breadcrumb": "Settings",
     "loading": "Loading adapters...",
     "install_adapter": "Install Adapter",

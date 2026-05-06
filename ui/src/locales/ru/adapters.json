@@ -1,6 +1,8 @@
 {
   "manager": {
     "title": "Менеджер адаптеров",
+    "adapters_label": "Адаптеры",
+    "badge_alpha": "Альфа",
     "settings_breadcrumb": "Настройки",
     "loading": "Загрузка адаптеров...",
     "install_adapter": "Установить адаптер",
