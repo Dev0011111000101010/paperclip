@@ -655,6 +655,9 @@
     "hide_advanced": "Hide advanced checkout settings",
     "show_advanced": "Show advanced checkout settings",
     "implementation_label": "Host-managed implementation: {{value}}",
+    "implementation_prefix": "Host-managed implementation:",
+    "environment_label": "Environment",
+    "no_environment_option": "No environment",
     "base_ref_label": "Base ref",
     "branch_template_label": "Branch template",
     "worktree_parent_dir_label": "Worktree parent dir",
@@ -743,6 +746,32 @@
     "toast_probe_failed_body": "Environment probe failed.",
     "toast_draft_passed": "Draft probe passed",
     "toast_draft_failed": "Draft probe failed"
+  },
+  "project": {
+    "budget": {
+      "window_lifetime": "Lifetime budget",
+      "window_monthly": "Monthly UTC budget",
+      "observed": "Observed",
+      "no_cap": "No cap configured",
+      "of_limit": "{{percent}}% of limit",
+      "budget_label": "Budget",
+      "disabled": "Disabled",
+      "soft_alert_at": "Soft alert at {{percent}}%",
+      "remaining": "Remaining",
+      "unlimited": "Unlimited",
+      "paused_project": "Execution is paused for this project until the budget is raised or the incident is dismissed.",
+      "paused_scope": "Heartbeats are paused for this scope until the budget is raised or the incident is dismissed.",
+      "budget_usd": "Budget (USD)",
+      "amount_placeholder": "0.00",
+      "saving": "Saving...",
+      "update_budget": "Update budget",
+      "set_budget": "Set budget",
+      "status_paused": "Paused",
+      "status_warning": "Warning",
+      "status_hard_stop": "Hard stop",
+      "status_healthy": "Healthy",
+      "error_invalid_amount": "Enter a valid non-negative dollar amount."
+    }
   },
   "user_profile": {
     "breadcrumb_users": "Users",

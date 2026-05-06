@@ -1,4 +1,4 @@
-﻿{
+{
   "settings": {
     "title": "公司设置",
     "breadcrumb_company": "公司",
@@ -626,6 +626,9 @@
     "hide_advanced": "隐藏高级检出设置",
     "show_advanced": "显示高级检出设置",
     "implementation_label": "主机管理的实现：{{value}}",
+    "implementation_prefix": "主机管理的实现：",
+    "environment_label": "环境",
+    "no_environment_option": "无环境",
     "base_ref_label": "基础引用",
     "branch_template_label": "分支模板",
     "worktree_parent_dir_label": "工作树父目录",
@@ -712,6 +715,33 @@
     "toast_probe_failed": "环境探测失败",
     "toast_probe_failed_body": "环境探测失败。",
     "toast_draft_passed": "草稿探测通过",
-    "toast_draft_failed": "草稿探测失败"
+    "toast_draft_failed": "草稿探测失败",
+    "table_caption": "按适配器划分的环境支持"
+  },
+  "project": {
+    "budget": {
+      "window_lifetime": "终身预算",
+      "window_monthly": "每月UTC预算",
+      "observed": "已观测",
+      "no_cap": "未配置上限",
+      "of_limit": "{{percent}}% 上限",
+      "budget_label": "预算",
+      "disabled": "已禁用",
+      "soft_alert_at": "软预警于{{percent}}%",
+      "remaining": "剩余",
+      "unlimited": "无限制",
+      "paused_project": "该项目的执行已暂停，直到预算增加或事件被解除。",
+      "paused_scope": "该范围的心跳已暂停，直到预算增加或事件被解除。",
+      "budget_usd": "预算 (USD)",
+      "amount_placeholder": "0.00",
+      "saving": "保存中...",
+      "update_budget": "更新预算",
+      "set_budget": "设置预算",
+      "status_paused": "已暂停",
+      "status_warning": "警告",
+      "status_hard_stop": "强制停止",
+      "status_healthy": "正常",
+      "error_invalid_amount": "请输入有效的非负美元金额。"
+    }
   }
 }

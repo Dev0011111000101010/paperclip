@@ -1,4 +1,4 @@
-﻿{
+{
   "settings": {
     "title": "Налаштування компанії",
     "breadcrumb_company": "Компанія",
@@ -631,6 +631,9 @@
     "hide_advanced": "Приховати розширені налаштування",
     "show_advanced": "Показати розширені налаштування",
     "implementation_label": "Реалізація (хост): {{value}}",
+    "implementation_prefix": "Реалізація (хост):",
+    "environment_label": "Середовище",
+    "no_environment_option": "Без середовища",
     "base_ref_label": "Базовий ref",
     "branch_template_label": "Шаблон гілки",
     "worktree_parent_dir_label": "Батьківська директорія worktree",
@@ -717,6 +720,33 @@
     "toast_probe_failed": "Перевірка середовища завершилася невдачею",
     "toast_probe_failed_body": "Перевірка середовища завершилася невдачею.",
     "toast_draft_passed": "Перевірка чернетки пройшла успішно",
-    "toast_draft_failed": "Перевірка чернетки завершилася невдачею"
+    "toast_draft_failed": "Перевірка чернетки завершилася невдачею",
+    "table_caption": "Підтримка середовища за адаптером"
+  },
+  "project": {
+    "budget": {
+      "window_lifetime": "Бюджет на весь термін",
+      "window_monthly": "Щомісячний UTC-бюджет",
+      "observed": "Використано",
+      "no_cap": "Ліміт не встановлено",
+      "of_limit": "{{percent}}% від ліміту",
+      "budget_label": "Бюджет",
+      "disabled": "Вимкнено",
+      "soft_alert_at": "М'яке сповіщення при {{percent}}%",
+      "remaining": "Залишок",
+      "unlimited": "Без обмежень",
+      "paused_project": "Виконання цього проекту призупинено до збільшення бюджету або закриття інциденту.",
+      "paused_scope": "Heartbeat-пінги для цієї області призупинено до збільшення бюджету або закриття інциденту.",
+      "budget_usd": "Бюджет (USD)",
+      "amount_placeholder": "0.00",
+      "saving": "Збереження...",
+      "update_budget": "Оновити бюджет",
+      "set_budget": "Встановити бюджет",
+      "status_paused": "Призупинено",
+      "status_warning": "Попередження",
+      "status_hard_stop": "Жорстка зупинка",
+      "status_healthy": "В нормі",
+      "error_invalid_amount": "Введіть коректну невід'ємну суму в доларах."
+    }
   }
 }

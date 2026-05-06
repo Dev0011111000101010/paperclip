@@ -30,8 +30,17 @@
     "restore": "恢复",
     "edit": "编辑",
     "group": "分组",
+    "sort": "排序",
     "cancel": "取消",
     "more_actions": "{{title}} 的更多操作"
+  },
+  "sort": {
+    "updated": "已更新",
+    "created": "已创建",
+    "last_run": "最近运行",
+    "title": "标题",
+    "asc": "升序",
+    "desc": "降序"
   },
   "concurrency_policy": {
     "coalesce_if_active": "如果某次运行已活跃，则仅保留一次后续运行排队。",

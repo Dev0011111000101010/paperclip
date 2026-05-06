@@ -1,4 +1,4 @@
-﻿{
+{
   "settings": {
     "title": "Unternehmenseinstellungen",
     "breadcrumb_company": "Unternehmen",
@@ -626,6 +626,9 @@
     "hide_advanced": "Erweiterte Checkout-Einstellungen ausblenden",
     "show_advanced": "Erweiterte Checkout-Einstellungen anzeigen",
     "implementation_label": "Host-verwaltete Implementierung: {{value}}",
+    "implementation_prefix": "Host-verwaltete Implementierung:",
+    "environment_label": "Umgebung",
+    "no_environment_option": "Keine Umgebung",
     "base_ref_label": "Basis-Ref",
     "branch_template_label": "Branch-Vorlage",
     "worktree_parent_dir_label": "Worktree-Elternverzeichnis",
@@ -712,6 +715,33 @@
     "toast_probe_failed": "Umgebungstest fehlgeschlagen",
     "toast_probe_failed_body": "Umgebungstest fehlgeschlagen.",
     "toast_draft_passed": "Entwurfstest bestanden",
-    "toast_draft_failed": "Entwurfstest fehlgeschlagen"
+    "toast_draft_failed": "Entwurfstest fehlgeschlagen",
+    "table_caption": "Umgebungsunterstützung nach Adapter"
+  },
+  "project": {
+    "budget": {
+      "window_lifetime": "Lebenszeit-Budget",
+      "window_monthly": "Monatliches UTC-Budget",
+      "observed": "Beobachtet",
+      "no_cap": "Kein Limit konfiguriert",
+      "of_limit": "{{percent}}% des Limits",
+      "budget_label": "Budget",
+      "disabled": "Deaktiviert",
+      "soft_alert_at": "Soft-Alarm bei {{percent}}%",
+      "remaining": "Verbleibend",
+      "unlimited": "Unbegrenzt",
+      "paused_project": "Die Ausführung dieses Projekts ist pausiert, bis das Budget erhöht oder der Vorfall abgewiesen wird.",
+      "paused_scope": "Heartbeats sind für diesen Bereich pausiert, bis das Budget erhöht oder der Vorfall abgewiesen wird.",
+      "budget_usd": "Budget (USD)",
+      "amount_placeholder": "0.00",
+      "saving": "Wird gespeichert...",
+      "update_budget": "Budget aktualisieren",
+      "set_budget": "Budget festlegen",
+      "status_paused": "Pausiert",
+      "status_warning": "Warnung",
+      "status_hard_stop": "Hartstopp",
+      "status_healthy": "Gesund",
+      "error_invalid_amount": "Bitte gib einen gültigen nicht-negativen Dollarbetrag ein."
+    }
   }
 }

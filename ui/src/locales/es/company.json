@@ -1,4 +1,4 @@
-﻿{
+{
   "settings": {
     "title": "Configuración de empresa",
     "breadcrumb_company": "Empresa",
@@ -627,6 +627,9 @@
     "hide_advanced": "Ocultar configuración avanzada de checkout",
     "show_advanced": "Mostrar configuración avanzada de checkout",
     "implementation_label": "Implementación gestionada por host: {{value}}",
+    "implementation_prefix": "Implementación gestionada por host:",
+    "environment_label": "Entorno",
+    "no_environment_option": "Sin entorno",
     "base_ref_label": "Ref base",
     "branch_template_label": "Plantilla de rama",
     "worktree_parent_dir_label": "Directorio padre del worktree",
@@ -713,6 +716,33 @@
     "toast_probe_failed": "Prueba de entorno fallida",
     "toast_probe_failed_body": "Prueba de entorno fallida.",
     "toast_draft_passed": "Prueba de borrador superada",
-    "toast_draft_failed": "Prueba de borrador fallida"
+    "toast_draft_failed": "Prueba de borrador fallida",
+    "table_caption": "Compatibilidad de entorno por adaptador"
+  },
+  "project": {
+    "budget": {
+      "window_lifetime": "Presupuesto de por vida",
+      "window_monthly": "Presupuesto mensual UTC",
+      "observed": "Observado",
+      "no_cap": "Sin límite configurado",
+      "of_limit": "{{percent}}% del límite",
+      "budget_label": "Presupuesto",
+      "disabled": "Desactivado",
+      "soft_alert_at": "Alerta suave al {{percent}}%",
+      "remaining": "Restante",
+      "unlimited": "Ilimitado",
+      "paused_project": "La ejecución de este proyecto está pausada hasta que se aumente el presupuesto o se descarte el incidente.",
+      "paused_scope": "Los heartbeats están pausados para este alcance hasta que se aumente el presupuesto o se descarte el incidente.",
+      "budget_usd": "Presupuesto (USD)",
+      "amount_placeholder": "0.00",
+      "saving": "Guardando...",
+      "update_budget": "Actualizar presupuesto",
+      "set_budget": "Establecer presupuesto",
+      "status_paused": "Pausado",
+      "status_warning": "Advertencia",
+      "status_hard_stop": "Parada completa",
+      "status_healthy": "Saludable",
+      "error_invalid_amount": "Introduce una cantidad en dólares válida y no negativa."
+    }
   }
 }
