@@ -224,6 +224,13 @@
   transition: max-width 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Tailwind v4 opacity-modifier on named colors can be dropped by the CSS
+   cascade layer ordering. Explicitly anchor the overlay's semi-transparency
+   outside any @layer so it wins regardless of Tailwind's generated output. */
+[data-slot="dialog-overlay"] {
+  background-color: oklch(0 0 0 / 0.5);
+}
+
 /* Dashboard activity row entry motion */
 @keyframes dashboard-activity-enter {
   0% {
