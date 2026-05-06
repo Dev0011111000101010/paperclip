@@ -294,9 +294,17 @@ i18n.use(initReactI18next).init({
   lng: getInitialLanguage(),
   fallbackLng: "en",
   defaultNS: "common",
+  returnEmptyString: false,
+  returnNull: false,
+  saveMissing: false,
+  parseMissingKeyHandler: (key, defaultValue) => defaultValue ?? key,
+  missingKeyHandler: (lngs, ns, key) => {
+    if (import.meta.env.DEV) console.warn(`[i18n] missing key: ${ns}:${key} for ${lngs}`);
+  },
   interpolation: {
     escapeValue: false,
   },
+  react: { useSuspense: false },
 });
 
 /** Switches app language without restart and persists choice. */
