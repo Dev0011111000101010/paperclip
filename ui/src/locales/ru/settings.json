@@ -73,12 +73,15 @@
       "days_one": "{{count}} день",
       "days_few": "{{count}} дня",
       "days_many": "{{count}} дней",
+      "days_other": "{{count}} дней",
       "weeks_one": "{{count}} неделя",
       "weeks_few": "{{count}} недели",
       "weeks_many": "{{count}} недель",
+      "weeks_other": "{{count}} недель",
       "months_one": "{{count}} месяц",
       "months_few": "{{count}} месяца",
-      "months_many": "{{count}} месяцев"
+      "months_many": "{{count}} месяцев",
+      "months_other": "{{count}} месяцев"
     },
     "feedback": {
       "title": "Обмен данными об AI-обратной связи",
