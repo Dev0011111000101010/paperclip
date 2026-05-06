@@ -66,6 +66,8 @@ import {
 type Step = 1 | 2 | 3 | 4;
 type AdapterType = string;
 
+const DEFAULT_TASK_TITLE = "Hire your first engineer and create a hiring plan";
+
 const DEFAULT_TASK_DESCRIPTION = `You are the CEO. You set the direction for the company.
 
 - hire a founding engineer
@@ -131,7 +133,7 @@ export function OnboardingWizard() {
 
   // Step 3
   const [taskTitle, setTaskTitle] = useState(
-    () => t("step3.task_title_default")
+    () => DEFAULT_TASK_TITLE
   );
   const [taskDescription, setTaskDescription] = useState(
     DEFAULT_TASK_DESCRIPTION
@@ -306,7 +308,7 @@ export function OnboardingWizard() {
     setAdapterEnvLoading(false);
     setForceUnsetAnthropicApiKey(false);
     setUnsetAnthropicLoading(false);
-    setTaskTitle(t("step3.task_title_default"));
+    setTaskTitle(DEFAULT_TASK_TITLE);
     setTaskDescription(DEFAULT_TASK_DESCRIPTION);
     setCreatedCompanyId(null);
     setCreatedCompanyPrefix(null);
@@ -622,22 +624,6 @@ export function OnboardingWizard() {
             <X className="h-5 w-5" />
             <span className="sr-only">Close</span>
           </button>
-
-          {/* Language picker */}
-          <div className="absolute top-3 right-4 z-[60]">
-            <Select value={i18n.language} onValueChange={(v) => setLanguage(v as typeof SUPPORTED_LANGUAGES[number])}>
-              <SelectTrigger className="h-8 text-xs w-[130px]">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {SUPPORTED_LANGUAGES.map((lang) => (
-                  <SelectItem key={lang} value={lang} className="text-xs">
-                    {LANGUAGE_NATIVE_NAMES[lang]}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
 
           {/* Left half — form */}
           <div
@@ -1198,7 +1184,20 @@ export function OnboardingWizard() {
               {/* Footer navigation */}
               <div className="flex items-center justify-between mt-8">
                 <div>
-                  {step > 1 && step > (onboardingOptions.initialStep ?? 1) && (
+                  {step === 1 ? (
+                    <Select value={i18n.language} onValueChange={(v) => setLanguage(v as typeof SUPPORTED_LANGUAGES[number])}>
+                      <SelectTrigger className="h-8 text-xs w-[130px]">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {SUPPORTED_LANGUAGES.map((lang) => (
+                          <SelectItem key={lang} value={lang} className="text-xs">
+                            {LANGUAGE_NATIVE_NAMES[lang]}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  ) : step > (onboardingOptions.initialStep ?? 1) && (
                     <Button
                       variant="ghost"
                       size="sm"
