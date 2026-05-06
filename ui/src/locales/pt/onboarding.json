@@ -42,7 +42,9 @@
     "unset_anthropic": "Remover ANTHROPIC_API_KEY",
     "retrying": "Tentando novamente...",
     "gateway_url": "URL do gateway",
-    "webhook_url": "URL do webhook"
+    "webhook_url": "URL do webhook",
+    "login_required_prefix": "Se o login for necessário, execute",
+    "login_required_suffix": "e tente novamente."
   },
   "step3": {
     "title": "Dê algo para fazer",
@@ -78,6 +80,8 @@
     "label": "Idioma"
   },
   "defaults": {
-    "project_name": "Onboarding"
+    "project_name": "Onboarding",
+    "task_title": "Contrate seu primeiro engenheiro e crie um plano de contratação",
+    "task_description": "Você é o CEO. Você define a direção da empresa.\n\n- contrate um engenheiro fundador\n- escreva um plano de contratação\n- divida o roteiro em tarefas concretas e comece a delegar trabalho"
   }
 }

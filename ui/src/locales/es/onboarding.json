@@ -42,7 +42,9 @@
     "unset_anthropic": "Borrar ANTHROPIC_API_KEY",
     "retrying": "Reintentando...",
     "gateway_url": "URL de gateway",
-    "webhook_url": "URL de webhook"
+    "webhook_url": "URL de webhook",
+    "login_required_prefix": "Si se requiere iniciar sesión, ejecute",
+    "login_required_suffix": "e intente de nuevo."
   },
   "step3": {
     "title": "Dale algo que hacer",
@@ -78,6 +80,8 @@
     "label": "Idioma"
   },
   "defaults": {
-    "project_name": "Incorporación"
+    "project_name": "Incorporación",
+    "task_title": "Contrata a tu primer ingeniero y crea un plan de contratación",
+    "task_description": "Eres el CEO. Tú marcas la dirección de la empresa.\n\n- contratar a un ingeniero fundador\n- escribir un plan de contratación\n- dividir la hoja de ruta en tareas concretas y comenzar a delegar trabajo"
   }
 }

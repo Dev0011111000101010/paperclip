@@ -66,18 +66,11 @@ import {
 type Step = 1 | 2 | 3 | 4;
 type AdapterType = string;
 
-const DEFAULT_TASK_TITLE = "Hire your first engineer and create a hiring plan";
-
-const DEFAULT_TASK_DESCRIPTION = `You are the CEO. You set the direction for the company.
-
-- hire a founding engineer
-- write a hiring plan
-- break the roadmap into concrete tasks and start delegating work`;
-
-
 export function OnboardingWizard() {
   const { onboardingOpen, onboardingOptions, closeOnboarding } = useDialog();
   const { t, i18n } = useTranslation("onboarding");
+  const defaultTaskTitle = t("defaults.task_title");
+  const defaultTaskDescription = t("defaults.task_description");
   const { companies, setSelectedCompanyId, loading: companiesLoading } = useCompany();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -133,10 +126,10 @@ export function OnboardingWizard() {
 
   // Step 3
   const [taskTitle, setTaskTitle] = useState(
-    () => DEFAULT_TASK_TITLE
+    () => defaultTaskTitle
   );
   const [taskDescription, setTaskDescription] = useState(
-    DEFAULT_TASK_DESCRIPTION
+    defaultTaskDescription
   );
 
   // Auto-grow textarea for task description
@@ -308,8 +301,8 @@ export function OnboardingWizard() {
     setAdapterEnvLoading(false);
     setForceUnsetAnthropicApiKey(false);
     setUnsetAnthropicLoading(false);
-    setTaskTitle(DEFAULT_TASK_TITLE);
-    setTaskDescription(DEFAULT_TASK_DESCRIPTION);
+    setTaskTitle(defaultTaskTitle);
+    setTaskDescription(defaultTaskDescription);
     setCreatedCompanyId(null);
     setCreatedCompanyPrefix(null);
     setCreatedCompanyGoalId(null);
@@ -1051,9 +1044,9 @@ export function OnboardingWizard() {
                             </p>
                           ) : (
                             <p className="text-muted-foreground">
-                              If login is required, run{" "}
+                              {t("step2.login_required_prefix")}{" "}
                               <span className="font-mono">claude login</span>{" "}
-                              and retry.
+                              {t("step2.login_required_suffix")}
                             </p>
                           )}
                         </div>

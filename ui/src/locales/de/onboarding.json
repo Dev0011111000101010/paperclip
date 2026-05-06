@@ -42,7 +42,9 @@
     "unset_anthropic": "ANTHROPIC_API_KEY aufheben",
     "retrying": "Wird wiederholt...",
     "gateway_url": "Gateway-URL",
-    "webhook_url": "Webhook-URL"
+    "webhook_url": "Webhook-URL",
+    "login_required_prefix": "Falls eine Anmeldung erforderlich ist, führen Sie",
+    "login_required_suffix": "aus und versuchen Sie es erneut."
   },
   "step3": {
     "title": "Eine Aufgabe vergeben",
@@ -78,6 +80,8 @@
     "label": "Sprache"
   },
   "defaults": {
-    "project_name": "Onboarding"
+    "project_name": "Onboarding",
+    "task_title": "Stellen Sie Ihren ersten Ingenieur ein und erstellen Sie einen Einstellungsplan",
+    "task_description": "Sie sind der CEO. Sie geben die Richtung für das Unternehmen vor.\n\n- stellen Sie einen gründenden Ingenieur ein\n- schreiben Sie einen Einstellungsplan\n- teilen Sie die Roadmap in konkrete Aufgaben auf und beginnen Sie mit der Delegation"
   }
 }

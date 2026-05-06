@@ -22,7 +22,10 @@
       "logo_hint": "Загрузите логотип в формате PNG, JPEG, WEBP, GIF или SVG.",
       "brand_color": "Цвет бренда",
       "brand_color_hint": "Задаёт оттенок значка компании. Оставьте пустым для автогенерации.",
-      "auto": "Авто"
+      "auto": "Авто",
+      "attachment_limit": "Ограничение размера вложения",
+      "attachment_limit_hint": "Допустимый диапазон: 1–{{max}} МиБ.",
+      "attachment_limit_error": "Введите целое число от 1 до {{max}}."
     },
     "actions": {
       "save_changes": "Сохранить изменения",

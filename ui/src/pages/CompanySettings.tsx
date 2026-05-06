@@ -375,8 +375,8 @@ export function CompanySettings() {
                 </div>
               </Field>
               <Field
-                label="Attachment size limit"
-                hint={`Accepted range: 1-${MAX_COMPANY_ATTACHMENT_MAX_MIB} MiB.`}
+                label={t("settings.form.attachment_limit")}
+                hint={t("settings.form.attachment_limit_hint", { max: MAX_COMPANY_ATTACHMENT_MAX_MIB })}
               >
                 <div className="flex flex-col gap-1.5">
                   <div className="flex items-center gap-2">
@@ -393,7 +393,7 @@ export function CompanySettings() {
                   </div>
                   {!attachmentMaxValid && (
                     <span className="text-xs text-destructive">
-                      Enter a whole number from 1 to {MAX_COMPANY_ATTACHMENT_MAX_MIB}.
+                      {t("settings.form.attachment_limit_error", { max: MAX_COMPANY_ATTACHMENT_MAX_MIB })}
                     </span>
                   )}
                 </div>
