@@ -42,7 +42,9 @@
     "unset_anthropic": "取消设置 ANTHROPIC_API_KEY",
     "retrying": "重试中...",
     "gateway_url": "网关 URL",
-    "webhook_url": "Webhook URL"
+    "webhook_url": "Webhook URL",
+    "login_required_prefix": "如果需要登录，请运行",
+    "login_required_suffix": "然后重试。"
   },
   "step3": {
     "title": "给它一些工作做",
@@ -78,6 +80,8 @@
     "label": "语言"
   },
   "defaults": {
-    "project_name": "入门"
+    "project_name": "入门",
+    "task_title": "招聘你的第一位工程师并制定招聘计划",
+    "task_description": "你是CEO。你为公司设定方向。\n\n- 招募一位创始工程师\n- 制定招聘计划\n- 将路线图分解为具体任务并开始委派工作"
   }
 }
