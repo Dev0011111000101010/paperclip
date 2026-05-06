@@ -239,7 +239,9 @@ export function InstanceSettings() {
                           {agent.agentName}
                         </Link>
                         <span className="hidden sm:inline text-muted-foreground truncate">
-                          {humanize(agent.title ?? agent.role)}
+                          {agent.title
+                            ? humanize(agent.title)
+                            : t(`role.${agent.role}`, { defaultValue: humanize(agent.role) })}
                         </span>
                         <span className="text-muted-foreground tabular-nums shrink-0">
                           {agent.intervalSec}s
