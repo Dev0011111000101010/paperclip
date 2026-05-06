@@ -22,7 +22,10 @@
       "logo_hint": "Завантажте логотип у форматі PNG, JPEG, WEBP, GIF або SVG.",
       "brand_color": "Фірмовий колір",
       "brand_color_hint": "Встановлює відтінок іконки компанії. Залиште порожнім для автоматичного вибору.",
-      "auto": "Авто"
+      "auto": "Авто",
+      "attachment_limit": "Обмеження розміру вкладення",
+      "attachment_limit_hint": "Допустимий діапазон: 1–{{max}} МіБ.",
+      "attachment_limit_error": "Введіть ціле число від 1 до {{max}}."
     },
     "actions": {
       "save_changes": "Зберегти зміни",
@@ -390,7 +393,23 @@
       "tasks_assign_scope": "Призначати задачі з обмеженням",
       "joins_approve": "Схвалювати запити на вступ"
     },
-    "no_grants": "Явних прав немає"
+    "no_grants": "Явних прав немає",
+    "remove_member_title": "Видалити учасника",
+    "remove_member_description": "Архівувати {{name}} і перенести активні завдання перед приховуванням цього користувача з полів призначення.",
+    "remove_member_success_title": "Учасника видалено",
+    "remove_member_issues_cleaned_up_one": "{{count}} призначене завдання очищено.",
+    "remove_member_issues_cleaned_up_few": "{{count}} призначені завдання очищено.",
+    "remove_member_issues_cleaned_up_many": "{{count}} призначених завдань очищено.",
+    "remove_member_issues_cleaned_up_other": "{{count}} призначених завдань очищено.",
+    "remove_member_error_title": "Не вдалося видалити учасника",
+    "remove_member_unknown_error": "Невідома помилка",
+    "remove_member_checking": "Перевірка призначених завдань...",
+    "remove_member_reassignment_heading": "Перепризначення завдань",
+    "remove_member_leave_unassigned": "Залишити без призначення",
+    "remove_member_group_humans": "Люди",
+    "remove_member_group_agents": "Агенти",
+    "remove_member_cancel": "Скасувати",
+    "remove_member_removing": "Видалення..."
   },
   "companies": {
     "breadcrumb": "Компанії",

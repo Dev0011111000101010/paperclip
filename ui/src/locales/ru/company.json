@@ -422,7 +422,23 @@
       "tasks_assign_scope": "Назначать задачи с ограниченной областью",
       "joins_approve": "Одобрять заявки на вступление"
     },
-    "no_grants": "Нет явных прав"
+    "no_grants": "Нет явных прав",
+    "remove_member_title": "Удалить участника",
+    "remove_member_description": "Архивировать {{name}} и перенести активные задачи перед скрытием пользователя из полей назначения.",
+    "remove_member_success_title": "Участник удалён",
+    "remove_member_issues_cleaned_up_one": "{{count}} задача очищена.",
+    "remove_member_issues_cleaned_up_few": "{{count}} задачи очищено.",
+    "remove_member_issues_cleaned_up_many": "{{count}} задач очищено.",
+    "remove_member_issues_cleaned_up_other": "{{count}} задач очищено.",
+    "remove_member_error_title": "Не удалось удалить участника",
+    "remove_member_unknown_error": "Неизвестная ошибка",
+    "remove_member_checking": "Проверка назначенных задач...",
+    "remove_member_reassignment_heading": "Переназначение задач",
+    "remove_member_leave_unassigned": "Оставить без назначения",
+    "remove_member_group_humans": "Люди",
+    "remove_member_group_agents": "Агенты",
+    "remove_member_cancel": "Отмена",
+    "remove_member_removing": "Удаление..."
   },
   "companies": {
     "breadcrumb": "Компании",

@@ -22,7 +22,10 @@
       "logo_hint": "Ανεβάστε μια εικόνα λογοτύπου PNG, JPEG, WEBP, GIF ή SVG.",
       "brand_color": "Χρώμα μάρκας",
       "brand_color_hint": "Ορίζει την απόχρωση για το εικονίδιο της εταιρίας. Αφήστε κενό για αυτόματα δημιουργημένο χρώμα.",
-      "auto": "Αυτόματο"
+      "auto": "Αυτόματο",
+      "attachment_limit": "Όριο μεγέθους συνημμένου",
+      "attachment_limit_hint": "Αποδεκτό εύρος: 1-{{max}} MiB.",
+      "attachment_limit_error": "Εισαγάγετε έναν ακέραιο από 1 έως {{max}}."
     },
     "actions": {
       "save_changes": "Αποθήκευση αλλαγών",
@@ -388,7 +391,21 @@
       "tasks_assign_scope": "Ανάθεση εργασιών με εμβέλεια",
       "joins_approve": "Έγκριση αιτημάτων εγγραφής"
     },
-    "no_grants": "Χωρίς ρητές χορηγήσεις"
+    "no_grants": "Χωρίς ρητές χορηγήσεις",
+    "remove_member_title": "Αφαίρεση μέλους",
+    "remove_member_description": "Αρχειοθετήστε το {{name}} και μεταφέρετε τις ενεργές αναθέσεις πριν αποκρύψετε αυτόν τον χρήστη από τα πεδία ανάθεσης.",
+    "remove_member_success_title": "Το μέλος αφαιρέθηκε",
+    "remove_member_issues_cleaned_up_one": "{{count}} ανατεθειμένο ζήτημα εκκαθαρίστηκε.",
+    "remove_member_issues_cleaned_up_other": "{{count}} ανατεθειμένα ζητήματα εκκαθαρίστηκαν.",
+    "remove_member_error_title": "Αποτυχία αφαίρεσης μέλους",
+    "remove_member_unknown_error": "Άγνωστο σφάλμα",
+    "remove_member_checking": "Έλεγχος ανατεθειμένων ζητημάτων...",
+    "remove_member_reassignment_heading": "Εκ νέου ανάθεση ζητήματος",
+    "remove_member_leave_unassigned": "Αφήστε χωρίς ανάθεση",
+    "remove_member_group_humans": "Άνθρωποι",
+    "remove_member_group_agents": "Πράκτορες",
+    "remove_member_cancel": "Ακύρωση",
+    "remove_member_removing": "Αφαίρεση..."
   },
   "companies": {
     "breadcrumb": "Εταιρίες",
