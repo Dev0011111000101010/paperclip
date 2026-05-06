@@ -9,6 +9,20 @@ let currentPathname = "/company/settings";
 const navigateMock = vi.hoisted(() => vi.fn());
 const pageTabBarMock = vi.hoisted(() => vi.fn());
 
+vi.mock("react-i18next", () => ({
+  useTranslation: () => ({
+    t: (key: string) => {
+      const labels: Record<string, string> = {
+        "settings.sections.general": "General",
+        "environments.breadcrumb_page": "Environments",
+        "access.title_short": "Access",
+        "settings.sections.invites": "Invites",
+      };
+      return labels[key] ?? key;
+    },
+  }),
+}));
+
 vi.mock("@/lib/router", () => ({
   useLocation: () => ({ pathname: currentPathname, search: "", hash: "" }),
   useNavigate: () => navigateMock,

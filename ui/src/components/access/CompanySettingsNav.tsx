@@ -1,15 +1,16 @@
+import { useTranslation } from "react-i18next";
 import { PageTabBar } from "@/components/PageTabBar";
 import { Tabs } from "@/components/ui/tabs";
 import { useLocation, useNavigate } from "@/lib/router";
 
-const items = [
-  { value: "general", label: "General", href: "/company/settings" },
-  { value: "environments", label: "Environments", href: "/company/settings/environments" },
-  { value: "access", label: "Access", href: "/company/settings/access" },
-  { value: "invites", label: "Invites", href: "/company/settings/invites" },
+const tabs = [
+  { value: "general", href: "/company/settings" },
+  { value: "environments", href: "/company/settings/environments" },
+  { value: "access", href: "/company/settings/access" },
+  { value: "invites", href: "/company/settings/invites" },
 ] as const;
 
-type CompanySettingsTab = (typeof items)[number]["value"];
+type CompanySettingsTab = (typeof tabs)[number]["value"];
 
 export function getCompanySettingsTab(pathname: string): CompanySettingsTab {
   if (pathname.includes("/company/settings/environments")) {
@@ -28,12 +29,20 @@ export function getCompanySettingsTab(pathname: string): CompanySettingsTab {
 }
 
 export function CompanySettingsNav() {
+  const { t } = useTranslation("company");
   const location = useLocation();
   const navigate = useNavigate();
   const activeTab = getCompanySettingsTab(location.pathname);
 
+  const tabLabels: Record<CompanySettingsTab, string> = {
+    general: t("settings.sections.general"),
+    environments: t("environments.breadcrumb_page"),
+    access: t("access.title_short"),
+    invites: t("settings.sections.invites"),
+  };
+
   function handleTabChange(value: string) {
-    const nextTab = items.find((item) => item.value === value);
+    const nextTab = tabs.find((tab) => tab.value === value);
     if (!nextTab || nextTab.value === activeTab) return;
     navigate(nextTab.href);
   }
@@ -41,7 +50,7 @@ export function CompanySettingsNav() {
   return (
     <Tabs value={activeTab} onValueChange={handleTabChange}>
       <PageTabBar
-        items={items.map(({ value, label }) => ({ value, label }))}
+        items={tabs.map(({ value }) => ({ value, label: tabLabels[value] }))}
         value={activeTab}
         onValueChange={handleTabChange}
         align="start"
