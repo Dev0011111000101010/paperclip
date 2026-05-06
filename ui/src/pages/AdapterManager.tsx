@@ -401,7 +401,7 @@ export function AdapterManager() {
           <Cpu className="h-6 w-6 text-muted-foreground" />
           <h1 className="text-xl font-semibold">{t("adapters:manager.adapters_label")}</h1>
           <Badge variant="outline" className="text-amber-600 border-amber-400">
-            Alpha
+            {t("adapters:manager.badge_alpha")}
           </Badge>
         </div>
 
